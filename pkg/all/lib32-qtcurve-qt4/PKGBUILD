@@ -1,0 +1,45 @@
+# Maintainer : speps <speps at aur dot archlinux dot org>
+# Contributor: xduugu
+
+pkgname=lib32-qtcurve-qt4
+pkgver=1.8.14
+pkgrel=2
+pkgdesc='A configurable set of widget styles for KDE and Gtk. Qt4-only version. Multilib.'
+arch=('x86_64')
+url="http://craigd.wikispaces.com/"
+license=('GPL')
+groups=('qtcurve')
+depends=('lib32-qt')
+makedepends=('cmake' 'gcc-multilib')
+source=("${url}file/view/QtCurve-KDE4-$pkgver.tar.bz2"
+  qconfig.h)
+md5sums=('b4d7924806058f39e842ce7ffe47a4f8'
+         '591c0c4801f1d50dc77a25991465a213')
+
+build() {
+  cd "$srcdir"
+
+  mkdir -p QtCore
+  cp qconfig.h QtCore
+
+  cd "$srcdir/QtCurve-KDE4-$pkgver"
+
+  # export multilib parameters
+  export CC="gcc -m32 -I$srcdir -I$srcdir/QtCore"
+  export CXX="g++ -m32 -I$srcdir -I$srcdir/QtCore"
+  export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+
+  [ -d bld ] || mkdir bld && cd  bld
+
+  cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQTC_QT_ONLY=true
+  make
+}
+
+package() {
+  cd "$srcdir/QtCurve-KDE4-$pkgver/bld"
+
+  install -Dm755 style/qtcurve.so \
+    "$pkgdir/usr/lib32/qt/plugins/styles/qtcurve.so"
+}
