@@ -1,0 +1,57 @@
+# Maintainer: SpepS <dreamspepser at yahoo dot it>
+
+pkgbase=valadoc
+pkgname=$pkgbase-git
+pkgver=20130205
+pkgrel=1
+pkgdesc="A documentation generator for generating API documentation from Vala source code based on libvala."
+arch=('i686' 'x86_64')
+url="http://live.gnome.org/Valadoc"
+license=('GPL')
+depends=('vala-git' 'libgee-0.8>=0.8.0' 'graphviz')
+makedepends=('git')
+provides=("$pkgbase")
+conflicts=("$pkgbase")
+options=('!libtool')
+
+_gitname="valadoc"
+
+_gitroot="git://git.gnome.org/valadoc"
+_gitbranch=master
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch" --
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch" --
+    git reset --hard "$_gitbranch"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  #
+  # BUILD HERE
+  #
+
+  ./autogen.sh --prefix=/usr --enable-static=no
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname"
+  make DESTDIR="$pkgdir/" install
+}
