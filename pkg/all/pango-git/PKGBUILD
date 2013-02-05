@@ -1,0 +1,59 @@
+# Contributor: mariusz - myswiat <my.swiat@o2.pl>
+
+pkgbase=pango
+pkgname=${pkgbase}-git
+_realver=1.32.5
+pkgver=20130204
+pkgrel=1
+pkgdesc="A library for layout and rendering of text"
+arch=('i686' 'x86_64')
+url="http://gnome.org/"
+license=('LGPL')
+depends=('glib2-git' 'cairo-git' 'libxft' 'libthai' 'freetype2'
+  'harfbuzz-git' 'fontconfig-git')
+makedepends=('gobject-introspection' 'libxt' 'gtk-doc')
+options=('!libtool' '!emptydirs')
+provides=("${pkgbase}=${_realver}")
+conflicts=("${pkgbase}")
+install=${pkgbase}.install
+
+_gitname="pango"
+
+_gitroot="http://git.gnome.org/browse/pango"
+_gitbranch=master
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch" --
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch" --
+    git reset --hard "$_gitbranch"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc \
+    --localstatedir=/var --with-included-modules=basic-fc
+  make
+}
+
+package() {
+  cd "${srcdir}/${_gitname}"
+
+  make DESTDIR=$pkgdir install
+  install -m755 -d "${pkgdir}/etc/pango"
+}

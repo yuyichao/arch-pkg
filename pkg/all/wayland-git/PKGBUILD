@@ -1,0 +1,55 @@
+# Maintainer: Joel Teichroeb <joel@teichroeb.net>
+
+pkgbase=wayland
+pkgname=$pkgbase-git
+_realver=1.1.0
+pkgver=20130204
+pkgrel=1
+pkgdesc="A modern display server."
+arch=(i686 x86_64)
+url="http://wayland.freedesktop.org"
+provides=("libwayland-git=${pkgver}" "$pkgbase=$_realver")
+conflicts=("libwayland-git" "$pkgbase")
+replaces=(libwayland)
+license=('MIT')
+depends=('libffi')
+makedepends=('git' 'expat')
+options=(!libtool)
+
+_gitname="wayland"
+
+_gitroot="git://anongit.freedesktop.org/wayland/wayland"
+_gitbranch=master
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch" --
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch" --
+    git reset --hard "$_gitbranch"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  ./autogen.sh --prefix=/usr --disable-documentation
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname"
+  make DESTDIR="${pkgdir}" install
+}

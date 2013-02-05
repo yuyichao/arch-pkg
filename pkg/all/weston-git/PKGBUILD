@@ -1,0 +1,70 @@
+# Maintainer: Joel Teichroeb <joel@teichroeb.net>
+# Contributor: Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>
+
+pkgbase=weston
+pkgname=${pkgbase}-git
+_realver=1.0.90
+pkgver=20130204
+pkgrel=1
+pkgdesc="A modern display server."
+arch=(i686 x86_64)
+url="http://wayland.freedesktop.org"
+license=('MIT')
+provides=("${pkgbase}=${_realver}")
+conflicts=("${pkgbase}")
+depends=('libxkbcommon-git' 'wayland-git' 'mesa-full-wayland' 'cairo-gl-git'
+  'poppler-glib' 'mtdev' 'libxcursor' 'pixman' 'glu')
+options=(!libtool)
+
+_gitroot="git://anongit.freedesktop.org/wayland/weston"
+
+_gitname="weston"
+_gitbranch="master"
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch"
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch"
+    git reset --hard "$_gitbranch"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+
+  msg "GIT checkout done or server timeout"
+
+  ./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston
+  make
+}
+
+package() {
+  cd "${srcdir}/${_gitname}"
+  make DESTDIR="${pkgdir}" install
+
+  install -m 755 -D clients/clickdot "${pkgdir}/usr/bin/weston-clickdot"
+  install -m 755 -D clients/dnd "${pkgdir}/usr/bin/weston-dnd"
+  install -m 755 -D clients/editor "${pkgdir}/usr/bin/weston-editor"
+  install -m 755 -D clients/eventdemo "${pkgdir}/usr/bin/weston-eventdemo"
+  install -m 755 -D clients/flower "${pkgdir}/usr/bin/weston-flower"
+  install -m 755 -D clients/gears "${pkgdir}/usr/bin/weston-gears"
+  install -m 755 -D clients/image "${pkgdir}/usr/bin/weston-image"
+  install -m 755 -D clients/resizor "${pkgdir}/usr/bin/weston-resizor"
+  install -m 755 -D clients/simple-egl "${pkgdir}/usr/bin/weston-simple-egl"
+  install -m 755 -D clients/simple-shm "${pkgdir}/usr/bin/weston-simple-shm"
+  install -m 755 -D clients/simple-touch "${pkgdir}/usr/bin/weston-simple-touch"
+  install -m 755 -D clients/smoke "${pkgdir}/usr/bin/weston-smoke"
+  install -m 755 -D clients/view "${pkgdir}/usr/bin/weston-view"
+}
