@@ -5,7 +5,7 @@
 pkgbase=at-spi2-atk
 pkgname=${pkgbase}-git
 _realver=2.7.2
-pkgver=20130204
+pkgver=20130205
 pkgrel=1
 pkgdesc="A GTK+ module that bridges ATK to D-Bus at-spi"
 arch=('i686' 'x86_64')

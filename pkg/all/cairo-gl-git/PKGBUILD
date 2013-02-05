@@ -5,7 +5,7 @@
 
 pkgbase=cairo
 pkgname=$pkgbase-gl-git
-pkgver=20130204
+pkgver=20130205
 _realver=1.12.13
 pkgrel=1
 pkgdesc="Cairo vector graphics library with GL and EGL enabled"

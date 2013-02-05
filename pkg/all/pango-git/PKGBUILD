@@ -3,7 +3,7 @@
 pkgbase=pango
 pkgname=${pkgbase}-git
 _realver=1.32.5
-pkgver=20130204
+pkgver=20130205
 pkgrel=1
 pkgdesc="A library for layout and rendering of text"
 arch=('i686' 'x86_64')
