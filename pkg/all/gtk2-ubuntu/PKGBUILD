@@ -1,0 +1,100 @@
+pkgbase=gtk2
+pkgname=${pkgbase}-ubuntu
+_ubuntu_rel=0ubuntu1
+_realver=2.24.14
+pkgver=${_realver}.${_ubuntu_rel}
+pkgrel=100
+pkgdesc="GTK+ is a multi-platform toolkit (v2)"
+arch=('i686' 'x86_64')
+url="http://www.gtk.org/"
+license=('LGPL')
+depends=('atk' 'pango' 'libxcursor' 'libxinerama' 'libxrandr' 'libxi'
+  'libxcomposite' 'libxdamage' 'shared-mime-info' 'cairo' 'libcups'
+  'gtk-update-icon-cache' 'gdk-pixbuf2')
+makedepends=('pkg-config' 'gobject-introspection' 'gtk-doc')
+optdepends=('python2')
+provides=("${pkgbase}=${_realver}")
+conflicts=("${pkgbase}")
+backup=('etc/gtk-2.0/gtkrc')
+options=('!libtool' '!strip')
+install=gtk2.install
+source=(
+  "http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-${_realver}.tar.xz"
+  "https://launchpad.net/ubuntu/+archive/primary/+files/gtk+2.0_${_realver}-${_ubuntu_rel}.debian.tar.gz"
+  xid-collision-debug.patch
+  fix-ubuntumenuproxy-build.patch
+  0001_autoconf.patch
+  0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
+md5sums=('e2c16f119ed624893ecfc3775930ae4c'
+         '2ae969fffa83b65373a38e2379da4e00'
+         '22355df723f6ca358e30e6b8f0baace5'
+         '8068977044dab23464e843549aa579f0'
+         '8960ccfb445eac5a8ad847355dde5579'
+         '4047a559af33d0eb30da8277f147a6d2')
+
+build() {
+  cd "${srcdir}/gtk+-${_realver}"
+
+  # Apply Ubuntu patches
+  ignored_patches=(
+    # Multiarch
+    041_ia32-libs.patch
+    098_multiarch_module_path.patch
+    # Static linking stuff for udebs
+    001_static-linking-dont-query-immodules.patch
+    002_static-linking-dont-build-perf.patch
+    # Breaks pkgconfig
+    003_gdk.pc_privates.patch
+    # gtk.immodules is in /etc/gtk-2.0/ in Arch Linux, not
+    # /usr/lib/gtk-2.0/2.10.0/
+    011_immodule-cache-dir.patch
+  )
+
+  msg "Loading patches."
+  mapfile -t ubuntu_patches < "${srcdir}/debian/patches/series"
+
+  msg "Removing extra patches."
+  for patch in "${ignored_patches[@]}"; do
+    ubuntu_patches=("${ubuntu_patches[@]#${patch}}")
+  done
+
+  for patch in "${ubuntu_patches[@]}"; do
+    [[ -z $patch ]] && continue
+    msg "Applying ubuntu patch: ${patch}"
+    patch -p1 -i "${srcdir}/debian/patches/${patch}"
+  done
+
+  patches=(
+    xid-collision-debug.patch
+    0001_autoconf.patch
+    0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch
+    # Build fix from György Balló
+    fix-ubuntumenuproxy-build.patch
+  )
+  for patch in "${patches[@]}"; do
+    msg "Applying ${patch}".
+    patch -p1 -i "${srcdir}/${patch}"
+  done
+
+  autoreconf -vfi
+
+  CXX=/bin/false ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --with-xinput=yes \
+    --enable-test-print-backend
+
+  # https://bugzilla.gnome.org/show_bug.cgi?id=655517
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+package() {
+  cd "${srcdir}/gtk+-${_realver}"
+  make DESTDIR="${pkgdir}" install
+  sed -i "s/env python/env python2/" "${pkgdir}/usr/bin/gtk-builder-convert"
+  echo 'gtk-fallback-icon-theme = "gnome"' > "${pkgdir}/etc/gtk-2.0/gtkrc"
+  # Use the official gtk-update-icon-cache package
+  rm -v "${pkgdir}/usr/bin/gtk-update-icon-cache"
+}
