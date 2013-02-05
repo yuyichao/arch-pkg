@@ -1,0 +1,64 @@
+# Maintainer: Joao Cordeiro <jlcordeiro at gmail dot com>
+# Contributor: <arsenm2@rpi.edu>
+
+pkgbase=gobject-introspection
+pkgname="${pkgbase}-git"
+_realver=1.35.3
+pkgver=20130205
+pkgrel=1
+pkgdesc="GObject Introspection"
+arch=('x86_64' 'i686')
+license=('LGPL' 'GPL')
+url="http://live.gnome.org/GObjectIntrospection/"
+depends=("glib2-git>=2.35.1" 'python2' 'python2-mako')
+makedepends=('git' 'pkgconfig' 'autoconf' 'gtk-doc' 'gnome-common' 'bison'
+  'cairo')
+provides=("gobject-introspection=${_realver}")
+conflicts=('gobject-introspection' 'gobject-introspection-svn')
+options=(!makeflags docs !libtool)
+
+_gitroot="git://git.gnome.org/gobject-introspection"
+
+_gitname="gobject-introspection"
+_gitbranch="master"
+
+build() {
+  cd "${srcdir}"
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch" --
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch" --
+    git reset --hard "$_gitbranch"
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  msg "Starting make..."
+  rm -rf "$srcdir/$_gitname-build"
+  cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  msg "Starting build"
+  export PYTHON=/usr/bin/python2
+  ./autogen.sh
+  ./configure --prefix=/usr --disable-static --enable-doctool
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname-build"
+  make DESTDIR="$pkgdir" install
+
+  sed -i '1s|#!/usr/bin/env python$|&2|' \
+    "$pkgdir"/usr/lib/gobject-introspection/giscanner/*.py
+}

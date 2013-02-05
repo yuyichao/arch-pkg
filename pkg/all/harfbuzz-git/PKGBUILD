@@ -1,0 +1,58 @@
+#Contributor:	Spyros	Stathopoulos	<gmail.com: foucault.online>
+#Maintainer:	Jesse	Jaara		<gmail.com: jesse.jaara>
+
+pkgbase=harfbuzz
+pkgname=${pkgbase}-git
+pkgver=20130204
+pkgrel=1
+pkgdesc="HarfBuzz is an OpenType text shaping engine."
+arch=('i686' 'x86_64')
+url="http://www.freedesktop.org/wiki/Software/HarfBuzz"
+license=('MIT')
+depends=('icu'  'cairo' 'graphite')
+makedepends=('ragel' 'gtk-doc')
+provides=("${pkgbase}=0.9.9")
+conflicts=("${pkgbase}")
+options=(!libtool)
+
+_gitname="harfbuzz"
+
+_gitroot="git://anongit.freedesktop.org/harfbuzz"
+_gitbranch=master
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitbranch from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitbranch:$_gitbranch" --
+    msg "Checking out branch $_gitbranch..."
+    git checkout "$_gitbranch" --
+    git reset --hard "$_gitbranch"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitbranch" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  ./autogen.sh --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${_gitname}"
+
+  mkdir -p "${pkgdir}/usr/share/licenses/harfbuzz-git"
+  cp COPYING "${pkgdir}/usr/share/licenses/harfbuzz-git/"
+
+  make DESTDIR="${pkgdir}" install
+}
