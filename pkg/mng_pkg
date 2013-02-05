@@ -1,0 +1,53 @@
+#!/bin/bash
+
+base_dir=$(realpath "${BASH_SOURCE%/*}")
+
+str_match() {
+    pattern=$1
+    case "$2" in
+        $pattern)
+            return 0
+            ;;
+    esac
+    return 1
+}
+
+action="$1"
+shift || {
+    echo "Please provide a action." >&2
+    exit 1
+}
+
+case "$action" in
+    --add)
+        pkg="$1"
+        failed=0
+        [[ -d "${base_dir}/all/${pkg}" ]] || {
+            echo "Package ${pkg} doesn't exist in ${base_dir}/all/" >&2
+            failed=1
+        }
+        shift
+        tgts=("$@")
+        for tgt in "${tgts[@]}"; do
+            str_match "*/?*" "${tgt}" && {
+                echo "Dir name ${tgt} cannot contain \"/\"." >&2
+                failed=1
+            }
+            [[ $tgt = tmp ]] || [[ $tgt = all ]] && {
+                echo "Dir name ${tgt} cannot be \"all\" or \"tmp\"." >&2
+                failed=1
+            }
+        done
+        ((failed)) && {
+            echo "An error occurs, exit." >&2
+            exit 1
+        }
+        for tgt in "${tgts[@]}"; do
+            mkdir -p "${base_dir}/${tgt}"
+            ln -sf "../all/${pkg}" "${base_dir}/${tgt}"
+        done
+        ;;
+    *)
+        echo "Unknown action $action." >&2
+        ;;
+esac
