@@ -3,7 +3,7 @@
 
 pkgbase=fontconfig
 pkgname=${pkgbase}-git
-pkgver=20130204
+pkgver=20130205
 _realver=2.10.91
 pkgrel=1
 pkgdesc="A library for configuring and customizing font access"
