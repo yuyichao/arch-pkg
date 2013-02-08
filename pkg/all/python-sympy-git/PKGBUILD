@@ -46,12 +46,12 @@ build() {
   msg "GIT checkout done or server timeout"
 
   bin/use2to3
-  cd py3k-sympy/
+  cd py3k-sympy
   python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_gitname"
+  cd "$srcdir/$_gitname/py3k-sympy"
 
   python setup.py install --prefix=/usr --root "${pkgdir}" --optimize=1
 
