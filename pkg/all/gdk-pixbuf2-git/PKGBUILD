@@ -4,7 +4,7 @@
 pkgbase=gdk-pixbuf2
 pkgname=${pkgbase}-git
 _realver=2.27.2
-pkgver=20130205
+pkgver=20130208
 pkgrel=1
 pkgdesc="An image loading library"
 arch=('i686' 'x86_64')

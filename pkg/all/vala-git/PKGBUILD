@@ -5,7 +5,7 @@
 pkgbase=vala
 pkgname=${pkgbase}-git
 _realver=0.19.0
-pkgver=20130205
+pkgver=20130208
 pkgrel=1
 pkgdesc="Compiler for the GObject type system"
 arch=('i686' 'x86_64')
