@@ -5,14 +5,14 @@
 
 pkgbase=cairo
 pkgname=$pkgbase-gl-git
-pkgver=20130208
+pkgver=20130211
 _realver=1.12.13
 pkgrel=1
 pkgdesc="Cairo vector graphics library with GL and EGL enabled"
 arch=(i686 x86_64)
 url=http://cairographics.org/
 license=(LGPL MPL)
-depends=(fontconfig libegl libgl libpng libxrender pixman)
+depends=(fontconfig libegl libgl libpng libxext libxrender 'pixman>=0.27.1')
 makedepends=(gtk-doc git)
 provides=("cairo=$_realver" "cairo-git=${pkgver}" "cairo-xcb=$_realver")
 conflicts=(cairo{,-xcb}{,-git})

@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+pkg_dir_name="$1"
+
 unlock_install() {
     echo "Unlock for ${pkg_dir_name}"
     rm ../install.lock
@@ -7,15 +9,13 @@ unlock_install() {
 
 lock_install() {
     echo "Locking for ${pkg_dir_name}"
-    while ! ln -s $$ ../install.lock; do
+    while ! ln -s $$ ../install.lock &> /dev/null; do
         echo "Failed to lock for ${pkg_dir_name}. retry in 1s."
         sleep 1
     done
-    ls --color /var/lib/pacman
     trap unlock_install 0
 }
 
-pkg_dir_name="$1"
 echo "Making ${pkg_dir_name}"
 makepkg -f > "${pkg_dir_name}.build.log"
 source ./PKGBUILD
@@ -35,8 +35,4 @@ wait
 "
 
 _pkgdir="/var/lib/pacman/local/${pkgname}-${pkgver}-${pkgrel}/"
-ls --color "${_pkgdir}" || {
-    echo "Cannot find ${_pkgdir}"
-}
-
-echo "Done $1"
+echo "Done ${pkg_dir_name}"
