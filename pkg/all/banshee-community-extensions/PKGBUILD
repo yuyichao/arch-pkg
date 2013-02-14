@@ -1,0 +1,57 @@
+# Maintainer: Sebastian Lenz <sebastian@archusers.de>
+
+pkgname=banshee-community-extensions
+pkgver=2.4.0
+pkgrel=1
+pkgdesc="Banshee Community Extensions is a repository and project for extensions to the Banshee Media Player"
+arch=('i686' 'x86_64')
+url="http://banshee.fm/"
+license=('GPL2')
+groups=()
+depends=('banshee' 'libappindicator' 'notify-sharp')
+makedepends=('intltool' 'gettext' 'perl-xml-parser')
+optdepends=()
+source=(
+  "http://download.banshee.fm/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
+  activate.patch)
+sha256sums=('6f20404de80090bb5d88a57c043e876a192f480ac3488ce7697344f1447d48b3'
+            'edc86a1705455ce1b729f41ec555a33c12146e1b1b8f2f3b75036dac7f8d4b4d')
+
+build() {
+  cd "${srcdir}/${pkgname}-$pkgver"
+  patch -Np1 -i "${srcdir}/activate.patch"
+
+  ./configure --prefix=/usr \
+    --enable-release \
+    --enable-alarmclock \
+    --enable-albumartwriter \
+    --enable-ampache \
+    --enable-appindicator \
+    --enable-awn \
+    --disable-clutterflow \
+    --enable-coverwallpaper \
+    --enable-duplicatesongdetector \
+    --enable-foldersync \
+    --enable-jamendo \
+    --enable-lastfmfingerprint \
+    --enable-lcd \
+    --enable-lirc \
+    --enable-liveradio \
+    --enable-lyrics \
+    --enable-magnatune \
+    --enable-mirage \
+    --disable-openvp \
+    --enable-radiostationfetcher \
+    --enable-randombylastfm \
+    --enable-streamrecorder \
+    --enable-karaoke \
+    --enable-telepathy \
+    --disable-zeitgeistdataprovider
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  make install DESTDIR="${pkgdir}"
+}

@@ -1,0 +1,23 @@
+diff -ur banshee-community-extensions-2.4.0.orig/src/AppIndicator/Banshee.AppIndicator/AppIndicatorService.cs banshee-community-extensions-2.4.0/src/AppIndicator/Banshee.AppIndicator/AppIndicatorService.cs
+--- banshee-community-extensions-2.4.0.orig/src/AppIndicator/Banshee.AppIndicator/AppIndicatorService.cs	2013-02-14 10:06:55.012685054 -0500
++++ banshee-community-extensions-2.4.0/src/AppIndicator/Banshee.AppIndicator/AppIndicatorService.cs	2013-02-14 10:38:16.712312419 -0500
+@@ -258,6 +258,7 @@
+                 Menu menu = (Menu) interface_action_service.UIManager.GetWidget("/AppIndicatorTrayMenu");
+                 menu.Show ();
+ 
++                indicator.ActivateEvent += OnActivateEvent;
+                 indicator.Menu = menu;
+ 
+                 // Show the tray icon
+@@ -274,6 +275,11 @@
+             return true;
+         }
+ 
++        private void OnActivateEvent(object o, ActivateEventArgs args)
++        {
++            PrimaryWindowVisible = !PrimaryWindowVisible;
++        }
++
+         private void OnPlayerEvent (PlayerEventArgs args)
+         {
+             switch (args.Event) {
