@@ -16,9 +16,10 @@ depends=('pango' 'libxinerama' 'shared-mime-info' 'hicolor-icon-theme'
   'gtk2' 'gtk3' 'dbus-core')
 makedepends=('git' 'gettext' 'cmake' 'gobject-introspection' 'coreutils'
   'sh' 'qt')
-conflicts=('fcitx' 'fcitx-qt' 'fcitx-gtk2' 'fcitx-gtk3' 'fcitx-keyboard')
-provides=("fcitx=${_realver}" "fcitx-qt=${_realver}" "fcitx-gtk2=${_realver}"
-  "fcitx-gtk3=${_realver}" 'fcitx-keyboard=0.1.3')
+conflicts=('fcitx' 'fcitx-qt' 'fcitx-qt4' 'fcitx-gtk2' 'fcitx-gtk3'
+  'fcitx-keyboard')
+provides=("fcitx=${_realver}" "fcitx-qt=${_realver}" "fcitx-qt4=${_realver}"
+  "fcitx-gtk2=${_realver}" "fcitx-gtk3=${_realver}" 'fcitx-keyboard=0.1.3')
 replaces=('fcitx-keyboard-git')
 optdepends=(
   'enchant: for word predication using enchant'

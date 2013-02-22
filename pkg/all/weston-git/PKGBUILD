@@ -4,7 +4,7 @@
 pkgbase=weston
 pkgname=${pkgbase}-git
 _realver=1.0.90
-pkgver=20130211
+pkgver=20130221
 pkgrel=1
 pkgdesc="A modern display server."
 arch=(i686 x86_64)

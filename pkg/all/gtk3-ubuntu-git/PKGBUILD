@@ -4,7 +4,7 @@
 pkgbase=gtk3
 pkgname=gtk3-ubuntu-git
 _realver=3.7.7
-pkgver=20130211
+pkgver=20130221
 pkgrel=1
 pkgdesc="GTK+ is a multi-platform toolkit (v3) with Ubuntu's modifications"
 arch=('i686' 'x86_64')

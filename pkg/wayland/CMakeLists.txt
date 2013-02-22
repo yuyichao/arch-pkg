@@ -35,17 +35,17 @@ endfunction()
 make_and_install(fontconfig-git
   DEPENDS)
 make_and_install(weston-git
-  DEPENDS libxkbcommon-git wayland-git mesa-full-wayland cairo-gl-git libglu-git)
+  DEPENDS libxkbcommon-git wayland-git mesa-full cairo-gl-git libglu-git)
 make_and_install(wayland-git
   DEPENDS)
 make_and_install(pango-git
   DEPENDS glib2-git cairo-gl-git harfbuzz-git fontconfig-git)
-make_and_install(mesa-full-wayland
+make_and_install(mesa-full
   DEPENDS wayland-git)
 make_and_install(libxkbcommon-git
   DEPENDS)
 make_and_install(libglu-git
-  DEPENDS mesa-full-wayland)
+  DEPENDS mesa-full)
 make_and_install(harfbuzz-git
   DEPENDS cairo-gl-git)
 make_and_install(gdk-pixbuf2-git
@@ -58,7 +58,7 @@ make_and_install(gobject-introspection-git
 make_and_install(glib2-git
   DEPENDS)
 make_and_install(cairo-gl-git
-  DEPENDS mesa-full-wayland fontconfig-git)
+  DEPENDS mesa-full fontconfig-git)
 make_and_install(at-spi2-atk-git
   DEPENDS atk-git at-spi2-core-git)
 make_and_install(atk-git
