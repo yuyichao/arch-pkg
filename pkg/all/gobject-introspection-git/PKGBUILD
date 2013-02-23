@@ -24,17 +24,20 @@ _gitname="gobject-introspection"
 _gitref="master"
 
 build() {
-  cd "${srcdir}"
+  cd "$srcdir"
+
   if [ -d "$srcdir/$_gitname/.git" ]; then
     cd "$_gitname"
     msg "Reset current branch"
     git reset --hard HEAD
+    git clean -fdx
     msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
       "$_gitroot" "$_gitref:$_gitref" --
     msg "Checking out branch $_gitref..."
     git checkout "$_gitref" --
     git reset --hard "$_gitref"
+    git clean -fdx
     msg "The local files are updated."
   else
     msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
@@ -44,20 +47,14 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
-  msg "Starting make..."
-  rm -rf "$srcdir/$_gitname-build"
-  cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
   msg "Starting build"
   export PYTHON=/usr/bin/python2
-  ./autogen.sh
-  ./configure --prefix=/usr --disable-static --enable-doctool
+  ./autogen.sh --prefix=/usr --disable-static --enable-doctool
   make
 }
 
 package() {
-  cd "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname"
   make DESTDIR="$pkgdir" install
 
   sed -i '1s|#!/usr/bin/env python$|&2|' \
