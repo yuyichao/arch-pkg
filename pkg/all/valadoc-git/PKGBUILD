@@ -2,7 +2,7 @@
 
 pkgbase=valadoc
 pkgname=$pkgbase-git
-pkgver=20130222
+pkgver=20130223
 pkgrel=1
 pkgdesc="A documentation generator for generating API documentation from Vala source code based on libvala."
 arch=('i686' 'x86_64')
