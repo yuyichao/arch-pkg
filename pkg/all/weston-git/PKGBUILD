@@ -4,7 +4,7 @@
 pkgbase=weston
 pkgname=${pkgbase}-git
 _realver=1.0.90
-pkgver=20130223
+pkgver=20130224
 pkgrel=1
 pkgdesc="A modern display server."
 arch=(i686 x86_64)
@@ -19,7 +19,7 @@ options=(!libtool)
 _gitroot="git://anongit.freedesktop.org/wayland/weston"
 
 _gitname="weston"
-_gitbranch="master"
+_gitref="master"
 
 build() {
   cd "$srcdir"
@@ -29,21 +29,20 @@ build() {
     msg "Reset current branch"
     git reset --hard HEAD
     git clean -fdx
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch"
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch"
-    git reset --hard "$_gitbranch"
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
     git clean -fdx
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
-
   msg "GIT checkout done or server timeout"
 
   ./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston

@@ -1,7 +1,7 @@
 # Maintainer: LEW21 <lew21@xtreeme.org>
 
 pkgname=mesa-full
-pkgver=20130223
+pkgver=20130224
 _realver=9.2.0
 pkgrel=1
 pkgdesc="Full Mesa 3D graphics library with all its components, built from the git master branch. Built with Wayland support."
@@ -27,7 +27,7 @@ options=('!libtool')
 _gitname="mesa"
 
 _gitroot="git://anongit.freedesktop.org/git/mesa/mesa"
-_gitbranch=master
+_gitref=master
 
 build() {
   cd "$srcdir"
@@ -37,17 +37,17 @@ build() {
     msg "Reset current branch"
     git reset --hard HEAD
     git clean -fdx
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch" --
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch" --
-    git reset --hard "$_gitbranch"
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
     git clean -fdx
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
