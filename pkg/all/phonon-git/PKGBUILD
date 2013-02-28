@@ -1,0 +1,65 @@
+# Maintainer:  Jekyll Wu <adaptee at gmail dot com>
+# Contributor: Dany Martineau <dany.luc.martineau gmail com>
+
+pkgname=phonon-git
+pkgver=20130227
+pkgrel=1
+pkgdesc='The multimedia framework for KDE4'
+arch=('i686' 'x86_64')
+url='http://phonon.kde.org'
+license=('LGPL')
+depends=('qt' 'phonon-backend' 'libpulse' 'libqzeitgeist')
+optdepends=('pulseaudio: PulseAudio support')
+makedepends=('cmake' 'automoc4' 'pulseaudio' 'qtwebkit' 'git')
+conflicts=('phonon')
+provides=('phonon')
+options=('!strip')
+
+_gitname='phonon'
+
+_gitroot='git://anongit.kde.org/phonon.git'
+_gitref=master
+
+build() {
+  cd "$srcdir"
+
+  if [ -d "$srcdir/$_gitname/.git" ]; then
+    cd "$_gitname"
+    msg "Reset current branch"
+    git reset --hard HEAD
+    git clean -fdx
+    msg "Fetching branch $_gitref from $_gitroot..."
+    git fetch --force --update-head-ok \
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
+    git clean -fdx
+    msg "The local files are updated."
+  else
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
+      "$_gitroot" "$_gitname"
+    cd "$_gitname"
+  fi
+  msg "GIT checkout done or server timeout"
+
+  mkdir -p build
+  cd build
+  export LDFLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+  cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPHONON_QT_IMPORTS_INSTALL_DIR=/usr/lib/qt/imports \
+    -DPHONON_QT_MKSPECS_INSTALL_DIR=/usr/share/qt/mkspecs \
+    -DPHONON_QT_PLUGIN_INSTALL_DIR=/usr/lib/qt/plugins/designer
+
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname/build"
+
+  make "DESTDIR=${pkgdir}" install
+}
