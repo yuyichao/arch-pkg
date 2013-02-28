@@ -4,7 +4,7 @@
 pkgbase=gobject-introspection
 pkgname="${pkgbase}-git"
 _realver=1.35.8
-pkgver=20130224
+pkgver=20130226
 pkgrel=1
 pkgdesc="GObject Introspection"
 arch=('x86_64' 'i686')
