@@ -1,14 +1,15 @@
 # Maintainer: Yichao Yu <yyc1992@gmail.com>
 # Contributor: Felix Yan <felixonmars@gmail.com>
 
-pkgname=fcitx-qt5-git
-pkgver=20130126
+pkgbase=fcitx-qt5
+pkgname=${pkgbase}-git
+pkgver=20130301
 pkgrel=1
 pkgdesc="QT5 IM Module for Fcitx"
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/fcitx"
 license=('GPL')
-depends=('fcitx' 'qt5')
+depends=('fcitx-git' 'qt5-base')
 makedepends=('git' 'cmake' 'intltool')
 provides=('fcitx-qt5')
 conflicts=('fcitx-qt5')
@@ -53,5 +54,6 @@ build() {
 
 package() {
   cd "$srcdir/$_gitname/build"
+
   make install DESTDIR="${pkgdir}"
 }
