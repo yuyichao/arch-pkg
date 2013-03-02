@@ -4,7 +4,7 @@
 
 pkgbase=fcitx
 pkgname=$pkgbase-git
-pkgver=20130213
+pkgver=20130302
 _realver=4.2.7
 pkgrel=1
 pkgdesc="A Flexible Input Method Framework"
@@ -15,7 +15,7 @@ depends=('pango' 'libxinerama' 'shared-mime-info' 'hicolor-icon-theme'
   'desktop-file-utils' 'icu' 'libxkbfile' 'iso-codes' 'libxml2'
   'gtk2' 'gtk3' 'dbus-core')
 makedepends=('git' 'gettext' 'cmake' 'gobject-introspection' 'coreutils'
-  'sh' 'qt')
+  'sh' 'qt4')
 conflicts=('fcitx' 'fcitx-qt' 'fcitx-qt4' 'fcitx-gtk2' 'fcitx-gtk3'
   'fcitx-keyboard')
 provides=("fcitx=${_realver}" "fcitx-qt=${_realver}" "fcitx-qt4=${_realver}"
@@ -25,7 +25,8 @@ optdepends=(
   'enchant: for word predication using enchant'
   'presage: for word predication using presage'
   'opencc: for simplified and traditional chinese translation'
-  'qt: for qt input method module')
+  'qt4: for qt4 input method module')
+options=('!strip')
 install="$pkgbase.install"
 
 _gitname="fcitx"
@@ -36,8 +37,8 @@ _gitbranch="master"
 # _gitroot="git://github.com/yuyichao/fcitx.git"
 # _gitbranch="codegen"
 
-# _gitroot="ssh://git@bitbucket.org/yuyichao/fcitx.git"
-# _gitbranch="wayland"
+_gitroot="ssh://git@bitbucket.org/yuyichao/fcitx.git"
+_gitbranch="wayland"
 
 build() {
   cd "$srcdir"
@@ -66,7 +67,9 @@ build() {
 
   msg "Starting make..."
   cd "$srcdir/$_gitname-build"
-  cmake ../$_gitname -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
+  cmake ../$_gitname -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
     -DENABLE_QT_IM_MODULE=On \
     -DENABLE_GTK2_IM_MODULE=On \
     -DENABLE_GTK3_IM_MODULE=On \
