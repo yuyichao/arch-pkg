@@ -3,14 +3,14 @@
 
 pkgbase=hotot
 pkgname=('hotot-data-git' 'hotot-gtk2-git' 'hotot-gtk3-git'
-  'hotot-qt-git' 'hotot-kde-git' 'hotot-qt5-git')
-pkgver=20130205
+  'hotot-qt4-git' 'hotot-kde-git' 'hotot-qt5-git')
+pkgver=20130302
 pkgrel=1
 pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)."
 arch=('any')
 url="http://www.hotot.org/"
 license=('LGPL3')
-makedepends=('git' 'cmake' 'intltool' 'python2' 'qt' 'qtwebkit' 'qt5')
+makedepends=('git' 'cmake' 'intltool' 'python2' 'qtwebkit' 'qt5-webkit')
 makedepends+=('kdebase-runtime')
 install="hotot-git.install"
 
@@ -46,6 +46,7 @@ build() {
   cd build
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
     -DWITH_GTK2=On -DWITH_GTK3=On -DWITH_CHROME=Off \
     -DPYTHON_EXECUTABLE=/usr/bin/python2 -DWITH_KDE_QT=On \
     -DWITH_QT5=On
@@ -69,11 +70,12 @@ package_hotot-data-git() {
   done
 }
 
-package_hotot-qt-git() {
+package_hotot-qt4-git() {
   arch=('i686' 'x86_64')
   depends=('hotot-data-git' 'qtwebkit')
-  provides=("${pkgname/-git}")
-  conflicts=("${pkgname/-git}")
+  provides=("${pkgname/-git}" "hotot-qt-git" "hotot-qt")
+  conflicts=("${pkgname/-git}" "hotot-qt")
+  replaces=("hotot-qt-git")
   cd "$srcdir/$_gitname/build/pkg"
 
   install -Dm755 usr/bin/hotot-qt "$pkgdir/usr/bin/hotot-qt"
@@ -83,7 +85,7 @@ package_hotot-qt-git() {
 
 package_hotot-qt5-git() {
   arch=('i686' 'x86_64')
-  depends=('hotot-data-git' 'qt5')
+  depends=('hotot-data-git' 'qt5-webkit')
   provides=("${pkgname/-git}")
   conflicts=("${pkgname/-git}")
   cd "$srcdir/$_gitname/build/pkg"
