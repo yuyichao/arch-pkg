@@ -3,7 +3,7 @@
 
 pkgname=lib32-qtcurve-qt4
 pkgver=1.8.14
-pkgrel=3
+pkgrel=4
 pkgdesc='A configurable set of widget styles for KDE and Gtk. Qt4-only version. Multilib.'
 arch=('x86_64')
 url="http://craigd.wikispaces.com/"
@@ -32,9 +32,10 @@ build() {
   [ -d bld ] || mkdir bld && cd  bld
 
   cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQTC_QT_ONLY=true
-  make VERBOSE=1
+  make
 }
 
 package() {
