@@ -2,8 +2,8 @@
 # Contributor: Dany Martineau <dany.luc.martineau gmail com>
 
 pkgname=phonon-git
-pkgver=20130302
-pkgrel=2
+pkgver=20130309
+pkgrel=1
 pkgdesc='The multimedia framework for KDE4'
 arch=('i686' 'x86_64')
 url='http://phonon.kde.org'
@@ -14,6 +14,8 @@ makedepends=('cmake' 'automoc4' 'pulseaudio' 'qtwebkit' 'git')
 conflicts=('phonon')
 provides=('phonon')
 options=('!strip')
+source=(automoc.patch)
+md5sums=('ecbe3d38514ef1674075860b8f97c8fc')
 
 _gitname='phonon'
 
@@ -44,11 +46,13 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
+  patch -Np1 < ../automoc.patch
+
   mkdir -p build
   cd build
   export LDFLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-  cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  cmake .. -DCMAKE_BUILD_TYPE=Release \
     -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_PREFIX=/usr \

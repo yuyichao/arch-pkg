@@ -2,7 +2,7 @@
 
 pkgbase=phonon-vlc
 pkgname=phonon-vlc-git
-pkgver=20130302
+pkgver=20130308
 pkgrel=1
 pkgdesc="Phonon VLC backend, git version"
 arch=('i686' 'x86_64')
@@ -47,7 +47,7 @@ build() {
   cd build
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    -DCMAKE_BUILD_TYPE=Release
   make VERBOSE=1
 }
 
