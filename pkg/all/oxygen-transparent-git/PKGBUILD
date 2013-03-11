@@ -2,7 +2,7 @@
 
 pkgbase=oxygen-transparent
 pkgname=oxygen-transparent-git
-pkgver=20130302
+pkgver=20130309
 pkgrel=1
 pkgdesc="Oxygen style and decoration with support for transparency"
 arch=('i686' 'x86_64')

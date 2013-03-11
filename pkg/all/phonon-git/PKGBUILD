@@ -46,7 +46,7 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
-  patch -Np1 < ../automoc.patch
+  # patch -Np1 < ../automoc.patch
 
   mkdir -p build
   cd build

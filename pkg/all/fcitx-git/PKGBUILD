@@ -4,9 +4,9 @@
 
 pkgbase=fcitx
 pkgname=$pkgbase-git
-pkgver=20130302
+pkgver=20130310
 _realver=4.2.7
-pkgrel=1
+pkgrel=3
 pkgdesc="A Flexible Input Method Framework"
 arch=("i686" "x86_64")
 license=('GPL')

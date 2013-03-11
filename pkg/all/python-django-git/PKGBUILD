@@ -1,7 +1,7 @@
 # Maintainer: Alper KANAT <alperkanat@raptiye.org>
 
-pkgname="django-python3-git"
-pkgver=20130205
+pkgname="python-django-git"
+pkgver=20130311
 pkgrel=1
 pkgdesc="A high-level Python Web framework - development python3 version."
 url="http://www.djangoproject.com"
@@ -9,8 +9,9 @@ arch=('any')
 license=('BSD')
 depends=('python>=3.3' 'python<3.4')
 makedepends=('git' 'python-distribute')
-# provides=('django' 'django-svn')
-# conflicts=('django')
+provides=('python-django' 'django-python3-git' 'django-git-py3')
+conflicts=('python-django' 'django-python3-git' 'django-git-py3')
+replaces=('django-python3-git' 'django-git-py3')
 optdepends=('mysql-python: for MySQL backend'
   'python-psycopg2: for PostgreSQL backend'
   'python-pysqlite: for SQlite backend')
