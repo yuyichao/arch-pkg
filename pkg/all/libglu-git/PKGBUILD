@@ -3,7 +3,7 @@
 pkgbase=libglu
 pkgname=${pkgbase}-git
 _realver=9.0.0
-pkgver=20130226
+pkgver=20130311
 pkgrel=1
 pkgdesc="GL utility library for mesa builds from git after 2012-08-31"
 arch=('i686' 'x86_64')

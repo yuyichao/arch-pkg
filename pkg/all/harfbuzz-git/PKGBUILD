@@ -3,7 +3,7 @@
 
 pkgbase=harfbuzz
 pkgname=${pkgbase}-git
-pkgver=20130226
+pkgver=20130311
 pkgrel=1
 pkgdesc="HarfBuzz is an OpenType text shaping engine."
 arch=('i686' 'x86_64')

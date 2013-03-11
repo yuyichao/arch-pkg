@@ -3,7 +3,7 @@
 pkgbase=atk
 pkgname=${pkgbase}-git
 _realver=2.7.2
-pkgver=20130226
+pkgver=20130311
 pkgrel=1
 pkgdesc="git version of atk"
 arch=(i686 x86_64)
