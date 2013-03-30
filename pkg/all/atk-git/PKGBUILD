@@ -3,7 +3,7 @@
 pkgbase=atk
 pkgname=${pkgbase}-git
 _realver=2.7.2
-pkgver=20130311
+pkgver=20130330
 pkgrel=1
 pkgdesc="git version of atk"
 arch=(i686 x86_64)
@@ -17,7 +17,7 @@ conflicts=("${pkgbase}")
 
 _gitname="atk"
 
-_gitroot="git://git.gnome.org/atk"
+_gitroot="http://git.gnome.org/browse/atk"
 _gitbranch=master
 
 build() {

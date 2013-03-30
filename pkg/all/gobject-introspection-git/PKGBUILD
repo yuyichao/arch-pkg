@@ -4,15 +4,15 @@
 pkgbase=gobject-introspection
 pkgname="${pkgbase}-git"
 _realver=1.35.8
-pkgver=20130311
+pkgver=20130330
 pkgrel=1
 pkgdesc="GObject Introspection"
 arch=('x86_64' 'i686')
 license=('LGPL' 'GPL')
 url="http://live.gnome.org/GObjectIntrospection/"
 depends=("glib2-git" 'python2' 'python2-mako')
-makedepends=('git' 'pkgconfig' 'autoconf' 'gtk-doc' 'gnome-common' 'bison'
-  'cairo' 'mesa')
+makedepends=('git' 'pkgconfig' 'autoconf' 'gtk-doc' 'gnome-common-git'
+  'bison' 'cairo' 'mesa' 'flex')
 provides=("gobject-introspection=${_realver}")
 conflicts=('gobject-introspection' 'gobject-introspection-svn')
 replaces=('gobject-introspection-svn')

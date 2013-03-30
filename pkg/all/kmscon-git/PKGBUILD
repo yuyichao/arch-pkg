@@ -1,12 +1,12 @@
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=kmscon-git
-pkgver=20130317
+pkgver=20130330
 pkgrel=1
 pkgdesc='Terminal emulator based on Kernel Mode Setting (KMS)'
 arch=(i686 x86_64)
 url='https://github.com/dvdhrm/kmscon'
 license=('MIT')
-depends=(systemd libdrm mesa libegl libgbm libgles pango
+depends=(systemd libdrm mesa libegl libgbm libgles pango dbus
   libxkbcommon xkeyboard-config wayland-git)
 makedepends=('git' 'libxslt' 'docbook-xsl' 'linux-api-headers')
 provides=(kmscon)
@@ -42,7 +42,7 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
-  ./autogen.sh --prefix=/usr --enable-wlterm
+  ./autogen.sh --prefix=/usr --enable-wlterm --with-renderers=cairo,bbulk,gltex
   make
 }
 

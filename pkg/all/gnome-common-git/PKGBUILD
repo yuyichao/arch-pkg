@@ -1,25 +1,20 @@
-# Contributor: mariusz - myswiat <my.swiat@o2.pl>
+# Maintainer: L42y <423300@gmail.com>
+# Contributor: teddy_beer_maniac <teddy_beer_maniac@wp.pl>
 
-pkgbase=pango
-pkgname=${pkgbase}-git
-_realver=1.32.5
+pkgname=gnome-common-git
 pkgver=20130330
 pkgrel=1
-pkgdesc="A library for layout and rendering of text"
+pkgdesc="Common macros for GNOME 3(GIT Version)"
 arch=('i686' 'x86_64')
-url="http://gnome.org/"
-license=('LGPL')
-depends=('glib2-git' 'cairo-git' 'libxft' 'libthai' 'freetype2'
-  'harfbuzz-git' 'fontconfig-git')
-makedepends=('gobject-introspection' 'libxt' 'gtk-doc')
-options=('!libtool' '!emptydirs')
-provides=("${pkgbase}=${_realver}")
-conflicts=("${pkgbase}")
-install=${pkgbase}.install
+license=('GPL')
+url="http://www.gnome.org"
+makedepends=('autoconf' 'automake' 'git')
+provides=('gnome-common')
+conflicts=('gnome-common')
 
-_gitname="pango"
+_gitname=gnome-common
 
-_gitroot="http://git.gnome.org/browse/pango"
+_gitroot="git://git.gnome.org/gnome-common"
 _gitref=master
 
 build() {
@@ -46,14 +41,12 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
-  ./autogen.sh --prefix=/usr --sysconfdir=/etc \
-    --localstatedir=/var --with-included-modules=basic-fc
+  ./autogen.sh --prefix=/usr
   make
 }
 
 package() {
-  cd "${srcdir}/${_gitname}"
+  cd "$srcdir/$_gitname"
 
-  make DESTDIR=$pkgdir install
-  install -m755 -d "${pkgdir}/etc/pango"
+  make DESTDIR="$pkgdir/" install
 }

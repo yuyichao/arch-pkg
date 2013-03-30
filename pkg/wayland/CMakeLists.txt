@@ -54,7 +54,7 @@ make_and_install(gtk3-ubuntu-git
   DEPENDS glib2-git atk-git cairo-gl-git pango-git at-spi2-atk-git
   libxkbcommon-git gdk-pixbuf2-git)
 make_and_install(gobject-introspection-git
-  DEPENDS glib2-git)
+  DEPENDS glib2-git gnome-common-git)
 make_and_install(glib2-git
   DEPENDS)
 make_and_install(cairo-gl-git
@@ -69,3 +69,5 @@ make_and_install(vala-git
   DEPENDS gobject-introspection-git glib2-git)
 make_and_install(valadoc-git
   DEPENDS vala-git)
+make_and_install(gnome-common-git
+  DEPENDS)
