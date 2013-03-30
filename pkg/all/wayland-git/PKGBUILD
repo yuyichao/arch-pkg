@@ -13,7 +13,7 @@ conflicts=("libwayland-git" "$pkgbase")
 replaces=(libwayland)
 license=('MIT')
 depends=('libffi')
-makedepends=('git' 'expat')
+makedepends=('git' 'expat' 'autoconf' 'automake')
 options=(!libtool)
 
 _gitname="wayland"

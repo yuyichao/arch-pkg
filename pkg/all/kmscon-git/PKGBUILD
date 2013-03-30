@@ -1,6 +1,6 @@
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=kmscon-git
-pkgver=20130228
+pkgver=20130317
 pkgrel=1
 pkgdesc='Terminal emulator based on Kernel Mode Setting (KMS)'
 arch=(i686 x86_64)
