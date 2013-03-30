@@ -3,7 +3,7 @@
 
 pkgbase=fcitx-qt5
 pkgname=${pkgbase}-git
-pkgver=20130301
+pkgver=20130330
 pkgrel=1
 pkgdesc="QT5 IM Module for Fcitx"
 arch=('i686' 'x86_64')

@@ -1,7 +1,7 @@
 pkgbase=gtk2
 pkgname=${pkgbase}-ubuntu
-_ubuntu_rel=1ubuntu2
-pkgver=2.24.16
+_ubuntu_rel=0ubuntu2
+pkgver=2.24.17
 pkgrel=1
 pkgdesc="GTK+ is a multi-platform toolkit (v2)"
 arch=('i686' 'x86_64')
@@ -14,8 +14,9 @@ makedepends=('pkg-config' 'gobject-introspection' 'gtk-doc')
 optdepends=('python2')
 provides=("${pkgbase}=${pkgver}")
 conflicts=("${pkgbase}")
+replaces=('gtk2-doc')
 backup=('etc/gtk-2.0/gtkrc')
-options=('!libtool' '!strip')
+options=('!libtool')
 install=gtk2.install
 source=(
   "http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-${pkgver}.tar.xz"
@@ -24,8 +25,8 @@ source=(
   fix-ubuntumenuproxy-build.patch
   # 0001_autoconf.patch
   0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
-md5sums=('ea8ba95edd3896eca2d48450080d1f2d'
-         '30ae2ed17235b02f5a44a3977ec67098'
+md5sums=('a10cc43fad8d64f8893d779b1f8322ff'
+         '86c33052c23f154b91ca8039f28656a3'
          '22355df723f6ca358e30e6b8f0baace5'
          '8068977044dab23464e843549aa579f0'
          '4047a559af33d0eb30da8277f147a6d2')

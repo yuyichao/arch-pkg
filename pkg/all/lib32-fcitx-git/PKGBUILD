@@ -4,7 +4,7 @@
 
 pkgbase=fcitx
 pkgname=lib32-$pkgbase-git
-pkgver=20130302
+pkgver=20130330
 _realver=4.2.7
 pkgrel=1
 pkgdesc="A Flexible Input Method Framework"
