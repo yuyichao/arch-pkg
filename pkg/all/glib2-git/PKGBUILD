@@ -5,7 +5,7 @@
 pkgbase=glib2
 pkgname=$pkgbase-git
 _realver=2.35.5
-pkgver=20130330
+pkgver=20130331
 pkgrel=1
 pkgdesc="Common C routines used by GTK+ 2.4 and other libs"
 arch=(i686 x86_64)

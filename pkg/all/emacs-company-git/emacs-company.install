@@ -1,0 +1,8 @@
+post_install() {
+  echo ">> To enable company add the following lines to your emacs configuration:"
+  echo "(require 'company)"
+}
+
+post_upgrade() {
+  post_install
+}

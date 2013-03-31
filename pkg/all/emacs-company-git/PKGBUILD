@@ -1,25 +1,21 @@
-# Contributor: mariusz - myswiat <my.swiat@o2.pl>
+# Contributor: David Pernot <dpernot@gmail.com>
+# Maintainer: Yichao Yu <yyc1992@gmail.com>
 
-pkgbase=pango
+pkgbase=emacs-company
 pkgname=${pkgbase}-git
-_realver=1.32.5
 pkgver=20130331
 pkgrel=1
-pkgdesc="A library for layout and rendering of text"
+pkgdesc='Company mode'
 arch=('i686' 'x86_64')
-url="http://gnome.org/"
-license=('LGPL')
-depends=('glib2-git' 'cairo-git' 'libxft' 'libthai' 'freetype2'
-  'harfbuzz-git' 'fontconfig-git')
-makedepends=('gobject-introspection' 'libxt' 'gtk-doc')
-options=('!libtool' '!emptydirs')
-provides=("${pkgbase}=${_realver}")
-conflicts=("${pkgbase}")
-install=${pkgbase}.install
+url='http://company-mode.github.com/'
+license=('GPLv3+')
+depends=('python-pysmell' 'pymacs' 'emacs' 'git')
+provides=("${pkgbase}")
+install="${pkgbase}.install"
 
-_gitname="pango"
+_gitname="company-mode"
 
-_gitroot="http://git.gnome.org/browse/pango"
+_gitroot="git://github.com/company-mode/company-mode.git"
 _gitref=master
 
 build() {
@@ -46,14 +42,13 @@ build() {
   fi
   msg "GIT checkout done or server timeout"
 
-  ./autogen.sh --prefix=/usr --sysconfdir=/etc \
-    --localstatedir=/var --with-included-modules=basic-fc
-  make
+  emacs -batch -L . -f batch-byte-compile company{,-*}.el || true
 }
 
 package() {
-  cd "${srcdir}/${_gitname}"
+  cd "$srcdir/$_gitname"
 
-  make DESTDIR=$pkgdir install
-  install -m755 -d "${pkgdir}/etc/pango"
+  install -Ddm755 "${pkgdir}/usr/share/emacs/site-lisp/"
+  install -Dm644 -t "${pkgdir}/usr/share/emacs/site-lisp/" \
+    company{,-*}.el{,c}
 }

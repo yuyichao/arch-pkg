@@ -2,7 +2,7 @@
 # Contributor: teddy_beer_maniac <teddy_beer_maniac@wp.pl>
 
 pkgname=gnome-common-git
-pkgver=20130330
+pkgver=20130331
 pkgrel=1
 pkgdesc="Common macros for GNOME 3(GIT Version)"
 arch=('i686' 'x86_64')
