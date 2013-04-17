@@ -1,7 +1,8 @@
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=kmscon-git
-pkgver=20130330
+pkgver=7.42.g4e0b981
 pkgrel=1
+epoch=1
 pkgdesc='Terminal emulator based on Kernel Mode Setting (KMS)'
 arch=(i686 x86_64)
 url='https://github.com/dvdhrm/kmscon'
@@ -18,7 +19,18 @@ _gitname=kmscon
 _gitroot=https://github.com/dvdhrm/kmscon.git
 _gitref=master
 
-build() {
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  local ver=$(git describe | sed -e 's/-/./g')
+  [[ $ver =~ ^[^0-9]*[.]*(.*) ]] && ver=${BASH_REMATCH[1]}
+  echo "$ver"
+}
+
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -41,6 +53,11 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   ./autogen.sh --prefix=/usr --enable-wlterm --with-renderers=cairo,bbulk,gltex
   make
