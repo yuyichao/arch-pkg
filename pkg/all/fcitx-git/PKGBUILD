@@ -4,9 +4,9 @@
 
 _pkgname=fcitx
 pkgname=$_pkgname-git
-pkgver=4.2.7.119.ge2846be
-_realver=4.2.7
-pkgrel=2
+pkgver=4.2.7.168.gb649706
+_realver=4.2.8
+pkgrel=1
 epoch=1
 pkgdesc="A Flexible Input Method Framework"
 arch=("i686" "x86_64")
@@ -38,8 +38,8 @@ _gitref="master"
 # _gitroot="git://github.com/yuyichao/fcitx.git"
 # _gitref="codegen"
 
-# _gitroot="ssh://git@bitbucket.org/yuyichao/fcitx.git"
-# _gitref="wayland"
+_gitroot="ssh://git@bitbucket.org/yuyichao/fcitx.git"
+_gitref="wayland"
 
 _fetch_git() {
   cd "$srcdir"
