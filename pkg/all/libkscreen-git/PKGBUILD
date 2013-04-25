@@ -1,21 +1,24 @@
 pkgname=libkscreen-git
-pkgver=20130330
+_realver=0.1-rc1
+pkgver=0.1.rc1.9.g38b3a2f
 pkgrel=1
 pkgdesc="KDE's screen management software."
+epoch=1
 url="http://quickgit.kde.org/?p=libkscreen.git"
 license=('GPL')
 arch=('i686' 'x86_64')
 depends=('kdelibs')
 makedepends=('git' 'cmake' 'automoc4' 'qjson')
-provides=('libkscreen')
-conflicts=('libkscreen')
+provides=("libkscreen=${_realver}")
+conflicts=("libkscreen")
+options=('strip' 'debug')
 
 _gitname="libkscreen"
 
 _gitroot="git://anongit.kde.org/libkscreen.git"
 _gitref=master
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -38,12 +41,24 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
 
-  mkdir -p build
-  cd build
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/./g'
+}
+
+build() {
+  (_fetch_git)
+  mkdir -p "$srcdir/$_gitname/build"
+  cd "$srcdir/$_gitname/build"
 
   cmake .. \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=qmake-qt4
   make
