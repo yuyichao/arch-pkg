@@ -3,14 +3,17 @@
 
 pkgbase=emacs-company
 pkgname=${pkgbase}-git
-pkgver=20130331
+pkgver=0.5.133.g152bc89
 pkgrel=1
+epoch=1
 pkgdesc='Company mode'
-arch=('i686' 'x86_64')
+arch=('any')
 url='http://company-mode.github.com/'
 license=('GPLv3+')
-depends=('python-pysmell' 'pymacs' 'emacs' 'git')
+depends=('emacs')
 provides=("${pkgbase}")
+optdepends=('python-pysmell' 'pymacs')
+makedepends=('python-pysmell' 'pymacs' 'git')
 install="${pkgbase}.install"
 
 _gitname="company-mode"
@@ -18,7 +21,7 @@ _gitname="company-mode"
 _gitroot="git://github.com/company-mode/company-mode.git"
 _gitref=master
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -41,6 +44,20 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/-/./g'
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   emacs -batch -L . -f batch-byte-compile company{,-*}.el || true
 }
