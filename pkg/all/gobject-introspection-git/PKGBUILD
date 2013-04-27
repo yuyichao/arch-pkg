@@ -3,10 +3,11 @@
 
 pkgbase=gobject-introspection
 pkgname="${pkgbase}-git"
-_realver=1.35.8
-pkgver=20130331
+_realver=1.36.0
+pkgver=1.36.0.31.g6101488
 pkgrel=1
 pkgdesc="GObject Introspection"
+epoch=1
 arch=('x86_64' 'i686')
 license=('LGPL' 'GPL')
 url="http://live.gnome.org/GObjectIntrospection/"
@@ -16,14 +17,14 @@ makedepends=('git' 'pkgconfig' 'autoconf' 'gtk-doc' 'gnome-common-git'
 provides=("gobject-introspection=${_realver}")
 conflicts=('gobject-introspection' 'gobject-introspection-svn')
 replaces=('gobject-introspection-svn')
-options=(!makeflags docs !libtool)
+options=(!makeflags docs !libtool strip debug)
 
 _gitroot="git://git.gnome.org/gobject-introspection"
 
 _gitname="gobject-introspection"
 _gitref="master"
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -46,6 +47,20 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/[-_]/./g'
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   msg "Starting build"
   export PYTHON=/usr/bin/python2
