@@ -18,7 +18,7 @@ depends=(fontconfig libegl libgl "libpng>=1.6" "libpng<1.7"
 makedepends=(gtk-doc git)
 provides=("cairo=$_realver" "cairo-git=${pkgver}" "cairo-xcb=$_realver")
 conflicts=(cairo{,-xcb}{,-git})
-options=(!libtool)
+options=('!libtool' 'strip' 'debug')
 
 _gitname=cairo
 
@@ -78,5 +78,6 @@ build() {
 
 package() {
   cd "$srcdir/$_gitname/"
+
   make DESTDIR="$pkgdir" install
 }
