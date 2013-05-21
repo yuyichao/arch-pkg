@@ -4,8 +4,9 @@
 pkgbase=weston
 pkgname=${pkgbase}-git
 _realver=1.0.90
-pkgver=20130331
+pkgver=1.1.0.107.gfe097f9
 pkgrel=1
+epoch=1
 pkgdesc="A modern display server."
 arch=(i686 x86_64)
 url="http://wayland.freedesktop.org"
@@ -13,15 +14,15 @@ license=('MIT')
 provides=("${pkgbase}=${_realver}")
 conflicts=("${pkgbase}")
 depends=('libxkbcommon-git' 'wayland-git' 'mesa-full-wayland' 'cairo-gl-git'
-  'poppler-glib' 'mtdev' 'libxcursor' 'pixman' 'glu')
-options=(!libtool)
+  'poppler-glib' 'mtdev' 'libxcursor' 'pixman' 'glu' 'libunwind')
+options=(!libtool !staticlibs strip debug)
 
 _gitroot="git://anongit.freedesktop.org/wayland/weston"
 
 _gitname="weston"
 _gitref="master"
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -44,9 +45,27 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  date +%Y%m%d
+}
+
+build() {
+  (_fetch_git)
+  cd "${srcdir}/${_gitname}"
 
   ./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston
   make
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/-/./g'
 }
 
 package() {
