@@ -3,8 +3,9 @@
 pkgbase=wayland
 pkgname=$pkgbase-git
 _realver=1.1.0
-pkgver=20130331
-pkgrel=1
+pkgver=1.1.0.5.g508dd69
+pkgrel=2
+epoch=1
 pkgdesc="A modern display server."
 arch=(i686 x86_64)
 url="http://wayland.freedesktop.org"
@@ -14,14 +15,17 @@ replaces=(libwayland)
 license=('MIT')
 depends=('libffi')
 makedepends=('git' 'expat' 'autoconf' 'automake')
-options=(!libtool)
+options=(!libtool !staticlibs strip debug)
 
 _gitname="wayland"
 
 _gitroot="git://anongit.freedesktop.org/wayland/wayland"
 _gitref=master
 
-build() {
+# _gitroot="git://github.com/yuyichao/wayland.git"
+# _gitref=yyc
+
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -44,7 +48,21 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
 
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/-/./g'
+}
+
+build() {
+  (_fetch_git)
+
+  cd "${srcdir}/${_gitname}"
   ./autogen.sh --prefix=/usr --disable-documentation
   make
 }
