@@ -1,0 +1,68 @@
+# $Id: PKGBUILD 178879 2013-02-28 09:13:31Z thomas $
+# Maintainer: Thomas Bächler <thomas@archlinux.org>
+
+pkgname=wireless-regdb
+pkgver=2013.02.13
+pkgrel=1
+pkgdesc="Central Regulatory Domain Database"
+arch=('any')
+url="http://wireless.kernel.org/en/developers/Regulatory/CRDA"
+backup=(etc/conf.d/wireless-regdom)
+license=('custom')
+makedepends=(python2-m2crypto make patch openssl)
+depends=('sh')
+install=wireless-regdb.install
+source=(https://www.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-${pkgver}.tar.xz
+        linville.key.pub.pem
+        arch.key.pub.pem
+        arch.key.priv.pem
+        wireless-regdb-arch.key.priv.pem
+        LICENSE
+        unlimited.patch)
+sha256sums=('314415cf9699b385e7f8fa770097069790987f9d5c6e5b944aceba3c0a3a29be'
+            '5d49ed0267082af35fd147a58434f19f7619518064b502b8a87143ee3e140546'
+            '0793235c99193838fba58adc59a26976bc27cbf63dd85a55a869cb58b0ea1832'
+            '04c968fdea3d6355200adf8ae220f91dffa44cc77ff3ffd12f079626b05eab27'
+            '08c0af824be6c56651c96fafeabcdf143164e29a2d44d959568df6549d80b415'
+            '678b0df753c86198fc496d1f1033429bbd57f101472132ee7eaaf9f5e0a7fae1'
+            '98c878ab78d237348156383f078b58ccef4e5d04b1a162ca051c0f88eb97517e')
+
+prepare() {
+  cd "${srcdir}/wireless-regdb-${pkgver}"
+  patch -Np1 < ../unlimited.patch
+}
+
+build() {
+  cd "${srcdir}/wireless-regdb-${pkgver}"
+  echo "${srcdir}/arch.key.pub.pem" > .custom
+  HOME="${PWD}" make \
+    DISTRO_PRIVKEY="${srcdir}/arch.key.priv.pem" \
+    REGDB_AUTHOR=arch \
+    REGDB_PRIVKEY="${srcdir}/wireless-regdb-arch.key.priv.pem" \
+    REGDB_PUBKEY="${srcdir}/arch.key.pub.pem"
+
+  msg "Generating /etc/conf.d/wireless-regdom ..."
+  {
+    cat <<EOF
+#
+# Wireless regulatory domain configuration
+#
+
+EOF
+    sed db.txt -ne '/^country .*:/p' | \
+  sed -e 's/^country \([^:]\+\):.*$/#WIRELESS_REGDOM="\1"/g' | sort -u
+  } > wireless-regdom
+}
+
+package() {
+  cd "${srcdir}/wireless-regdb-${pkgver}"
+  HOME=${PWD} make install DESTDIR="${pkgdir}" \
+    DISTRO_PRIVKEY="${srcdir}/arch.key.priv.pem" \
+    REGDB_AUTHOR=arch \
+    REGDB_PRIVKEY="${srcdir}/wireless-regdb-arch.key.priv.pem" \
+    REGDB_PUBKEY="${srcdir}/arch.key.pub.pem"
+
+  install -D -m644 wireless-regdom "${pkgdir}/etc/conf.d/wireless-regdom"
+  install -D -m644 "${srcdir}/LICENSE" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
