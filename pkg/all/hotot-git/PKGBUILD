@@ -4,8 +4,9 @@
 pkgbase=hotot
 pkgname=('hotot-data-git' 'hotot-gtk2-git' 'hotot-gtk3-git'
   'hotot-qt4-git' 'hotot-kde-git' 'hotot-qt5-git')
-pkgver=20130330
+pkgver=0.9.8.14.2.ged2ff01
 pkgrel=1
+epoch=1
 pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)."
 arch=('any')
 url="http://www.hotot.org/"
@@ -15,35 +16,49 @@ makedepends+=('kdebase-runtime' 'automoc4')
 install="hotot-git.install"
 
 _gitname="hotot"
-_gitroot="https://github.com/yuyichao/Hotot.git"
-_gitbranch=master
 
-build() {
+_gitroot="https://github.com/lyricat/Hotot.git"
+_gitref=master
+
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
     cd "$_gitname"
     msg "Reset current branch"
     git reset --hard HEAD
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch"
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch" --
-    git reset --hard "$_gitbranch" --
+      "$_gitroot" "$_gitref:$_gitref"
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref" --
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe --tags | sed -e 's/-/./g'
+}
+
+build() {
+  cd "$srcdir/$_gitname"
 
   msg "Creating make environment..."
-  git clean -fdx
   mkdir -p build
   cd build
+  [[ -f CMakeCache.txt ]] && rm -v CMakeCache.txt
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
@@ -66,7 +81,7 @@ package_hotot-data-git() {
     [ "$dir" = applications ] && continue
     # kde icon
     [ "$dir" = apps ] && continue
-    mv "$dir" "$pkgdir/usr/share"
+    cp -a "$dir" "$pkgdir/usr/share"
   done
 }
 
@@ -76,6 +91,7 @@ package_hotot-qt4-git() {
   provides=("${pkgname/-git}" "hotot-qt-git" "hotot-qt")
   conflicts=("${pkgname/-git}" "hotot-qt")
   replaces=("hotot-qt-git")
+  options=('strip' 'debug')
   cd "$srcdir/$_gitname/build/pkg"
 
   install -Dm755 usr/bin/hotot-qt "$pkgdir/usr/bin/hotot-qt"
@@ -88,6 +104,7 @@ package_hotot-qt5-git() {
   depends=('hotot-data-git' 'qt5-webkit')
   provides=("${pkgname/-git}")
   conflicts=("${pkgname/-git}")
+  options=('strip' 'debug')
   cd "$srcdir/$_gitname/build/pkg"
 
   install -Dm755 usr/bin/hotot-qt5 "$pkgdir/usr/bin/hotot-qt5"
@@ -100,12 +117,13 @@ package_hotot-kde-git() {
   depends=('hotot-data-git' 'kdebase-runtime')
   provides=("${pkgname/-git}")
   conflicts=("${pkgname/-git}")
+  options=('strip' 'debug')
   cd "$srcdir/$_gitname/build/pkg"
 
   install -Dm755 usr/bin/hotot-kde "$pkgdir/usr/bin/hotot-kde"
   install -Dm644 usr/share/applications/hotot-kde.desktop \
     "$pkgdir/usr/share/applications/hotot-kde.desktop"
-  mv usr/share/apps "$pkgdir/usr/share/"
+  cp -a usr/share/apps "$pkgdir/usr/share/"
 }
 
 package_hotot-gtk2-git() {
@@ -120,7 +138,7 @@ package_hotot-gtk2-git() {
   install -Dm644 usr/share/applications/hotot-gtk2.desktop \
     "$pkgdir/usr/share/applications/hotot-gtk2.desktop"
   install -d "$pkgdir/usr/lib/python2.7/site-packages"
-  mv usr/lib/python2.7/site-packages/hotot_gtk2 \
+  cp -a usr/lib/python2.7/site-packages/hotot_gtk2 \
     "$pkgdir/usr/lib/python2.7/site-packages/"
 }
 
@@ -136,6 +154,6 @@ package_hotot-gtk3-git() {
   install -Dm644 usr/share/applications/hotot-gtk3.desktop \
     "$pkgdir/usr/share/applications/hotot-gtk3.desktop"
   install -d "$pkgdir/usr/lib/python2.7/site-packages"
-  mv usr/lib/python2.7/site-packages/hotot_gtk3 \
+  cp -a usr/lib/python2.7/site-packages/hotot_gtk3 \
     "$pkgdir/usr/lib/python2.7/site-packages/"
 }
