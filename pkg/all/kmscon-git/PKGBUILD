@@ -1,14 +1,15 @@
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=kmscon-git
-pkgver=7.42.g4e0b981
-pkgrel=2
-epoch=1
+pkgver=7.46.g4962213
+pkgrel=1
+epoch=3
 pkgdesc='Terminal emulator based on Kernel Mode Setting (KMS)'
 arch=(i686 x86_64)
 url='https://github.com/dvdhrm/kmscon'
 license=('MIT')
 depends=(systemd libdrm mesa libegl libgbm libgles pango dbus
-  libxkbcommon xkeyboard-config wayland-git)
+  libxkbcommon xkeyboard-config wayland-git fuse glib2 cairo
+  fontconfig freetype2)
 makedepends=('git' 'libxslt' 'docbook-xsl' 'linux-api-headers')
 provides=(kmscon)
 conflicts=(kmscon)
@@ -59,7 +60,8 @@ build() {
   (_fetch_git)
   cd "$srcdir/$_gitname"
 
-  ./autogen.sh --prefix=/usr --enable-wlterm --with-renderers=cairo,bbulk,gltex
+  ./autogen.sh --prefix=/usr --enable-wlterm \
+    --with-renderers=cairo,bbulk,gltex
   make
 }
 
