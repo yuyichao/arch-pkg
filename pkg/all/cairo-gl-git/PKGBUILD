@@ -5,7 +5,7 @@
 
 pkgbase=cairo
 pkgname=$pkgbase-gl-git
-pkgver=1.12.14.44.g32bd6aa
+pkgver=1.12.14.62.g519dff5
 epoch=1
 _realver=1.12.15
 pkgrel=1
