@@ -1,26 +1,26 @@
 #Contributor:	Spyros	Stathopoulos	<gmail.com: foucault.online>
 #Maintainer:	Jesse	Jaara		<gmail.com: jesse.jaara>
 
-pkgbase=harfbuzz
-pkgname=${pkgbase}-git
-pkgver=20130331
+_pkgname=harfbuzz
+pkgbase=harfbuzz-git
+pkgname=(${_pkgname}-git ${_pkgname}-icu-git)
+_realver=0.9.19
+pkgver=0.9.18.19.g9245e98
 pkgrel=1
+epoch=1
 pkgdesc="HarfBuzz is an OpenType text shaping engine."
 arch=('i686' 'x86_64')
 url="http://www.freedesktop.org/wiki/Software/HarfBuzz"
 license=('MIT')
-depends=('icu'  'cairo' 'graphite')
-makedepends=('ragel' 'gtk-doc')
-provides=("${pkgbase}=0.9.9")
-conflicts=("${pkgbase}")
-options=(!libtool)
+makedepends=('ragel' 'gtk-doc' 'icu'  'cairo' 'graphite')
+options=(!libtool !staticlibs debug strip)
 
 _gitname="harfbuzz"
 
 _gitroot="git://anongit.freedesktop.org/harfbuzz"
-_gitbranch=master
+_gitref=master
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -28,31 +28,69 @@ build() {
     msg "Reset current branch"
     git reset --hard HEAD
     git clean -fdx
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch" --
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch" --
-    git reset --hard "$_gitbranch"
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
     git clean -fdx
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
-
-  ./autogen.sh --prefix=/usr
-  make
 }
 
-package() {
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  git describe | sed -e 's/-/./g'
+}
+
+build() {
+  (_fetch_git)
+
   cd "${srcdir}/${_gitname}"
+  ./autogen.sh --prefix=/usr \
+    --with-glib --with-freetype --with-cairo --with-icu --with-graphite2
+  make
 
-  mkdir -p "${pkgdir}/usr/share/licenses/harfbuzz-git"
-  cp COPYING "${pkgdir}/usr/share/licenses/harfbuzz-git/"
+  rm -rf "${srcdir}/pkg"
+  make DESTDIR="${srcdir}/pkg/hb" install
 
-  make DESTDIR="${pkgdir}" install
+  cd "${srcdir}/pkg/hb"
+  mkdir -p ../hb-icu/usr/{include/harfbuzz,lib/pkgconfig}
+  cd ../hb-icu
+  mv ../hb/usr/lib/libharfbuzz-icu* usr/lib
+  mv ../hb/usr/lib/pkgconfig/harfbuzz-icu.pc usr/lib/pkgconfig
+  mv ../hb/usr/include/harfbuzz/hb-icu.h usr/include/harfbuzz
+}
+
+package_harfbuzz-git() {
+  depends=(glib2 freetype2 graphite)
+  provides=("${_pkgname}=${_realver}")
+  conflicts=("${_pkgname}")
+  optdepends=('cairo: hb-view program')
+
+  cp -a "${srcdir}/pkg/hb"/* "$pkgdir"
+  install -Dm644 "${srcdir}/${_gitname}/COPYING" \
+    "$pkgdir/usr/share/licenses/harfbuzz-git/COPYING"
+}
+
+package_harfbuzz-icu-git() {
+  pkgdesc="$pkgdesc (ICU integration)"
+  depends=(harfbuzz icu)
+  provides=("${_pkgname}-icu=${_realver}")
+  conflicts=("${_pkgname}-icu")
+
+  cp -a "${srcdir}/pkg/hb-icu"/* "$pkgdir"
+  install -Dm644 "${srcdir}/${_gitname}/COPYING" \
+    "$pkgdir/usr/share/licenses/harfbuzz-icu-git/COPYING"
 }
