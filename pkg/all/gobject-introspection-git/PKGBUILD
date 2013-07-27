@@ -4,7 +4,7 @@
 pkgbase=gobject-introspection
 pkgname="${pkgbase}-git"
 _realver=1.36.0
-pkgver=1.36.0.31.g6101488
+pkgver=1.37.4.4.g242210d
 pkgrel=1
 pkgdesc="GObject Introspection"
 epoch=1
@@ -64,7 +64,8 @@ build() {
 
   msg "Starting build"
   export PYTHON=/usr/bin/python2
-  ./autogen.sh --prefix=/usr --disable-static --enable-doctool
+  CC=clang CXX=clang++ ./autogen.sh --prefix=/usr \
+    --disable-static --enable-doctool
   make
 }
 
