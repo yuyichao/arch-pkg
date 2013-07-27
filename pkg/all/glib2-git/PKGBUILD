@@ -5,7 +5,7 @@
 pkgbase=glib2
 pkgname=$pkgbase-git
 _realver=2.37.0
-pkgver=2.36.0.57.g454691a
+pkgver=2.37.4.53.g023e3b3
 pkgrel=1
 epoch=1
 pkgdesc="Common C routines used by GTK+ and other libs"
@@ -67,12 +67,14 @@ build() {
   cd "$srcdir/$_gitname/"
 
   msg "Building..."
-  ./autogen.sh --prefix=/usr \
+  export CFLAGS="${CFLAGS} -Wno-return-type"
+  CC=clang CXX=clang++ ./autogen.sh --prefix=/usr \
     --libdir=/usr/lib \
     --sysconfdir=/etc \
     --with-pcre=system \
     --disable-fam \
-    --enable-debug=yes
+    --enable-debug=yes \
+    --disable-compile-warnings
   find -name Makefile -exec sed -i 's:PYTHON = /usr/bin/python$:&2:g' '{}' \;
   make
 }
