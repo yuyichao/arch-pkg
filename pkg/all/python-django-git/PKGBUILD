@@ -2,8 +2,8 @@
 
 pkgbase=python-django
 pkgname="${pkgbase}-git"
-_realver=1.5
-pkgver=1.4.2693.g3a4276f
+_realver=1.6
+pkgver=1.4.3859.g973502c
 pkgrel=1
 pkgdesc="A high-level Python Web framework - development python3 version."
 epoch=1
@@ -33,7 +33,7 @@ _fetch_git() {
     git reset --hard HEAD
     git clean -fdx
     msg "Fetching branch $_gitref from $_gitroot..."
-    git fetch --force --update-head-ok \
+    git fetch --force --tags --update-head-ok \
       "$_gitroot" "$_gitref:$_gitref" --
     msg "Checking out branch $_gitref..."
     git checkout "$_gitref" --
