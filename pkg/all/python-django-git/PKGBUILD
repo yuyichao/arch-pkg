@@ -33,7 +33,7 @@ _fetch_git() {
     git reset --hard HEAD
     git clean -fdx
     msg "Fetching branch $_gitref from $_gitroot..."
-    git fetch --force --tags --update-head-ok \
+    git fetch --force --update-head-ok \
       "$_gitroot" "$_gitref:$_gitref" --
     msg "Checking out branch $_gitref..."
     git checkout "$_gitref" --
