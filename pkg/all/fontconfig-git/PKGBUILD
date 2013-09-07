@@ -3,8 +3,8 @@
 
 _pkgname=fontconfig
 pkgname=${_pkgname}-git
-pkgver=2.10.92.7.g03216cc
-_realver=2.10.92
+pkgver=2.10.93.18.g084cf7c
+_realver=2.10.93
 pkgrel=1
 epoch=1
 pkgdesc="A library for configuring and customizing font access"
@@ -13,7 +13,7 @@ url="http://www.fontconfig.org/release/"
 license=('custom')
 depends=('expat' 'freetype2')
 makedepends=('gperf')
-options=('!libtool')
+options=('!libtool' 'debug' 'strip')
 conflicts=("${_pkgname}")
 provides=("${_pkgname}=${_realver}")
 install=fontconfig.install
