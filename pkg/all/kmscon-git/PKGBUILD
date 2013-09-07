@@ -1,6 +1,6 @@
 # Maintainer: Daniel Micay <danielmicay@gmail.com>
 pkgname=kmscon-git
-pkgver=7.46.g4962213
+pkgver=7.49.gc4193b8
 pkgrel=1
 epoch=3
 pkgdesc='Terminal emulator based on Kernel Mode Setting (KMS)'
