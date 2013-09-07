@@ -2,9 +2,9 @@
 
 pkgbase=wayland
 pkgname=$pkgbase-git
-_realver=1.1.0
-pkgver=1.1.0.5.g508dd69
-pkgrel=2
+_realver=1.2.1
+pkgver=1.2.0.29.g10dcf86
+pkgrel=1
 epoch=1
 pkgdesc="A modern display server."
 arch=(i686 x86_64)
