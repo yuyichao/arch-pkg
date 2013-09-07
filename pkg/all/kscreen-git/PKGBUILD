@@ -1,10 +1,10 @@
 # Maintainer: imraro <imraro@gmail.com>
 
 pkgname=kscreen-git
-_realver=0.1-rc1
-pkgver=0.1.rc1.11.g3459f54
+_realver=1.0.2
+pkgver=1.0.1.0.4.g9a19b22
 pkgrel=1
-epoch=1
+epoch=2
 pkgdesc="KDE's screen management software."
 url="http://quickgit.kde.org/?p=kscreen.git"
 license=('GPL')
@@ -52,7 +52,7 @@ pkgver() {
   (_fetch_git &> ${outfile})
   cd "$srcdir/$_gitname"
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/./g'
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
@@ -60,6 +60,8 @@ build() {
   mkdir -p "$srcdir/$_gitname/build"
   cd "$srcdir/$_gitname/build"
 
+  export CC=clang
+  export CXX=clang++
   cmake .. \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
