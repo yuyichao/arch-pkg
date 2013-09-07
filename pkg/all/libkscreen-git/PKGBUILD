@@ -1,5 +1,5 @@
 pkgname=libkscreen-git
-_realver=0.1-rc1
+_realver=1.0.2
 pkgver=1.0.1.0.3.g98a5d8d
 pkgrel=1
 pkgdesc="KDE's screen management software."
