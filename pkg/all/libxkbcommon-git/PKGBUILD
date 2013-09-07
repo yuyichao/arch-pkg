@@ -2,23 +2,25 @@
 
 pkgbase=libxkbcommon
 pkgname=${pkgbase}-git
-pkgver=20130331
+pkgver=0.3.1.34.g2a2a8d7
+_realver=0.3.2
+epoch=1
 pkgrel=1
 pkgdesc="A library to handle keyboard descriptions."
 url="http://xkbcommon.org/"
 arch=(i686 x86_64)
 license=('custom')
 makedepends=('git' 'xorg-util-macros' 'xkeyboard-config' 'bison' 'flex')
-provides=("${pkgbase}")
+provides=("${pkgbase}=${_realver}")
 conflicts=("${pkgbase}")
-options=(!libtool)
+options=(!libtool !staticlibs debug strip)
 
 _gitname="libxkbcommon"
 
-_gitroot="git://anongit.freedesktop.org/xorg/lib/libxkbcommon"
-_gitbranch=master
+_gitroot="git://github.com/xkbcommon/libxkbcommon"
+_gitref=master
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -26,21 +28,37 @@ build() {
     msg "Reset current branch"
     git reset --hard HEAD
     git clean -fdx
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch" --
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch" --
-    git reset --hard "$_gitbranch"
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
     git clean -fdx
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  local ver=$(git describe | sed -e 's/-/./g')
+  [[ $ver =~ ^[^0-9]*[.]*(.*) ]] && ver=${BASH_REMATCH[1]}
+  echo "$ver"
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   ./autogen.sh --prefix=/usr
   make
