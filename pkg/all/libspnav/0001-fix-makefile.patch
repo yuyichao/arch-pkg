@@ -1,0 +1,74 @@
+From a79fb35be99d49e11994c825f130c7f43a670575 Mon Sep 17 00:00:00 2001
+From: Yichao Yu <yyc1992@gmail.com>
+Date: Sat, 7 Sep 2013 15:01:15 -0400
+Subject: [PATCH] fix makefile
+
+---
+ Makefile.in | 40 ++++++++++++++--------------------------
+ 1 file changed, 14 insertions(+), 26 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index aff74ee..e00e131 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,8 +1,7 @@
+-
+ obj = spnav.o $(magellan_obj)
+ hdr = spnav.h spnav_magellan.h spnav_config.h
+-lib_a = libspnav.a
+-soname = libspnav.so.0
++linkname = libspnav.so
++soname = $(linkname).0
+ lib_so = $(soname).1
+ 
+ CC = gcc
+@@ -10,10 +9,7 @@ AR = ar
+ CFLAGS = $(opt) $(dbg) -std=c89 -fpic -pedantic -Wall -fno-strict-aliasing -I.
+ 
+ .PHONY: all
+-all: $(lib_a) $(lib_so)
+-
+-$(lib_a): $(obj)
+-	$(AR) rcs $@ $(obj)
++all: $(lib_so)
+ 
+ $(lib_so): $(obj)
+ 	$(CC) -shared -Wl,-soname,$(soname) -o $@ $(obj)
+@@ -21,23 +17,15 @@ $(lib_so): $(obj)
+ %.o: $(srcdir)/%.c
+ 	$(CC) $(CFLAGS) -c $< -o $@
+ 
+-.PHONY: clean
+-clean:
+-	rm -f $(obj)
+-
+-.PHONY: cleandist
+-distclean:
+-	rm -f $(obj) $(lib_a) $(lib_so) Makefile
+-
+ .PHONY: install
+-install: $(lib_a) $(lib_so)
+-	cp $(lib_a) $(PREFIX)/$(libdir)/$(lib_a)
+-	cp $(lib_so) $(PREFIX)/$(libdir)/$(lib_so)
+-	for h in $(hdr); do cp -p $(srcdir)/$$h $(PREFIX)/include/; done
+-
+-.PHONY: uninstall
+-uninstall:
+-	rm -f $(PREFIX)/$(libdir)/$(lib_a)
+-	rm -f $(PREFIX)/$(libdir)/$(lib_so)
+-	for i in $(hdr); do rm -f $(PREFIX)/include/$$i; done
+-
++install: $(lib_so)
++	install -dm755 $(DESTDIR)/$(PREFIX)/$(libdir)
++	install -dm755 $(DESTDIR)/$(PREFIX)/include/
++	install -m755 -t $(DESTDIR)/$(PREFIX)/$(libdir) $(lib_so)
++	ln -sf $(lib_so) \
++		$(DESTDIR)/$(PREFIX)/$(libdir)/$(soname)
++	ln -sf $(soname) \
++		$(DESTDIR)/$(PREFIX)/$(libdir)/$(linkname)
++	for h in $(hdr); do \
++		install -m644 -t $(DESTDIR)/$(PREFIX)/include/ $(srcdir)/$$h; \
++	done
+-- 
+1.8.4
+
