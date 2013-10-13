@@ -3,7 +3,7 @@
 pkgbase=python-django
 pkgname="${pkgbase}-git"
 _realver=1.6
-pkgver=1.4.3859.g973502c
+pkgver=1.4.4269.g00a73c1
 pkgrel=1
 pkgdesc="A high-level Python Web framework - development python3 version."
 epoch=1
