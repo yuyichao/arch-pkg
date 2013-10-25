@@ -4,6 +4,7 @@ build*/
 !.git*
 .git/
 *.tar.*
+*.zip
 *.tgz
 *.kdev4
 *.kate-swp
