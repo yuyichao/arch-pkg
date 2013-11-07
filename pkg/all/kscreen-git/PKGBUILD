@@ -2,7 +2,7 @@
 
 pkgname=kscreen-git
 _realver=1.0.2
-pkgver=1.0.1.0.4.g9a19b22
+pkgver=1.0.1.0.13.g06f3f2b
 pkgrel=1
 epoch=2
 pkgdesc="KDE's screen management software."
