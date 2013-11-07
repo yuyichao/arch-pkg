@@ -3,7 +3,7 @@
 pkgbase=wayland
 pkgname=$pkgbase-git
 _realver=1.2.1
-pkgver=1.2.0.29.g10dcf86
+pkgver=1.3.0.4.g05f95c8
 pkgrel=1
 epoch=1
 pkgdesc="A modern display server."
