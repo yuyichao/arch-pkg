@@ -3,8 +3,9 @@
 pkgbase=libglu
 pkgname=${pkgbase}-git
 _realver=9.0.0
-pkgver=20130331
+pkgver=9.0.0.2.g0692115
 pkgrel=1
+epoch=1
 pkgdesc="GL utility library for mesa builds from git after 2012-08-31"
 arch=('i686' 'x86_64')
 url="http://mesa.freedesktop.org/"
@@ -13,14 +14,25 @@ provides=("${pkgbase}=${_realver}" "glu=${_realver}")
 depends=('libgl' 'gcc-libs')
 makedepends=('mesa')
 conflicts=("${pkgbase}=${_realver}" "glu=${_realver}")
-options=(!libtool)
+options=(!libtool !staticlibs)
 
 _gitname="glu"
 
 _gitroot="git://cgit.freedesktop.org/mesa/glu/"
-_gitbranch=master
+_gitref=master
 
-build() {
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  local ver=$(git describe | sed -e 's/-/./g')
+  [[ $ver =~ ^[^0-9]*[.]*(.*) ]] && ver=${BASH_REMATCH[1]}
+  echo "$ver"
+}
+
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -28,21 +40,26 @@ build() {
     msg "Reset current branch"
     git reset --hard HEAD
     git clean -fdx
-    msg "Fetching branch $_gitbranch from $_gitroot..."
+    msg "Fetching branch $_gitref from $_gitroot..."
     git fetch --force --update-head-ok \
-      "$_gitroot" "$_gitbranch:$_gitbranch" --
-    msg "Checking out branch $_gitbranch..."
-    git checkout "$_gitbranch" --
-    git reset --hard "$_gitbranch"
+      "$_gitroot" "$_gitref:$_gitref" --
+    msg "Checking out branch $_gitref..."
+    git checkout "$_gitref" --
+    git reset --hard "$_gitref"
     git clean -fdx
     msg "The local files are updated."
   else
-    msg "Cloning branch $_gitbranch from $_gitroot to $_gitname..."
-    git clone --single-branch --branch "$_gitbranch" \
+    msg "Cloning branch $_gitref from $_gitroot to $_gitname..."
+    git clone --single-branch --branch "$_gitref" \
       "$_gitroot" "$_gitname"
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   ./autogen.sh --prefix=/usr
   make
@@ -50,5 +67,6 @@ build() {
 
 package() {
   cd "${srcdir}/${_gitname}"
+
   make DESTDIR="${pkgdir}" install
 }
