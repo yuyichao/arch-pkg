@@ -3,8 +3,8 @@
 
 pkgbase=weston
 pkgname=${pkgbase}-git
-_realver=1.0.90
-pkgver=1.1.0.107.gfe097f9
+_realver=1.2.0
+pkgver=1.2.0.116.g1084da5
 pkgrel=1
 epoch=1
 pkgdesc="A modern display server."
@@ -55,7 +55,10 @@ build() {
   (_fetch_git)
   cd "${srcdir}/${_gitname}"
 
-  ./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston
+  ./autogen.sh --prefix=/usr \
+    --libexecdir=/usr/lib/weston \
+    --with-cairo=gl \
+    --enable-demo-clients
   make
 }
 
@@ -70,19 +73,6 @@ pkgver() {
 
 package() {
   cd "${srcdir}/${_gitname}"
-  make DESTDIR="${pkgdir}" install
 
-  install -m 755 -D clients/clickdot "${pkgdir}/usr/bin/weston-clickdot"
-  install -m 755 -D clients/dnd "${pkgdir}/usr/bin/weston-dnd"
-  install -m 755 -D clients/editor "${pkgdir}/usr/bin/weston-editor"
-  install -m 755 -D clients/eventdemo "${pkgdir}/usr/bin/weston-eventdemo"
-  install -m 755 -D clients/flower "${pkgdir}/usr/bin/weston-flower"
-  install -m 755 -D clients/gears "${pkgdir}/usr/bin/weston-gears"
-  install -m 755 -D clients/image "${pkgdir}/usr/bin/weston-image"
-  install -m 755 -D clients/resizor "${pkgdir}/usr/bin/weston-resizor"
-  install -m 755 -D clients/simple-egl "${pkgdir}/usr/bin/weston-simple-egl"
-  install -m 755 -D clients/simple-shm "${pkgdir}/usr/bin/weston-simple-shm"
-  install -m 755 -D clients/simple-touch "${pkgdir}/usr/bin/weston-simple-touch"
-  install -m 755 -D clients/smoke "${pkgdir}/usr/bin/weston-smoke"
-  install -m 755 -D clients/view "${pkgdir}/usr/bin/weston-view"
+  make DESTDIR="${pkgdir}" install
 }
