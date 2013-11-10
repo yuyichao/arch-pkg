@@ -1,9 +1,10 @@
 # Maintainer: LEW21 <lew21@xtreeme.org>
 
 pkgname=mesa-full
-pkgver=20130331
+pkgver=58091.a8346a2
 _realver=9.2.0
 pkgrel=1
+epoch=1
 pkgdesc="Full Mesa 3D graphics library with all its components, built from the git master branch. Built with Wayland support."
 arch=(i686 x86_64)
 url="http://mesa3d.org/"
@@ -23,14 +24,14 @@ provides=("mesa-full-wayland=${pkgver}" "mesa=${_realver}" "libgl=${_realver}"
 conflicts=('mesa' 'libgl' 'libglapi' 'libgles' 'libegl' 'ati-dri' 'intel-dri'
   'nouveau-dri' 'mach64-dri' 'mga-dri' 'r128-dri' 'savage-dri' 'tdfx-dri'
   'unichrome-dri', 'khrplatform-devel' 'libgbm' 'mesa-libgl' 'svga-dri')
-options=('!libtool')
+options=(!libtool !staticlibs strip debug)
 
 _gitname="mesa"
 
 _gitroot="git://anongit.freedesktop.org/git/mesa/mesa"
 _gitref=master
 
-build() {
+_fetch_git() {
   cd "$srcdir"
 
   if [ -d "$srcdir/$_gitname/.git" ]; then
@@ -53,11 +54,27 @@ build() {
     cd "$_gitname"
   fi
   msg "GIT checkout done or server timeout"
+}
+
+pkgver() {
+  local outfile=/dev/null
+  [[ -e /dev/tty ]] && outfile=/dev/tty
+  (_fetch_git &> ${outfile})
+  cd "$srcdir/$_gitname"
+
+  echo "$(git rev-list --count "${_gitref}").$(git rev-parse --short "${_gitref}")"
+}
+
+build() {
+  (_fetch_git)
+  cd "$srcdir/$_gitname"
 
   # Classic r300, r600 & swrast are disabled - their Gallium versions are better.
   # Classic nouveau is for different hardware than Gallium nouveau,
   # so both are enabled.
   export PYTHON=/usr/bin/python2
+  export CC=clang
+  export CXX=clang++
 
   ./autogen.sh --prefix=/usr \
     --sysconfdir=/etc \
