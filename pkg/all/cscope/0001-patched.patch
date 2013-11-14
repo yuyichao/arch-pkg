@@ -1,0 +1,98 @@
+From b499e2525e990cbc7592b7e2529093872aa9fdc4 Mon Sep 17 00:00:00 2001
+From: Yichao Yu <yyc1992@gmail.com>
+Date: Thu, 14 Nov 2013 11:45:16 -0500
+Subject: [PATCH] patched
+
+---
+ src/build.c |  4 ++--
+ src/dir.c   | 10 +++++-----
+ src/main.c  |  2 +-
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/src/build.c b/src/build.c
+index d1a4493..e7b5320 100644
+--- a/src/build.c
++++ b/src/build.c
+@@ -307,7 +307,7 @@ cscope: -q option mismatch between command line and old symbol database\n");
+ 	for (i = 0; i < nsrcfiles; ++i) {
+ 	    if ((1 != fscanf(oldrefs," %[^\n]",oldname))
+ 		|| strnotequal(oldname, srcfiles[i])
+-		|| (lstat(srcfiles[i], &statstruct) != 0)
++		|| (stat(srcfiles[i], &statstruct) != 0)
+ 		|| (statstruct.st_mtime > reftime)
+ 		) {
+ 		goto outofdate;
+@@ -391,7 +391,7 @@ cscope: converting to new symbol database file format\n");
+ 	    if (oldfile == NULL || strcmp(file, oldfile) < 0) {
+ 		crossref(file);
+ 		++built;
+-	    } else if (lstat(file, &statstruct) == 0
++	    } else if (stat(file, &statstruct) == 0
+ 		       && statstruct.st_mtime > reftime) {
+ 		/* if this file was modified */
+ 		crossref(file);
+diff --git a/src/dir.c b/src/dir.c
+index cf9330d..798e58f 100644
+--- a/src/dir.c
++++ b/src/dir.c
+@@ -159,7 +159,7 @@ addsrcdir(char *dir)
+ 	struct	stat	statstruct;
+ 
+ 	/* make sure it is a directory */
+-	if (lstat(compath(dir), &statstruct) == 0 && 
++	if (stat(compath(dir), &statstruct) == 0 && 
+ 	    S_ISDIR(statstruct.st_mode)) {
+ 
+ 		/* note: there already is a source directory list */
+@@ -227,7 +227,7 @@ addincdir(char *name, char *path)
+ 	struct	stat	statstruct;
+ 
+ 	/* make sure it is a directory */
+-	if (lstat(compath(path), &statstruct) == 0 && 
++	if (stat(compath(path), &statstruct) == 0 && 
+ 	    S_ISDIR(statstruct.st_mode)) {
+ 		if (incdirs == NULL) {
+ 			incdirs = mymalloc(mincdirs * sizeof(char *));
+@@ -499,7 +499,7 @@ scan_dir(const char *adir, BOOL recurse_dir)
+ 					PATHLEN - 2 - adir_len,
+ 					entry->d_name);
+ 
+-				if (lstat(path,&buf) == 0) {
++				if (stat(path,&buf) == 0) {
+ 					file = entry->d_name;
+ 					if (recurse_dir 
+                                             && S_ISDIR(buf.st_mode) ) {
+@@ -577,7 +577,7 @@ issrcfile(char *path)
+ 		return NO;
+ 	
+ 	/* make sure it is a file */
+-	if (lstat(path, &statstruct) == 0 && 
++	if (stat(path, &statstruct) == 0 && 
+ 	    S_ISREG(statstruct.st_mode)) {
+ 		return(YES);
+ 	}
+@@ -651,7 +651,7 @@ accessible_file(char *file)
+     if (access(compath(file), READ) == 0) {
+ 	struct stat stats;
+ 
+-	if (lstat(file, &stats) == 0
++	if (stat(file, &stats) == 0
+ 	    && S_ISREG(stats.st_mode)) {
+ 	    return YES;
+ 	}
+diff --git a/src/main.c b/src/main.c
+index c447c30..28d18a3 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -493,7 +493,7 @@ cscope: reffile too long, cannot be > %d characters\n", sizeof(path) - 3);
+     }
+ 
+     /* make sure that tmpdir exists */
+-    if (lstat (tmpdir, &stat_buf)) {
++    if (stat (tmpdir, &stat_buf)) {
+ 	fprintf (stderr, "\
+ cscope: Temporary directory %s does not exist or cannot be accessed\n", 
+ 		 tmpdir);
+-- 
+1.8.4.2
+
