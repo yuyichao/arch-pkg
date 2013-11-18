@@ -1,7 +1,7 @@
 #Contributor: poplarch <poplarch@gmail.com>
 pkgbase=kcm-fcitx
 pkgname=$pkgbase-git
-pkgver=0.4.3
+pkgver=0.4.3.4.gfe9b32c
 pkgrel=1
 epoch=1
 pkgdesc="KDE Config Module for Fcitx"
