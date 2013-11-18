@@ -2,7 +2,8 @@
 # Contributor: xduugu
 
 pkgbase=lib32-qtcurve
-pkgname=(lib32-qtcurve-utils lib32-qtcurve-qt4 lib32-qtcurve-gtk2)
+pkgname=lib32-qtcurve
+true && pkgname=(lib32-qtcurve-utils lib32-qtcurve-qt4 lib32-qtcurve-gtk2)
 pkgver=1.8.17
 pkgrel=2
 pkgdesc='A configurable set of widget styles for KDE and Gtk. Multilib.'
