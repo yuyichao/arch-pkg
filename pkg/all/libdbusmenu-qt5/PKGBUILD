@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-  cd build
+  cd libdbusmenu-qt-${pkgver}/build
   make DESTDIR="${pkgdir}" install
 }
