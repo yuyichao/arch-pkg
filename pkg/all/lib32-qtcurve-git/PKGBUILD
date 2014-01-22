@@ -5,12 +5,13 @@ pkgbase=lib32-qtcurve
 pkgname=lib32-qtcurve-git
 true && pkgname=(lib32-qtcurve-utils-git lib32-qtcurve-qt4-git
   lib32-qtcurve-gtk2-git)
+_realver=1.8.18
 pkgver=1.8.18rc.0.6.g3812d42
 pkgrel=1
 pkgdesc='A configurable set of widget styles for KDE and Gtk. Multilib.'
 arch=('x86_64')
 url="https://github.com/QtCurve/qtcurve"
-license=('GPL')
+license=('LGPL')
 groups=('qtcurve')
 makedepends=('git' 'cmake' 'gcc-multilib' 'lib32-gtk2'
   'lib32-qt4' 'lib32-libxcb')
@@ -88,17 +89,17 @@ build() {
 }
 
 package_lib32-qtcurve-qt4-git() {
-  depends=(lib32-libxcb lib32-qtcurve-utils-git lib32-qt4)
-  provides=(lib32-qtcurve-qt4=1.8.17)
+  depends=(lib32-libxcb lib32-qtcurve-utils-git=${pkgver} lib32-qt4)
+  provides=(lib32-qtcurve-qt4=${_realver})
   conflicts=(lib32-qtcurve-qt4 lib32-qtcurve-qt4-debug)
 
   make -C qtcurve/build/qt4 DESTDIR="$pkgdir" install
 }
 
 package_lib32-qtcurve-gtk2-git() {
-  depends=(lib32-libxcb lib32-qtcurve-utils-git lib32-pango lib32-cairo
-    lib32-gtk2)
-  provides=(lib32-qtcurve-gtk2=1.8.17)
+  depends=(lib32-libxcb lib32-qtcurve-utils-git=${pkgver} lib32-pango
+    lib32-cairo lib32-gtk2 qtcurve-gtk2-git)
+  provides=(lib32-qtcurve-gtk2=${_realver})
   conflicts=(lib32-qtcurve-gtk2 lib32-qtcurve-gtk2-debug)
 
   make -C qtcurve/build/gtk2/style DESTDIR="$pkgdir" install
@@ -108,7 +109,7 @@ package_lib32-qtcurve-gtk2-git() {
 
 package_lib32-qtcurve-utils-git() {
   depends=(lib32-libx11 lib32-libxcb)
-  provides=(lib32-qtcurve-utils=1.8.17)
+  provides=(lib32-qtcurve-utils=${_realver})
   conflicts=(lib32-qtcurve-utils lib32-qtcurve-utils-debug)
 
   make -C qtcurve/build/lib/utils DESTDIR="$pkgdir" install
