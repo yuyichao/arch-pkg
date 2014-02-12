@@ -1,4 +1,4 @@
-# $Id: PKGBUILD 178040 2013-02-14 01:37:10Z foutrelis $
+# $Id: PKGBUILD 205035 2014-02-03 14:10:17Z foutrelis $
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
@@ -6,8 +6,8 @@
 # Contributor: Lucien Immink <l.immink@student.fnt.hvu.nl>
 
 pkgname=('pidgin' 'libpurple' 'finch')
-pkgver=2.10.7
-pkgrel=4
+pkgver=2.10.9
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://pidgin.im/"
 license=('GPL')
@@ -15,24 +15,22 @@ makedepends=('startup-notification' 'gtkspell' 'libxss' 'nss' 'libsasl' 'libsm'
              'libidn' 'python2' 'hicolor-icon-theme' 'farstream-0.1' 'avahi'
              'tk' 'ca-certificates' 'intltool' 'networkmanager')
 options=('!libtool' 'strip' 'debug')
-source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
-        pidgin-2.10.7-link-libirc-to-libsasl2.patch
-        grab_focus.patch)
-sha256sums=('eba32994eca20d1cf24a4261b059b2de71a1ec2dd0926e904074b0db49f7f192'
-            '063723d5dc5726c43137b4b383c9d07c2c008391f6a626faaf6cedd31a2f1e8f'
+source=(https://downloads.sourceforge.net/project/$pkgname/Pidgin/$pkgver/$pkgname-$pkgver.tar.bz2
+  grab_focus.patch)
+sha256sums=('dc362ed8577f623eea4554a79e917073aa726825074fea402f2e515f0f51f319'
             '30b946d812e870b259b711d7709dccc29a23a4e3f932bc7f05d1c0fdc8f0f8be')
-
-build() {
+prepare() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  # https://developer.pidgin.im/ticket/15517
-  patch -Np1 -i "$srcdir/pidgin-2.10.7-link-libirc-to-libsasl2.patch"
   patch -p1 -i "$srcdir/grab_focus.patch"
-  autoreconf -vi
 
   # Use Python 2
   sed -i 's/env python$/&2/' */plugins/*.py \
     libpurple/purple-{remote,notifications-example,url-handler}
+}
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
 
   ./configure \
     --prefix=/usr \
@@ -45,7 +43,7 @@ build() {
     --enable-nm \
     --with-python=/usr/bin/python2 \
     --with-system-ssl-certs=/etc/ssl/certs
-    make
+  make
 }
 
 package_pidgin(){
