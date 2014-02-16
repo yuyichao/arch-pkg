@@ -7,6 +7,7 @@ pkgver=2.18
 pkgrel=1
 pkgdesc="Embedded GNU C Library (${_target})"
 arch=(any)
+url="http://www.eglibc.org"
 curl="http://www.eglibc.org"
 license=('GPL')
 depends=("${_target}-linux-api-headers")
