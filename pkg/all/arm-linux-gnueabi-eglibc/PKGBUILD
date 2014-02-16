@@ -15,7 +15,7 @@ makedepends=("${_target}-gcc-stage2" 'subversion' 'gperf')
 provides=("${_target}-eglibc-headers=${pkgver}")
 conflicts=("${_target}-eglibc-headers")
 replaces=("${_target}-eglibc-headers")
-options=(!strip)
+options=(!strip 'staticlibs')
 source=(eglibc-${pkgver}::svn://svn.eglibc.org/branches/eglibc-${pkgver/./_}/libc
   configure-make4.patch)
 md5sums=('SKIP'
