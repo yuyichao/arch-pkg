@@ -83,11 +83,11 @@ build() {
   # At the present, clang must reside inside the LLVM source code tree to build
   # See http://llvm.org/bugs/show_bug.cgi?id=4840
   mkdir -p tools/clang
-  cp "$srcdir/clang/"* tools/clang
+  cp -a "$srcdir/clang/"* tools/clang
   mkdir -p tools/clang/tools/extra
-  cp "$srcdir/clang-tools-extra/"* tools/clang/tools/extra
+  cp -a "$srcdir/clang-tools-extra/"* tools/clang/tools/extra
   mkdir -p projects/compiler-rt
-  cp "$srcdir/compiler-rt/"* projects/compiler-rt
+  cp -a "$srcdir/compiler-rt/"* projects/compiler-rt
 
   # Fix docs installation directory
   sed -i 's:\$(PROJ_prefix)/docs/llvm:$(PROJ_prefix)/share/doc/llvm:' \
