@@ -26,6 +26,8 @@ sha256sums=('8240adda155d7961eeb5d07ed50ead10cb7125f70283dff7f1c9fee9df3cea09'
             '312574e655f9a87784ca416949c505c452b819fad3061f2cde8aced6540a19a3'
             '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48')
 
+exec 5>&1
+
 _fetch_git() {
   cd "$srcdir"
 
@@ -64,7 +66,8 @@ _fetch_git_all() {
 pkgver() {
   local outfile=/dev/null
   [[ -e /dev/tty ]] && outfile=/dev/tty
-  (_fetch_git_all &> ${outfile})
+  (_fetch_git_all >&5 2>&1)
+  local _gitref=master
   cd "$srcdir/llvm"
 
   printf "%s.0.%s.%s\n" \
