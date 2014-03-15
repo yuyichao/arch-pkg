@@ -13,6 +13,7 @@ pkgname=('llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'clang-git'
   'clang-analyzer-git' 'clang-tools-extra-git')
 pkgver=3.5.0.101323.571832b
 _realver=3.5
+_libver=(3.5.0svn 3.5svn)
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://llvm.org/"
@@ -133,14 +134,16 @@ package_llvm-git() {
 
   # We move the clang directory out of the tree so it won't get installed and
   # then we bring it back in for the clang package
-  mv tools/clang "$srcdir"
+  mv tools/clang "$srcdir/clang.bak"
 
   # -j1 is due to race conditions during the installation of the OCaml bindings
   make -j1 DESTDIR="$pkgdir" install
-  mv "$srcdir/clang" tools
+  mv "$srcdir/clang.bak" tools
 
   # The runtime library goes into llvm-libs
-  mv "$pkgdir/usr/lib/libLLVM-$_realver.so" "$srcdir"
+  for ver in "${_libver[@]}"; do
+    mv "$pkgdir/usr/lib/libLLVM-$ver.so" "$srcdir"
+  done
 
   # OCaml bindings go to a separate package
   rm -rf "$srcdir"/{ocaml,ocamldoc}
@@ -187,8 +190,10 @@ package_llvm-libs-git() {
   provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
   conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
-  install -D "$srcdir/libLLVM-$_realver.so" \
-    "$pkgdir/usr/lib/libLLVM-$_realver.so"
+  for ver in "${_libver[@]}"; do
+    install -D "$srcdir/libLLVM-$ver.so" \
+      "$pkgdir/usr/lib/libLLVM-$ver.so"
+  done
 
   install -Dm644 "$srcdir/llvm/LICENSE.TXT" \
     "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
