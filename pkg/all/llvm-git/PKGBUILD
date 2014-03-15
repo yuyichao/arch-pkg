@@ -82,9 +82,12 @@ build() {
 
   # At the present, clang must reside inside the LLVM source code tree to build
   # See http://llvm.org/bugs/show_bug.cgi?id=4840
-  ln -sf "$srcdir/clang" tools/clang
-  ln -sf "$srcdir/clang-tools-extra" tools/clang/tools/extra
-  ln -sf "$srcdir/compiler-rt" projects/compiler-rt
+  mkdir -p tools/clang
+  cp "$srcdir/clang/"* tools/clang
+  mkdir -p tools/clang/tools/extra
+  cp "$srcdir/clang-tools-extra/"* tools/clang/tools/extra
+  mkdir -p projects/compiler-rt
+  cp "$srcdir/compiler-rt/"* projects/compiler-rt
 
   # Fix docs installation directory
   sed -i 's:\$(PROJ_prefix)/docs/llvm:$(PROJ_prefix)/share/doc/llvm:' \
@@ -123,8 +126,8 @@ build() {
 package_llvm-git() {
   pkgdesc="Low Level Virtual Machine"
   depends=("llvm-libs-git=$pkgver-$pkgrel" 'perl')
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   cd "$srcdir/llvm"
 
@@ -181,8 +184,8 @@ package_llvm-git() {
 package_llvm-libs-git() {
   pkgdesc="Low Level Virtual Machine (runtime library)"
   depends=('gcc-libs' 'zlib' 'libffi' 'ncurses')
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   install -D "$srcdir/libLLVM-$_realver.so" \
     "$pkgdir/usr/lib/libLLVM-$_realver.so"
@@ -194,8 +197,8 @@ package_llvm-libs-git() {
 package_llvm-ocaml-git() {
   pkgdesc="OCaml bindings for LLVM"
   depends=("llvm-git=$pkgver-$pkgrel" 'ocaml')
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   cd "$srcdir/llvm"
 
@@ -213,8 +216,8 @@ package_clang-git() {
   pkgdesc="C language family frontend for LLVM"
   url="http://clang.llvm.org/"
   depends=("llvm-git=$pkgver-$pkgrel" 'gcc')
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   # Fix installation path for clang docs
   sed -i 's:$(PROJ_prefix)/share/doc/llvm:$(PROJ_prefix)/share/doc/clang:' \
@@ -253,8 +256,8 @@ package_clang-analyzer-git() {
   pkgdesc="A source code analysis framework"
   url="http://clang-analyzer.llvm.org/"
   depends=("clang-git=$pkgver-$pkgrel" 'python2')
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   cd "$srcdir/llvm/tools/clang"
 
@@ -290,8 +293,8 @@ package_clang-tools-extra-git() {
   pkgdesc="Extra tools built using Clang's tooling APIs"
   url="http://clang.llvm.org/"
   depends=("clang-git=$pkgver-$pkgrel")
-  provides=("${pkgname%-git}=${_realver}")
-  conflicts=("${pkgname%-git}")
+  provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
+  conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   cd "$srcdir/llvm/tools/clang/tools/extra"
 
