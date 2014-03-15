@@ -76,7 +76,7 @@ pkgver() {
     "$(git rev-parse --short "${_gitref}")"
 }
 
-prepare() {
+build() {
   (_fetch_git_all)
   cd "$srcdir/llvm"
 
@@ -92,11 +92,6 @@ prepare() {
 
   # Make -flto work; use ld.gold instead of the default linker
   patch -d tools/clang -Np1 -i "$srcdir/clang-3.3-use-gold-linker.patch"
-}
-
-build() {
-  (_fetch_git_all)
-  cd "$srcdir/llvm"
 
   # Include location of libffi headers in CPPFLAGS
   CPPFLAGS+=" $(pkg-config --cflags libffi)"
@@ -114,7 +109,10 @@ build() {
     --disable-assertions \
     --with-binutils-include=/usr/include \
     --with-python=/usr/bin/python2 \
-    --enable-optimized
+    --enable-optimized \
+    --enable-experimental-targets=R600 \
+    --enable-debug-symbols \
+    --enable-keep-symbols
 
   make REQUIRES_RTTI=1
   make -C docs -f Makefile.sphinx man
