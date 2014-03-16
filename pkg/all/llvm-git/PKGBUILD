@@ -139,7 +139,7 @@ _package_prepare() {
   mv pkg/clang.bak tools/clang
 
   # Fix absolute symlink
-  ln -sf libLLVM-$_libver.so "pkg/llvm/usr/lib/libLLVM-$_libsymver.so"
+  rm "pkg/llvm/usr/lib/libLLVM-$_libsymver.so"
 
   # Fix permissions of static libs
   chmod -x pkg/llvm/usr/lib/*.a
@@ -229,8 +229,7 @@ package_llvm-libs-git() {
 
   install -D pkg/llvm-lib/libLLVM-$_libver.so \
     "$pkgdir/usr/lib/libLLVM-$_libver.so"
-  install -D pkg/llvm-lib/libLLVM-$_libsymver.so \
-    "$pkgdir/usr/lib/libLLVM-$_libsymver.so"
+  ln -sf libLLVM-$_libver.so "$pkgdir/usr/lib/libLLVM-$_libsymver.so"
 
   install -Dm644 LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
