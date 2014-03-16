@@ -66,8 +66,6 @@ _fetch_git_all() {
 }
 
 pkgver() {
-  local outfile=/dev/null
-  [[ -e /dev/tty ]] && outfile=/dev/tty
   (_fetch_git_all >&5 2>&1)
   local _gitref=master
   cd "$srcdir/llvm"
