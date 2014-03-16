@@ -156,7 +156,7 @@ _package_prepare() {
   mv pkg/llvm/usr/{lib/ocaml,share/doc/llvm/ocamldoc} pkg/ocaml
 
   # Remove duplicate files installed by the OCaml bindings
-  rm pkg/ocaml/usr/{lib/libllvm*,share/doc/llvm/ocamldoc.tar.gz}
+  rm pkg/llvm/usr/{lib/libllvm*,share/doc/llvm/ocamldoc.tar.gz}
 
   # Remove execute bit from static libraries
   chmod -x pkg/ocaml/ocaml/libllvm*.a
