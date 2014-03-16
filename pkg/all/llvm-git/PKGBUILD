@@ -13,7 +13,8 @@ pkgname=('llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'clang-git'
   'clang-analyzer-git' 'clang-tools-extra-git')
 pkgver=3.5.0.101325.d5452e3
 _realver=3.5
-_libver=(3.5.0svn 3.5svn)
+_libver=3.5.0svn
+_libsymver=3.5svn
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://llvm.org/"
@@ -122,6 +123,65 @@ build() {
   make -C docs -f Makefile.sphinx man
   make -C docs -f Makefile.sphinx html
   make -C tools/clang/docs -f Makefile.sphinx html
+
+  _package_prepare
+}
+
+_package_prepare() {
+  mkdir pkg
+
+  # We move the clang directory out of the tree so it won't get installed and
+  # then we bring it back in for the clang package
+  mv tools/clang pkg/clang.bak
+
+  # -j1 is due to race conditions during the installation of the OCaml bindings
+  make -j1 DESTDIR="${PWD}/pkg/llvm" install
+  mv pkg/clang.bak tools/clang
+
+  # Fix absolute symlink
+  ln -sf libLLVM-$_libver.so "pkg/llvm/usr/lib/libLLVM-$_libsymver.so"
+
+  # Fix permissions of static libs
+  chmod -x pkg/llvm/usr/lib/*.a
+
+  # Get rid of example Hello transformation
+  rm pkg/llvm/usr/lib/*LLVMHello.*
+
+  # The runtime library goes into llvm-libs
+  mkdir pkg/llvm-lib
+  mv pkg/llvm/usr/lib/libLLVM-{$_libver,$_libsymver}.so pkg/llvm-lib
+
+  # OCaml bindings go to a separate package
+  mkdir pkg/ocaml
+  mv pkg/llvm/usr/{lib/ocaml,share/doc/llvm/ocamldoc} pkg/ocaml
+
+  # Remove duplicate files installed by the OCaml bindings
+  rm pkg/ocaml/usr/{lib/libllvm*,share/doc/llvm/ocamldoc.tar.gz}
+
+  # Remove execute bit from static libraries
+  chmod -x pkg/ocaml/ocaml/libllvm*.a
+
+  (_package_prepare_clang)
+}
+
+_package_prepare_clang() {
+  # Fix installation path for clang docs
+  sed -i.pacbak \
+    's:$(PROJ_prefix)/share/doc/llvm:$(PROJ_prefix)/share/doc/clang:' \
+    Makefile.config
+
+  # We move the extra tools directory out of the tree so it won't get
+  # installed and then we bring it back in for the clang-tools-extra package
+  mv tools/clang/tools/extra pkg/clang-tools-extra.bak
+
+  make -C tools/clang DESTDIR="${PWD}/pkg/clang" install
+  mv pkg/clang-tools-extra.bak tools/clang/tools/extra
+
+  # Fix permissions of static libs
+  chmod -x pkg/clang/usr/lib/*.a
+
+  # Revert the path change in case we want to do a repackage later
+  mv Makefile.config.pacbak Makefile.config
 }
 
 package_llvm-git() {
@@ -131,32 +191,7 @@ package_llvm-git() {
   conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
   cd "$srcdir/llvm"
-
-  # We move the clang directory out of the tree so it won't get installed and
-  # then we bring it back in for the clang package
-  mv tools/clang "$srcdir/clang.bak"
-
-  # -j1 is due to race conditions during the installation of the OCaml bindings
-  make -j1 DESTDIR="$pkgdir" install
-  mv "$srcdir/clang.bak" tools
-
-  # The runtime library goes into llvm-libs
-  for ver in "${_libver[@]}"; do
-    mv "$pkgdir/usr/lib/libLLVM-$ver.so" "$srcdir"
-  done
-
-  # OCaml bindings go to a separate package
-  rm -rf "$srcdir"/{ocaml,ocamldoc}
-  mv "$pkgdir"/usr/{lib/ocaml,share/doc/llvm/ocamldoc} "$srcdir"
-
-  # Remove duplicate files installed by the OCaml bindings
-  rm "$pkgdir"/usr/{lib/libllvm*,share/doc/llvm/ocamldoc.tar.gz}
-
-  # Fix permissions of static libs
-  chmod -x "$pkgdir"/usr/lib/*.a
-
-  # Get rid of example Hello transformation
-  rm "$pkgdir"/usr/lib/*LLVMHello.*
+  cp -a pkg/llvm/* "${pkgdir}"
 
   # Symlink LLVMgold.so into /usr/lib/bfd-plugins
   # (https://bugs.archlinux.org/task/28479)
@@ -178,8 +213,8 @@ package_llvm-git() {
   cp docs/_build/man/*.1 "$pkgdir/usr/share/man/man1/"
 
   # Install html docs
-  cp -r docs/_build/html/* "$pkgdir/usr/share/doc/$pkgname/html/"
-  rm -r "$pkgdir/usr/share/doc/$pkgname/html/_sources"
+  cp -r docs/_build/html/* "$pkgdir/usr/share/doc/llvm/html/"
+  rm -r "$pkgdir/usr/share/doc/llvm/html/_sources"
 
   install -Dm644 LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
@@ -190,13 +225,14 @@ package_llvm-libs-git() {
   provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
   conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
-  for ver in "${_libver[@]}"; do
-    install -D "$srcdir/libLLVM-$ver.so" \
-      "$pkgdir/usr/lib/libLLVM-$ver.so"
-  done
+  cd "$srcdir/llvm"
 
-  install -Dm644 "$srcdir/llvm/LICENSE.TXT" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -D pkg/llvm-lib/libLLVM-$_libver.so \
+    "$pkgdir/usr/lib/libLLVM-$_libver.so"
+  install -D pkg/llvm-lib/libLLVM-$_libsymver.so \
+    "$pkgdir/usr/lib/libLLVM-$_libsymver.so"
+
+  install -Dm644 LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
 package_llvm-ocaml-git() {
@@ -208,11 +244,8 @@ package_llvm-ocaml-git() {
   cd "$srcdir/llvm"
 
   install -d "$pkgdir"/{usr/lib,usr/share/doc/llvm}
-  cp -r "$srcdir/ocaml" "$pkgdir/usr/lib"
-  cp -r "$srcdir/ocamldoc" "$pkgdir/usr/share/doc/llvm"
-
-  # Remove execute bit from static libraries
-  chmod -x "$pkgdir"/usr/lib/ocaml/libllvm*.a
+  cp -r "pkg/ocaml/ocaml" "$pkgdir/usr/lib"
+  cp -r "pkg/ocaml/ocamldoc" "$pkgdir/usr/share/doc/llvm"
 
   install -Dm644 LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
@@ -224,29 +257,14 @@ package_clang-git() {
   provides=("${pkgname%-git}=${_realver}" "${pkgname%-git}-svn")
   conflicts=("${pkgname%-git}" "${pkgname%-git}-svn")
 
-  # Fix installation path for clang docs
-  sed -i 's:$(PROJ_prefix)/share/doc/llvm:$(PROJ_prefix)/share/doc/clang:' \
-    "$srcdir/llvm/Makefile.config"
+  cd "$srcdir/llvm"
+  cp -a pkg/clang/* "${pkgdir}"
 
-  cd "$srcdir/llvm/tools/clang"
-
-  # We move the extra tools directory out of the tree so it won't get
-  # installed and then we bring it back in for the clang-tools-extra package
-  mv tools/extra "$srcdir"
-
-  make DESTDIR="$pkgdir" install
-  mv "$srcdir/extra" tools/
-
-  # Fix permissions of static libs
-  chmod -x "$pkgdir"/usr/lib/*.a
-
-  # Revert the path change in case we want to do a repackage later
-  sed -i 's:$(PROJ_prefix)/share/doc/clang:$(PROJ_prefix)/share/doc/llvm:' \
-    "$srcdir/llvm/Makefile.config"
+  cd tools/clang
 
   # Install html docs
-  cp -r docs/_build/html/* "$pkgdir/usr/share/doc/$pkgname/html/"
-  rm -r "$pkgdir/usr/share/doc/$pkgname/html/_sources"
+  cp -r docs/_build/html/* "$pkgdir/usr/share/doc/clang/html/"
+  rm -r "$pkgdir/usr/share/doc/clang/html/_sources"
 
   # Install Python bindings
   install -d "$pkgdir/usr/lib/python2.7/site-packages"
