@@ -61,13 +61,11 @@ _fetch_git() {
 
 _fetch_git_all() {
   for module in llvm clang clang-tools-extra compiler-rt; do
-    _fetch_git ${module} git://github.com/llvm-mirror/${module}.git master
+    _fetch_git ${module} http://llvm.org/git/${module}.git master
   done
 }
 
 pkgver() {
-  local outfile=/dev/null
-  [[ -e /dev/tty ]] && outfile=/dev/tty
   (_fetch_git_all >&5 2>&1)
   local _gitref=master
   cd "$srcdir/llvm"
