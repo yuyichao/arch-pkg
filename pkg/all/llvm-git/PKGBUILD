@@ -147,7 +147,7 @@ _package_prepare() {
 
   # The runtime library goes into llvm-libs
   mkdir pkg/llvm-lib
-  mv pkg/llvm/usr/lib/libLLVM-{$_libver,$_libsymver}.so pkg/llvm-lib
+  mv pkg/llvm/usr/lib/libLLVM-$_libver.so pkg/llvm-lib
 
   # OCaml bindings go to a separate package
   mkdir pkg/ocaml
