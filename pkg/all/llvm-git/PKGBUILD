@@ -11,7 +11,7 @@
 pkgbase='llvm-git'
 pkgname=('llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'clang-git'
   'clang-analyzer-git' 'clang-tools-extra-git')
-pkgver=3.5.0.101328.8142bc1
+pkgver=3.5.0.101786.1fc0d63
 _realver=3.5
 _libver=3.5.0svn
 _libsymver=3.5svn
