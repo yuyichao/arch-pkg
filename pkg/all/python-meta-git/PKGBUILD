@@ -10,8 +10,8 @@ url="https://github.com/numba/Meta"
 arch=('i686' 'x86_64')
 license=('BSD')
 depends=('python>=3.4' 'python<3.5')
-makedepends=(git)
-provides=("pEython-meta=${_realver}")
+makedepends=(git python-setuptools)
+provides=("python-meta=${_realver}")
 conflicts=('python-meta')
 
 _gitname=python-meta
