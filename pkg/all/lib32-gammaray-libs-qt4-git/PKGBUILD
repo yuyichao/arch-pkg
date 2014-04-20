@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=lib32-gammaray-libs-qt4-git
-pkgver=2.0.1.217.ge11b1fb
+pkgver=2.0.2.257.gad2cba1
 _realver=2.1
 pkgrel=1
 arch=('x86_64')
