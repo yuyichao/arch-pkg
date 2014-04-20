@@ -4,7 +4,7 @@
 pkgbase=gammaray-qt5-git
 pkgname=gammaray-qt5-git
 true && pkgname=(gammaray-qt5-git gammaray-libs-qt5-git gammaray-common-git)
-pkgver=2.0.1.217.ge11b1fb
+pkgver=2.0.2.257.gad2cba1
 _realver=2.1
 pkgrel=1
 epoch=2
