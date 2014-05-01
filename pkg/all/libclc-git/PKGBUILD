@@ -60,6 +60,7 @@ prepare() {
 }
 
 build() {
+  (_fetch_git >&5 2>&1)
   cd "$srcdir/$_gitname"
 
   python2 ./configure.py --prefix=/usr
