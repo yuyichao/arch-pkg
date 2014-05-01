@@ -9,6 +9,7 @@ license=('BSD')
 depends=('llvm' 'python')
 makedepends=(git)
 provides=('python-llvmpy')
+options=('debug' 'strip')
 
 _gitname=llvmpy
 
