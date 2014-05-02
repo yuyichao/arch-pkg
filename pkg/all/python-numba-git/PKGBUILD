@@ -1,6 +1,7 @@
 pkgname=python-numba-git
 pkgver=0.13.1
 pkgrel=1
+epoch=1
 pkgdesc="NumPy aware dynamic Python compiler using LLVM"
 url="https://github.com/numba/numba"
 arch=('i686' 'x86_64')
@@ -8,6 +9,7 @@ license=('BSD')
 depends=('python' 'python-llvmpy-git' 'python-meta-git' 'python-llvmmath-git')
 makedepends=('git' 'cython')
 provides=('python-numba')
+options=('debug' 'strip')
 
 _gitname=numba
 
@@ -55,7 +57,5 @@ build() {
 package() {
   cd "$srcdir/$_gitname"
 
-  python setup.py install \
-    --prefix=/usr \
-    --root="$pkgdir"
+  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
 }
