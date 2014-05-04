@@ -1,7 +1,8 @@
-# Maintainer: Armin K. <krejzi at email dot com>
+# Maintainer: Yichao Yu <yyc1992@gmail.com>
+# Contributor: Armin K. <krejzi at email dot com>
 
 pkgname=libclc-git
-pkgver=116.f5dec6f
+pkgver=123.9908d94
 pkgrel=1
 pkgdesc="Library requirements of the OpenCL C programming language"
 arch=('i686' 'x86_64')
@@ -60,7 +61,7 @@ prepare() {
 }
 
 build() {
-  (_fetch_git >&5 2>&1)
+  (_fetch_git)
   cd "$srcdir/$_gitname"
 
   python2 ./configure.py --prefix=/usr
