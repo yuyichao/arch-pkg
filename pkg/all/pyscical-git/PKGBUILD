@@ -17,7 +17,7 @@ makedepends=('git' 'python-setuptools' 'coreutils')
 
 _gitname='pyscical'
 
-_gitroot='https://yuyichao@github.com/yuyichao/pyscical.git'
+_gitroot='git://github.com/yuyichao/pyscical.git'
 _gitref=master
 exec 5>&1
 
