@@ -84,7 +84,7 @@ package_python-opencl4py-git() {
 package_python2-opencl4py-git() {
   depends=('python2' 'python2-cffi')
   provides=('python2-opencl4py')
-  cd "$srcdir/$_gitname"
+  cd "$srcdir/$_gitname-python2"
 
   python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
   # _fix_py2_cffi opencl4py
