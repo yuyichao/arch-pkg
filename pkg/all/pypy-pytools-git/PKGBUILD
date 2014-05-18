@@ -5,7 +5,7 @@
 pkgbase=pypy-pytools-git
 pkgname=pypy-pytools-git
 pkgname=('pypy3-pytools-git' 'pypy-pytools-git')
-pkgver=2014.1.2.0.1.g6ca8092
+pkgver=2014.1.2.0.2.g5b66f65
 pkgrel=1
 pkgdesc="A collection of tools for Python"
 arch=('any')
