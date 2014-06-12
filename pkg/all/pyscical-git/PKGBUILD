@@ -2,18 +2,18 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=pyscical-git
-pkgver=32.07985e7
+pkgver=35.bcc4b65
 pkgrel=1
 epoch=1
 pkgdesc="Python Scientific Calculator"
-arch=('any')
+arch=('i686' 'x86_64')
 provides=('pyscical')
 conflicts=('pyscical')
 url="https://github.com/yuyichao/pyscical"
 license=('GPLv3')
 depends=('python' 'python-scipy' 'bash' 'python-matplotlib')
 optdepends=('ipython: for a better instracting shell')
-makedepends=('git' 'python-setuptools' 'coreutils')
+makedepends=('git' 'cmake' 'coreutils')
 
 _gitname='pyscical'
 
