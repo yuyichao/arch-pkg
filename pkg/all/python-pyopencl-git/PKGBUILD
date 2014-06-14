@@ -3,7 +3,7 @@
 
 pkgbase=python-pyopencl-git
 pkgname=('python2-pyopencl-git' 'python-pyopencl-git')
-pkgver=2013.2.0.86.g4f2ef17
+pkgver=2013.2.0.88.gda00a84
 pkgrel=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python. Python version on top of cffi"
 arch=('i686' 'x86_64')
@@ -15,6 +15,7 @@ makedepends=('python2-setuptools' 'python-setuptools' 'libcl'
   'python-numpy' 'python2-numpy')
 source=('LICENSE.txt')
 sha1sums=('2e6966b3d9b15603ce2c3ff79eeadd63c5d066b7')
+options=('debug' 'strip')
 
 _gitname=pyopencl
 
