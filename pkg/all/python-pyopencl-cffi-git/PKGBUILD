@@ -3,7 +3,7 @@
 
 pkgbase=python-pyopencl-cffi-git
 pkgname=('python2-pyopencl-cffi-git' 'python-pyopencl-cffi-git')
-pkgver=2014.1.0.279.gaf5f962
+pkgver=2014.1.0.297.g4029259
 pkgrel=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python. Python version on top of cffi"
 arch=('i686' 'x86_64')
