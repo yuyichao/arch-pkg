@@ -3,7 +3,7 @@
 
 pkgbase=python-pyopencl-git
 pkgname=('python2-pyopencl-git' 'python-pyopencl-git')
-pkgver=2013.2.0.102.g19b8373
+pkgver=2014.1.0.21.gce14f81
 pkgrel=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python. Python version on top of cffi"
 arch=('i686' 'x86_64')
@@ -52,6 +52,7 @@ _fetch_git() {
   git submodule init
   git submodule sync
   git submodule update
+  git fetch --tags "$_gitroot"
   msg "GIT checkout done or server timeout"
 }
 
