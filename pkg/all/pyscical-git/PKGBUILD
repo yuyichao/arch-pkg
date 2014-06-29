@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=pyscical-git
-pkgver=36.dd4bd67
+pkgver=48.74d23e0
 pkgrel=1
 epoch=1
 pkgdesc="Python Scientific Calculator"
