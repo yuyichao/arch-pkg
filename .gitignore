@@ -3,9 +3,11 @@ build*/
 .*
 !.git*
 .git/
+*.tar
 *.tar.*
 *.zip
 *.tgz
+*.gz
 *.kdev4
 *.kate-swp
 *.orig
