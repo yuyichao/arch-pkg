@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=nacs-lab-tools-git
-pkgver=1.1eda598
+pkgver=7.0ed1425
 pkgrel=1
 epoch=1
 pkgdesc="Linux Namespace Tools"
