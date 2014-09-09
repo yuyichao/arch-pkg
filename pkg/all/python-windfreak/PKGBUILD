@@ -3,7 +3,7 @@
 
 pkgbase=python-windfreak-git
 pkgname=python-windfreak-git
-pkgver=4.8c9ad10
+pkgver=5.f072aba
 pkgrel=1
 epoch=1
 pkgdesc="Python Module for controlling WindFreak synthesizers"
