@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=nacs-lab-tools-git
-pkgver=19.e44c714
+pkgver=26.a695a6b
 pkgrel=1
 epoch=1
 pkgdesc="Linux Namespace Tools"
@@ -60,7 +60,9 @@ build() {
 
   mkdir -p build
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
+  export JAVA_HOME=/opt/java6
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib \
+    -DJAVA_HOME="${JAVA_HOME}"
   make
 }
 
