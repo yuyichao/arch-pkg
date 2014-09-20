@@ -1,0 +1,47 @@
+# Maintainer: Moritz Maxeiner <moritz@ucworks.org>
+# Contributor: Aaron Lindsay <aaron@aclindsay.com>
+
+pkgname=libsearpc
+pkgver=1.2.2
+_seafilever=3.0.4
+pkgrel=6
+pkgdesc="A simple and easy-to-use C language RPC framework (including both server side & client side) based on GObject System."
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
+url="https://github.com/haiwen/libsearpc/"
+license=('GPLv3')
+depends=('glib2>=2.16.0' 'jansson>=2.2.1' 'libtool>=1.4')
+makedepends=('python2-simplejson')
+optdepends=('python2-simplejson')
+source=("https://github.com/haiwen/libsearpc/archive/v${_seafilever}.tar.gz"
+  "libsearpc.pc.patch")
+sha256sums=('131444c2f476dfe8a2d9c2d1eec07e40606fd3e8105a5327e1febb2e15c6ab68'
+            'aec39a303aaebc0777a22d8c53367f52f619654d63f62b362d75c1c599e632f4')
+
+configure_libsearpc() {
+  ./autogen.sh
+  ./configure --prefix=/usr PYTHON=/usr/bin/python2
+}
+
+# pkgver() {
+#   cd "$srcdir/$pkgname-$_seafilever"
+#   configure_libsearpc &> /dev/null
+#   grep "PACKAGE_VERSION" Makefile | \
+#     sed 's/PACKAGE_VERSION.*=[ \t]\+\([0-9\.]\+\)[ \t]*/\1/g'
+# }
+
+prepare () {
+  cd "$srcdir/$pkgname-$_seafilever"
+  patch -p1 -i ../libsearpc.pc.patch
+}
+
+build () {
+  cd "$srcdir/$pkgname-$_seafilever"
+  configure_libsearpc
+  make -j1
+}
+
+package () {
+  #install library and header files
+  cd "$srcdir/$pkgname-$_seafilever"
+  make DESTDIR="$pkgdir/" install
+}
