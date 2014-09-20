@@ -1,0 +1,56 @@
+# Maintainer: Moritz Maxeiner <moritz@ucworks.org>
+# Contributor: Aaron Lindsay <aaron@aclindsay.com>
+
+pkgname=ccnet
+pkgver=1.4.2
+_seafilever=3.0.4
+pkgrel=3
+pkgdesc="A framework for writing networked applications in C."
+arch=('i686' 'x86_64' 'armv7h' 'armv6h')
+url="https://github.com/haiwen/ccnet/"
+license=('custom')
+depends=('libevent>=2.0' 'libzdb>=2.10.2' 'libsearpc>=1.2.2'
+  'jansson>=2.2.1' 'libldap' 'python2>=2.6')
+makedepends=('vala>=0.8')
+source=("https://github.com/haiwen/ccnet/archive/v${_seafilever}.tar.gz"
+  "https://raw.github.com/haiwen/ccnet/master/COPYRIGHT"
+  "libccnet.pc.patch"
+  "0001-Add-autoconfiguration-for-libjansson.patch")
+sha256sums=('389c60a9dc5559aa6b690b937baa43b0f7586a88352813c04072218ad3343df9'
+            '7abb45e3e313d37337b088411fa249171f58186ebf951c19ea2bf1390927a0f3'
+            '66c3b02c3981db6a80819e0ae103bedadf8dfdf81405a7f75a9cba714acf973f'
+            '72f8f8fd79c0b570335240e4ef53357bb70f25477b66beddaa445ee27d350674')
+
+configure_ccnet() {
+  ./autogen.sh
+  CFLAGS="-lpthread" ./configure --enable-server --enable-ldap \
+    --prefix=/usr PYTHON=/usr/bin/python2
+}
+
+# pkgver() {
+#   cd "$srcdir/$pkgname-$_seafilever"
+#   configure_ccnet &> /dev/null
+#   grep "PACKAGE_VERSION" Makefile | sed 's/PACKAGE_VERSION.*=[ \t]\+\([0-9\.]\+\)[ \t]*/\1/g'
+# }
+
+prepare() {
+  cd "$srcdir/$pkgname-$_seafilever"
+  patch -p1 -i ../libccnet.pc.patch
+  patch -p1 -i ../0001-Add-autoconfiguration-for-libjansson.patch
+}
+
+build() {
+  cd "$srcdir/$pkgname-$_seafilever"
+  configure_ccnet
+  make -j1
+}
+
+package () {
+  #install library and header files
+  cd "$srcdir/$pkgname-$_seafilever"
+  make DESTDIR="$pkgdir/" install
+
+  #copy license over
+  mkdir -p "$pkgdir"/usr/share/licenses/$pkgname
+  cp "$srcdir"/COPYRIGHT "$pkgdir"/usr/share/licenses/$pkgname/
+}
