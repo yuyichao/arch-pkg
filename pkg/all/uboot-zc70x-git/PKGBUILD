@@ -1,7 +1,7 @@
 # Maintainer: Ettore Chimenti <ek5.chimenti at gmail dot com>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 pkgname=uboot-zc70x-git
-pkgver=xilinx.0.v2014.3
+pkgver=2014.3
 pkgrel=1
 pkgdesc='Utilities for working with Das U-Boot Compiled for zc70x'
 arch=('i686' 'x86_64')
@@ -23,7 +23,7 @@ prepare() {
 pkgver() {
   cd u-boot-xlnx
 
-  git describe | sed -e 's/-/.0./' -e 's/-/./g'
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build(){
