@@ -10,11 +10,11 @@ pkgdesc='New wave Internationalization support for Ruby'
 arch=(any)
 url='https://github.com/svenfuchs/i18n'
 license=(MIT)
-depends=(ruby)
+depends=('ruby>=2.1' 'ruby<2.2')
 options=(!emptydirs)
 source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
-noextract=($_gemname-$pkgver.gem)
 sha1sums=('05f440f6518fdd252142e166b7ac93dc8d59e661')
+noextract=($_gemname-$pkgver.gem)
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
