@@ -3,36 +3,37 @@
 
 pkgbase=gtk2
 pkgname=('gtk2' 'gtk-update-icon-cache')
-pkgver=2.24.24
+pkgver=2.24.25
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.gtk.org/"
-makedepends=('atk' 'pango' 'libxcursor' 'libxinerama' 'libxrandr' 'libxi' 'libxcomposite' 'libxdamage'
-  'shared-mime-info' 'cairo' 'libcups' 'gdk-pixbuf2' 'gobject-introspection')
+makedepends=('atk' 'pango' 'libxcursor' 'libxinerama' 'libxrandr' 'libxi'
+             'libxcomposite' 'libxdamage' 'shared-mime-info' 'cairo' 'libcups'
+             'gdk-pixbuf2' 'gobject-introspection' 'python2')
 license=('LGPL')
 source=(http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-$pkgver.tar.xz
-  gtkrc xid-collision-debug.patch
-  0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
-sha256sums=('12ceb2e198c82bfb93eb36348b6e9293c8fdcd60786763d04cfec7ebe7ed3d6d'
-  'b77a427df55a14182c10ad7e683b4d662df2846fcd38df2aa8918159d6be3ae2'
-  'd758bb93e59df15a4ea7732cf984d1c3c19dff67c94b957575efea132b8fe558'
-  'df92185aab973865a4b5389222e769aa21a2e13194e83873b272d4f57c785fcf')
+        gtkrc xid-collision-debug.patch
+        0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
+sha256sums=('38af1020cb8ff3d10dda2c8807f11e92af9d2fa4045de61c62eedb7fbc7ea5b3'
+            'b77a427df55a14182c10ad7e683b4d662df2846fcd38df2aa8918159d6be3ae2'
+            'd758bb93e59df15a4ea7732cf984d1c3c19dff67c94b957575efea132b8fe558'
+            'df92185aab973865a4b5389222e769aa21a2e13194e83873b272d4f57c785fcf')
 options=('strip' 'debug' '!libtool')
 
 prepare() {
   cd gtk+-$pkgver
   patch -Np1 -i ../xid-collision-debug.patch
   patch -Np1 -i \
-    ../0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch
+        ../0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch
 }
 
 build() {
   cd gtk+-$pkgver
 
   CXX=/bin/false ./configure --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --with-xinput=yes
+     --sysconfdir=/etc \
+     --localstatedir=/var \
+     --with-xinput=yes
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -43,10 +44,11 @@ build() {
 package_gtk2() {
   pkgdesc="GTK+ is a multi-platform toolkit (v2)"
   install=gtk2.install
-  depends=('atk' 'pango' 'libxcursor' 'libxinerama' 'libxrandr' 'libxi' 'libxcomposite' 'libxdamage'
-    'shared-mime-info' 'cairo' 'libcups' 'gtk-update-icon-cache')
+  depends=('atk' 'pango' 'libxcursor' 'libxinerama' 'libxrandr' 'libxi'
+           'libxcomposite' 'libxdamage' 'shared-mime-info' 'cairo' 'libcups'
+           'gtk-update-icon-cache')
   optdepends=('gnome-themes-standard: Default widget theme'
-    'gnome-icon-theme: Default icon theme')
+              'gnome-icon-theme: Default icon theme')
   replaces=('gtk2-docs')
 
   cd gtk+-$pkgver
