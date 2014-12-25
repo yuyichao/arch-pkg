@@ -1,0 +1,33 @@
+pkgname=julia-ode-git
+pkgver=0.1.1.0.5.g4b95168
+pkgrel=1
+pkgdesc="ODE.jl"
+url="https://github.com/JuliaLang/ODE.jl"
+arch=('any')
+license=('LGPLv3')
+# TODO version depends
+depends=('julia' 'julia-polynomial')
+makedepends=('cmake')
+provides=('julia-ode')
+options=('debug' 'strip')
+source=(git://github.com/JuliaLang/ODE.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ODE.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ODE.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/ODE.jl"
+
+  cp -a src "${pkgdir}/${site_dir}/ODE.jl"
+}
