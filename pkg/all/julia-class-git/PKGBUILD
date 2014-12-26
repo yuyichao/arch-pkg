@@ -1,9 +1,9 @@
 pkgname=julia-class-git
-pkgver=13.2d4c5a0
+pkgver=27.81d46c3
 pkgrel=1
 pkgdesc="Class.jl"
 url="https://github.com/yuyichao/Class.jl"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('LGPLv3')
 # TODO version depends
 depends=('julia')
