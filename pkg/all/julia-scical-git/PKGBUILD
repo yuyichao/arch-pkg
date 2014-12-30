@@ -1,5 +1,5 @@
 pkgname=julia-scical-git
-pkgver=8.8e0916c
+pkgver=9.d85087e
 pkgrel=1
 pkgdesc="Scical.jl"
 url="https://github.com/yuyichao/Scical.jl"
