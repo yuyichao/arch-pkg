@@ -19,7 +19,7 @@ options=('debug' 'strip')
 
 _gitname="qtcurve"
 
-_gitroot="git://github.com/QtCurve/qtcurve.git"
+_gitroot="git://anongit.kde.org/qtcurve.git"
 _gitref=master
 
 _fetch_git() {
