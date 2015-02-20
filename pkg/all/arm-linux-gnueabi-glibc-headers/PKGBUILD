@@ -10,8 +10,9 @@ arch=(any)
 url="http://www.eglibc.org"
 license=('GPL' 'LGPL')
 depends=("${_target}-linux-api-headers>=3.16")
-provides=("${_target}-glibc-headers=${pkgver}")
-replaces=("${_target}-glibc-headers")
+provides=("${_target}-eglibc-headers=${pkgver}")
+replaces=("${_target}-eglibc-headers")
+conflicts=("${_target}-eglibc-headers")
 makedepends=("${_target}-gcc-stage1" 'subversion')
 options=(!strip)
 source=(http://ftp.gnu.org/gnu/libc/glibc-${pkgver}.tar.xz
