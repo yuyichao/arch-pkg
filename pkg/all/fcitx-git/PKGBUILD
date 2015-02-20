@@ -4,7 +4,7 @@
 
 _pkgname=fcitx
 pkgname=$_pkgname-git
-pkgver=4.2.8.5.0.4.g3b931e0
+pkgver=4.2.8.5.0.11.g937d475
 _realver=4.2.8
 pkgrel=1
 epoch=2
