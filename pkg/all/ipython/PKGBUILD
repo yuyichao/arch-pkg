@@ -6,7 +6,7 @@
 
 pkgbase=ipython
 pkgname=(ipython ipython2 ipython-dep ipython2-dep)
-pkgver=2.3.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="An enhanced Interactive Python shell."
 arch=('any')
@@ -15,19 +15,19 @@ license=('BSD')
 depends=('python' 'sqlite' 'python-setuptools')
 makedepends=('python-setuptools' 'python2-setuptools' 'sqlite')
 optdepends=("wxpython: needed for ipythonx and ipython-wx"
-  "python-twisted: networking-related tasks"
-  "python-nose: if you want to run IPython's test suite"
-  "python-pyqt4: for ipython qtconsole"
-  "python-sip: for ipython qtconsole"
-  "python-pygments: for ipython qtconsole"
-  "python-pyzmq: for ipython notebook and ipython qtconcole"
-  "python-tornado: for ipython notebook"
-  "python-jinja: for ipython notebook"
-  "haskell-pandoc: ipython notebook conversion")
+            "python-twisted: networking-related tasks"
+            "python-nose: if you want to run IPython's test suite"
+            "python-pyqt4: for ipython qtconsole"
+            "python-sip: for ipython qtconsole"
+            "python-pygments: for ipython qtconsole"
+            "python-pyzmq: for ipython notebook and ipython qtconsole"
+            "python-tornado: for ipython notebook"
+            "python-jinja: for ipython notebook"
+            "haskell-pandoc: ipython notebook conversion")
 #source=("http://archive.ipython.org/release/$pkgver/ipython-$pkgver.tar.gz")
 source=("https://pypi.python.org/packages/source/i/ipython/$pkgbase-$pkgver.tar.gz"
-  revert-xdg.patch)
-md5sums=('222eecd3a8299c0119c56954c79e4d0f'
+        revert-xdg.patch)
+md5sums=('70149981d6515d77ecb3d7507de2d7d9'
          'f252c7449083c5b4a59dab260f5466c6')
 
 prepare() {
@@ -72,25 +72,25 @@ package_ipython2() {
   pkgdesc="An enhanced Interactive Python2 shell."
   depends=('python2' 'sqlite' 'python2-setuptools')
   optdepends=("wxpython: needed for ipythonx and ipython-wx"
-    "python2-twisted: networking-related tasks"
-    "python2-foolscap: for IPython's parallel computing features"
-    "python2-pexpect: for irunner"
-    "python2-nose: if you want to run IPython's test suite"
-    "python2-pyqt4: for ipython qtconsole"
-    "python2-sip: for ipython qtconsole"
-    "python2-pygments: for ipython qtconsole"
-    "python2-pyzmq: for ipython notebook and ipython qtconsole"
-    "python2-tornado: for ipython notebook"
-    "python2-jinja: for ipython notebook"
-    "haskell-pandoc: ipython notebook conversion")
+              "python2-twisted: networking-related tasks"
+              "python2-foolscap: for IPython's parallel computing features"
+              "python2-pexpect: for irunner"
+              "python2-nose: if you want to run IPython's test suite"
+              "python2-pyqt4: for ipython qtconsole"
+              "python2-sip: for ipython qtconsole"
+              "python2-pygments: for ipython qtconsole"
+              "python2-pyzmq: for ipython notebook and ipython qtconsole"
+              "python2-tornado: for ipython notebook"
+              "python2-jinja: for ipython notebook"
+              "haskell-pandoc: ipython notebook conversion")
 
   cd "$srcdir/ipython2-$pkgver"
 
   python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=0
   rm -rf "$pkgdir/usr/share/doc"
   find "$pkgdir" -name '*.py' -print0 | xargs -0 \
-    sed -i -e 's,^#!/usr/bin/env python$,#!/usr/bin/env python2,' \
-    -e 's,^#!/usr/bin/python$,#!/usr/bin/python2,'
+                                              sed -i -e 's,^#!/usr/bin/env python$,#!/usr/bin/env python2,' \
+                                              -e 's,^#!/usr/bin/python$,#!/usr/bin/python2,'
   find "$pkgdir/" -name '*.pyc' -delete
 
   install -Dm644 docs/source/about/license_and_copyright.rst "$pkgdir/usr/share/licenses/ipython2/LICENSE"
