@@ -6,18 +6,18 @@
 # Contributor: Lucien Immink <l.immink@student.fnt.hvu.nl>
 
 pkgname=('pidgin' 'libpurple' 'finch')
-pkgver=2.10.9
-pkgrel=2
+pkgver=2.10.11
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://pidgin.im/"
 license=('GPL')
 makedepends=('startup-notification' 'gtkspell' 'libxss' 'nss' 'libsasl' 'libsm'
-             'libidn' 'python2' 'hicolor-icon-theme' 'farstream-0.1' 'avahi'
-             'tk' 'ca-certificates' 'intltool' 'networkmanager')
+             'libidn' 'libgadu' 'python2' 'hicolor-icon-theme' 'farstream-0.1'
+             'avahi' 'tk' 'ca-certificates' 'intltool' 'networkmanager')
 options=('!libtool' 'strip' 'debug')
 source=(https://downloads.sourceforge.net/project/$pkgname/Pidgin/$pkgver/$pkgname-$pkgver.tar.bz2
-  grab_focus.patch)
-sha256sums=('dc362ed8577f623eea4554a79e917073aa726825074fea402f2e515f0f51f319'
+        grab_focus.patch)
+sha256sums=('f2ae211341fc77efb9945d40e9932aa535cdf3a6c8993fe7919fca8cc1c04007'
             '30b946d812e870b259b711d7709dccc29a23a4e3f932bc7f05d1c0fdc8f0f8be')
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -26,23 +26,23 @@ prepare() {
 
   # Use Python 2
   sed -i 's/env python$/&2/' */plugins/*.py \
-    libpurple/purple-{remote,notifications-example,url-handler}
+      libpurple/purple-{remote,notifications-example,url-handler}
 }
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
   ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --disable-schemas-install \
-    --disable-meanwhile \
-    --disable-gnutls \
-    --enable-cyrus-sasl \
-    --disable-doxygen \
-    --enable-nm \
-    --with-python=/usr/bin/python2 \
-    --with-system-ssl-certs=/etc/ssl/certs
+      --prefix=/usr \
+      --sysconfdir=/etc \
+      --disable-schemas-install \
+      --disable-meanwhile \
+      --disable-gnutls \
+      --enable-cyrus-sasl \
+      --disable-doxygen \
+      --enable-nm \
+      --with-python=/usr/bin/python2 \
+      --with-system-ssl-certs=/etc/ssl/certs
   make
 }
 
@@ -64,14 +64,15 @@ package_pidgin(){
   # Remove files that are packaged in libpurle
   make -C libpurple DESTDIR="$pkgdir" uninstall-libLTLIBRARIES
 
-  install -Dm644 pidgin.desktop "$pkgdir"/usr/share/applications/pidgin.desktop
+  # install -Dm644 pidgin.desktop \
+  #         "$pkgdir"/usr/share/applications/pidgin.desktop
 
   rm "$pkgdir/usr/share/man/man1/finch.1"
 }
 
 package_libpurple(){
   pkgdesc="IM library extracted from Pidgin"
-  depends=('farstream-0.1' 'libsasl' 'libidn' 'dbus-glib' 'nss')
+  depends=('farstream-0.1' 'libsasl' 'libidn' 'libgadu' 'dbus-glib' 'nss')
   optdepends=('avahi: Bonjour protocol support'
               'ca-certificates: SSL CA certificates'
               'python2-dbus: for purple-remote and purple-url-handler'
@@ -90,7 +91,7 @@ package_libpurple(){
 
 package_finch(){
   pkgdesc="A ncurses-based messaging client"
-  depends=("libpurple=$pkgver-$pkgrel" 'libx11' 'python2')
+  depends=("libpurple" 'libx11' 'python2')
 
   cd "$srcdir/pidgin-$pkgver"
 
