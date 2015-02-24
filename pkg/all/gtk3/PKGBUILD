@@ -1,38 +1,41 @@
+# Maintainer: Ionut Biru <ibiru@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+
 pkgname=gtk3
-pkgver=3.14.2
+pkgver=3.14.8
 pkgrel=1
 pkgdesc="GObject-based multi-platform GUI toolkit (v3)"
 arch=(i686 x86_64)
 url="http://www.gtk.org/"
 install=gtk3.install
 depends=(atk cairo gtk-update-icon-cache libcups libxcursor libxinerama
-  libxrandr libxi libxcomposite libxdamage pango shared-mime-info colord
-  at-spi2-atk wayland libxkbcommon adwaita-icon-theme)
+         libxrandr libxi libxcomposite libxdamage pango shared-mime-info colord
+         at-spi2-atk wayland libxkbcommon adwaita-icon-theme json-glib rest)
 makedepends=(gobject-introspection python2)
-options=('!libtool' '!staticlibs' 'debug' 'strip')
 license=(LGPL)
 source=(http://ftp.gnome.org/pub/gnome/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz
-  0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
-sha256sums=('87a34b9357704cdf4133213ff0106bebcec822d9023c9b774e06c9970cbb1866'
-  'df92185aab973865a4b5389222e769aa21a2e13194e83873b272d4f57c785fcf')
+        0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
+sha256sums=('7a543ea8a85f2c8a7b7374f24fd57df454067858689d8b02ec6c90f24be2b344'
+            'df92185aab973865a4b5389222e769aa21a2e13194e83873b272d4f57c785fcf')
+options=('!libtool' '!staticlibs' 'debug' 'strip')
 
 prepare() {
   cd gtk+-$pkgver
   patch -Np1 -i \
-    ../0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch
+        ../0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch
 }
 
 build() {
   cd "gtk+-$pkgver"
 
   CXX=/bin/false ./configure --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --enable-gtk2-dependency \
-    --disable-schemas-compile \
-    --enable-x11-backend \
-    --enable-broadway-backend \
-    --enable-wayland-backend
+     --sysconfdir=/etc \
+     --localstatedir=/var \
+     --enable-gtk2-dependency \
+     --disable-schemas-compile \
+     --enable-x11-backend \
+     --enable-broadway-backend \
+     --enable-wayland-backend
 
   #https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
