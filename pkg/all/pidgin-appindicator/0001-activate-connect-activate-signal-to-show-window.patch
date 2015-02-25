@@ -1,0 +1,52 @@
+From 1939366c63aa69f2d2bddea62d23082166140649 Mon Sep 17 00:00:00 2001
+From: Yichao Yu <yyc1992@gmail.com>
+Date: Wed, 25 Feb 2015 09:02:02 -0500
+Subject: [PATCH] [activate] connect activate signal to show window
+
+---
+ src/docklet.h          | 2 +-
+ src/gtkdocklet.c       | 2 +-
+ src/pidgin-indicator.c | 3 +++
+ 3 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/docklet.h b/src/docklet.h
+index 8c09eec..f8e9648 100644
+--- a/src/docklet.h
++++ b/src/docklet.h
+@@ -39,5 +39,5 @@ void indicator_docklet_uninit(PurplePlugin *plugin);
+ 
+ void docklet_conv_present_conversation(PurpleConversation *conv);
+ guint docklet_conversations_fill_menu(GtkWidget *menu, GList *convs);
+-
++void docklet_activate_cb(void);
+ #endif // _DOCKLET_H_
+diff --git a/src/gtkdocklet.c b/src/gtkdocklet.c
+index 1e0d5ba..ad519b7 100644
+--- a/src/gtkdocklet.c
++++ b/src/gtkdocklet.c
+@@ -669,7 +669,7 @@ docklet_plugin_actions(GtkWidget *menu)
+ 		pidgin_separator(menu);
+ }
+ 
+-static void
++void
+ docklet_activate_cb(void)
+ {
+ 	if (pending) {
+diff --git a/src/pidgin-indicator.c b/src/pidgin-indicator.c
+index 9eeb8a4..f4fb2c0 100644
+--- a/src/pidgin-indicator.c
++++ b/src/pidgin-indicator.c
+@@ -112,6 +112,9 @@ indicator_load(PurplePlugin *plugin) {
+                                 APP_INDICATOR_CATEGORY_APPLICATION_STATUS,
+                                 DATADIR G_DIR_SEPARATOR_S "pixmaps" G_DIR_SEPARATOR_S "pidgin" G_DIR_SEPARATOR_S "tray");
+ 
++  g_signal_connect(G_OBJECT(indicator), "activate-event",
++                   G_CALLBACK(docklet_activate_cb), NULL);
++
+   sIndicator = indicator;
+ 
+   app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
+-- 
+2.3.0
+
