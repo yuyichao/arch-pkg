@@ -1,5 +1,5 @@
 pkgname=julia-class-git
-pkgver=56.4096ad5
+pkgver=69.5742b62
 pkgrel=1
 pkgdesc="Class.jl"
 url="https://github.com/yuyichao/Class.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd "$srcdir/Class.jl"
 
-  echo "$(git rev-list --count master).$(git rev-parse --short master)"
+  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
 build() {
