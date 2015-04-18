@@ -1,5 +1,5 @@
 pkgname=julia-class-git
-pkgver=69.5742b62
+pkgver=75.297abde
 pkgrel=1
 pkgdesc="Class.jl"
 url="https://github.com/yuyichao/Class.jl"
