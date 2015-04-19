@@ -1,12 +1,12 @@
 pkgname=julia-devectorize-git
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Devectorize.jl"
 url="https://github.com/lindahua/Devectorize.jl"
 arch=('i686' 'x86_64')
 license=('LGPLv3')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 makedepends=('cmake')
 provides=('julia-devectorize')
 options=('debug' 'strip')
