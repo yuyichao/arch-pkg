@@ -5,8 +5,9 @@
 # Contributor : Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgbase=ipython
-pkgname=(ipython ipython2 ipython-dep ipython2-dep)
-pkgver=2.4.1
+pkgname=(ipython ipython2 ipython-notebook ipython2-notebook
+         ipython-dep ipython2-dep)
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="An enhanced Interactive Python shell."
 arch=('any')
@@ -14,21 +15,16 @@ url="http://ipython.org"
 license=('BSD')
 depends=('python' 'sqlite' 'python-setuptools')
 makedepends=('python-setuptools' 'python2-setuptools' 'sqlite')
-optdepends=("wxpython: needed for ipythonx and ipython-wx"
-            "python-twisted: networking-related tasks"
-            "python-nose: if you want to run IPython's test suite"
+optdepends=("python-nose: for IPython's test suite"
             "python-pyqt4: for ipython qtconsole"
             "python-sip: for ipython qtconsole"
             "python-pygments: for ipython qtconsole"
-            "python-pyzmq: for ipython notebook and ipython qtconsole"
-            "python-tornado: for ipython notebook"
-            "python-jinja: for ipython notebook"
-            "haskell-pandoc: ipython notebook conversion")
+            "python-pyzmq: for ipython qtconsole")
 #source=("http://archive.ipython.org/release/$pkgver/ipython-$pkgver.tar.gz")
 source=("https://pypi.python.org/packages/source/i/ipython/$pkgbase-$pkgver.tar.gz"
         revert-xdg.patch)
-md5sums=('70149981d6515d77ecb3d7507de2d7d9'
-         'f252c7449083c5b4a59dab260f5466c6')
+md5sums=('a749d90c16068687b0ec45a27e72ef8f'
+         'f732b0dc0ad30191d4312ca851760002')
 
 prepare() {
   cd "$srcdir/ipython-$pkgver"
@@ -71,26 +67,21 @@ package_ipython() {
 package_ipython2() {
   pkgdesc="An enhanced Interactive Python2 shell."
   depends=('python2' 'sqlite' 'python2-setuptools')
-  optdepends=("wxpython: needed for ipythonx and ipython-wx"
-              "python2-twisted: networking-related tasks"
-              "python2-foolscap: for IPython's parallel computing features"
-              "python2-pexpect: for irunner"
-              "python2-nose: if you want to run IPython's test suite"
+  optdepends=("wxpython: needed for ipython2 --gui=wx"
+              "python2-nose: for IPython's test suite"
               "python2-pyqt4: for ipython qtconsole"
               "python2-sip: for ipython qtconsole"
               "python2-pygments: for ipython qtconsole"
-              "python2-pyzmq: for ipython notebook and ipython qtconsole"
-              "python2-tornado: for ipython notebook"
-              "python2-jinja: for ipython notebook"
-              "haskell-pandoc: ipython notebook conversion")
+              "python2-pyzmq: for ipython qtconsole")
 
   cd "$srcdir/ipython2-$pkgver"
 
   python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=0
   rm -rf "$pkgdir/usr/share/doc"
-  find "$pkgdir" -name '*.py' -print0 | xargs -0 \
-                                              sed -i -e 's,^#!/usr/bin/env python$,#!/usr/bin/env python2,' \
-                                              -e 's,^#!/usr/bin/python$,#!/usr/bin/python2,'
+  find "$pkgdir" -name '*.py' -print0 \
+      | xargs -0 \
+              sed -i -e 's,^#!/usr/bin/env python$,#!/usr/bin/env python2,' \
+              -e 's,^#!/usr/bin/python$,#!/usr/bin/python2,'
   find "$pkgdir/" -name '*.pyc' -delete
 
   install -Dm644 docs/source/about/license_and_copyright.rst "$pkgdir/usr/share/licenses/ipython2/LICENSE"
@@ -106,4 +97,28 @@ package_ipython2() {
   sed -i 's/ython/ython2/g' *.desktop
   install -Dm644 ipython.desktop "$pkgdir/usr/share/applications/ipython2.desktop"
   install -Dm644 ipython-qtconsole.desktop "$pkgdir/usr/share/applications/ipython2-qtconsole.desktop"
+}
+
+# Nothing in these packages except dependencies because five optdeps is too many
+
+package_ipython-notebook() {
+  pkgdesc="Web-based environment where you can combine code, text, math, plots and media into a single document"
+  depends=('python-pyzmq' 'python-tornado' 'python-terminado'
+           'python-jinja' 'python-jsonschema' 'python-mistune'
+           'python-pygments')
+  optdepends=('haskell-pandoc: ipython notebook conversion'
+              'texlive-bin: notebook pdf export')
+  cd "$srcdir/ipython-$pkgver"
+  install -Dm644 docs/source/about/license_and_copyright.rst "$pkgdir/usr/share/licenses/ipython-notebook/LICENSE"
+}
+
+package_ipython2-notebook() {
+  pkgdesc="Web-based environment where you can combine code, text, math, plots and media into a single document"
+  depends=('python2-pyzmq' 'python2-tornado' 'python2-terminado'
+           'python2-jinja' 'python2-jsonschema' 'python2-mistune'
+           'python2-pygments')
+  optdepends=('haskell-pandoc: ipython notebook conversion'
+              'texlive-bin: notebook pdf export')
+  cd "$srcdir/ipython2-$pkgver"
+  install -Dm644 docs/source/about/license_and_copyright.rst "$pkgdir/usr/share/licenses/ipython2-notebook/LICENSE"
 }
