@@ -1,16 +1,16 @@
-From 8c26c2d74f95420f8157ce4ae67b4ec202851aed Mon Sep 17 00:00:00 2001
+From 2322a7aacf3151f25af934d653d9996ae243f68f Mon Sep 17 00:00:00 2001
 From: Yichao Yu <yyc1992@gmail.com>
 Date: Wed, 25 Feb 2015 09:18:41 -0500
 Subject: [PATCH] activate event
 
 ---
  bindings/mono/libappindicator-api.metadata |  2 ++
- bindings/mono/libappindicator-api.raw      |  9 ++++++++-
- src/app-indicator.c                        | 32 ++++++++++++++++++------------
+ bindings/mono/libappindicator-api.raw      |  9 ++++++-
+ src/app-indicator.c                        | 40 ++++++++++++++++++++----------
  src/app-indicator.h                        |  3 ++-
- src/gen-notification-item.xml.c            |  4 ++++
- src/notification-item.xml                  |  4 ++++
- 6 files changed, 39 insertions(+), 15 deletions(-)
+ src/gen-notification-item.xml.c            |  5 ++++
+ src/notification-item.xml                  |  5 ++++
+ 6 files changed, 49 insertions(+), 15 deletions(-)
 
 diff --git a/bindings/mono/libappindicator-api.metadata b/bindings/mono/libappindicator-api.metadata
 index e610c88..d151fdf 100644
@@ -51,7 +51,7 @@ index b7da653..25c956b 100644
 \ No newline at end of file
 +</api>
 diff --git a/src/app-indicator.c b/src/app-indicator.c
-index 2e98b48..552515a 100644
+index 2e98b48..c997372 100644
 --- a/src/app-indicator.c
 +++ b/src/app-indicator.c
 @@ -107,6 +107,7 @@ enum {
@@ -93,7 +93,22 @@ index 2e98b48..552515a 100644
  	} else {
  		g_warning("Calling method '%s' on the app-indicator and it's unknown", method);
  	}
-@@ -1660,19 +1678,7 @@ status_icon_changes (AppIndicator * self, gpointer data)
+@@ -1122,6 +1140,14 @@ bus_get_prop (GDBusConnection * connection, const gchar * sender, const gchar *
+ 		return g_variant_new_string(priv->icon_name ? priv->icon_name : "");
+ 	} else if (g_strcmp0(property, "AttentionIconName") == 0) {
+ 		return g_variant_new_string(priv->attention_icon_name ? priv->attention_icon_name : "");
++        } else if (g_strcmp0(property, "ToolTip") == 0) {
++            const char *title = priv->title;
++            if (!title)
++                title = g_get_application_name();
++            if (!title)
++                title = "";
++            return g_variant_new ("(sa(iiay)ss)",
++                                  priv->icon_name, NULL, title, "");
+ 	} else if (g_strcmp0(property, "Title") == 0) {
+ 		const gchar * output = NULL;
+ 		if (priv->title == NULL) {
+@@ -1660,19 +1686,7 @@ status_icon_changes (AppIndicator * self, gpointer data)
  static void
  status_icon_activate (GtkStatusIcon * icon, gpointer data)
  {
@@ -136,10 +151,18 @@ index 8ae20b0..2203a9c 100644
  
  /**
 diff --git a/src/gen-notification-item.xml.c b/src/gen-notification-item.xml.c
-index 0bc6ab2..18a288b 100644
+index 0bc6ab2..2e3c4b1 100644
 --- a/src/gen-notification-item.xml.c
 +++ b/src/gen-notification-item.xml.c
-@@ -25,6 +25,10 @@ const char * _notification_item =
+@@ -10,6 +10,7 @@ const char * _notification_item =
+ "		<property name=\"IconName\" type=\"s\" access=\"read\" />\n"
+ "		<property name=\"IconAccessibleDesc\" type=\"s\" access=\"read\" />\n"
+ "		<property name=\"AttentionIconName\" type=\"s\" access=\"read\" />\n"
++"               <property name=\"ToolTip\" type=\"(sa(iiay)ss)\" access=\"read\" />\n"
+ "		<property name=\"AttentionAccessibleDesc\" type=\"s\" access=\"read\" />\n"
+ "		<property name=\"Title\" type=\"s\" access=\"read\" />\n"
+ "		<!-- An additional path to add to the theme search path\n"
+@@ -25,6 +26,10 @@ const char * _notification_item =
  "			<arg type=\"i\" name=\"delta\" direction=\"in\" />\n"
  "			<arg type=\"s\" name=\"orientation\" direction=\"in\" />\n"
  "		</method>\n"
@@ -151,10 +174,18 @@ index 0bc6ab2..18a288b 100644
  "			<arg type=\"i\" name=\"x\" direction=\"in\" />\n"
  "			<arg type=\"i\" name=\"y\" direction=\"in\" />\n"
 diff --git a/src/notification-item.xml b/src/notification-item.xml
-index c93afd7..a223ea4 100644
+index c93afd7..e06e946 100644
 --- a/src/notification-item.xml
 +++ b/src/notification-item.xml
-@@ -20,6 +20,10 @@
+@@ -9,6 +9,7 @@
+ 		<property name="IconName" type="s" access="read" />
+ 		<property name="IconAccessibleDesc" type="s" access="read" />
+ 		<property name="AttentionIconName" type="s" access="read" />
++                <property name="ToolTip" type="(sa(iiay)ss)" access="read" />
+ 		<property name="AttentionAccessibleDesc" type="s" access="read" />
+ 		<property name="Title" type="s" access="read" />
+ 		<!-- An additional path to add to the theme search path
+@@ -20,6 +21,10 @@
  		<property name="XAyatanaOrderingIndex" type="u" access="read" />
  
  <!-- Methods -->
