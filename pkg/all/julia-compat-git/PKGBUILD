@@ -3,12 +3,11 @@ pkgver=0.5.0
 pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('LGPLv3')
 # TODO version depends
 depends=('julia')
 provides=('julia-compat')
-options=('debug' 'strip')
 source=(git://github.com/JuliaLang/Compat.jl)
 md5sums=('SKIP')
 
