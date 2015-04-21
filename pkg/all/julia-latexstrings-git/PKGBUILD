@@ -1,5 +1,5 @@
 pkgname=julia-latexstrings-git
-pkgver=7.7ec8862
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="LaTeXStrings.jl"
 url="https://github.com/stevengj/LaTeXStrings.jl"
@@ -15,8 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd LaTeXStrings.jl
 
-  echo "$(git rev-list --count master).$(git rev-parse --short master)"
-  # git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
