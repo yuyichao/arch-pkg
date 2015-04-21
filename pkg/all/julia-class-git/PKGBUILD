@@ -1,25 +1,24 @@
 pkgname=julia-class-git
-pkgver=75.297abde
+pkgver=76.e80fb37
 pkgrel=1
 pkgdesc="Class.jl"
 url="https://github.com/yuyichao/Class.jl"
 arch=('any')
 license=('LGPLv3')
 depends=('julia>=2:0.4.0' 'julia<2:0.5.0' 'julia-datastructures')
-makedepends=('cmake')
+makedepends=('git' 'cmake')
 provides=('julia-class')
-options=('debug' 'strip')
 source=(git://github.com/yuyichao/Class.jl)
 md5sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/Class.jl"
+  cd Class.jl
 
   echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "$srcdir/Class.jl"
+  cd Class.jl
   mkdir -p build
   cd build
 
@@ -29,7 +28,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/Class.jl"
+  cd Class.jl
   cd build
 
   make install DESTDIR="${pkgdir}"
