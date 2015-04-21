@@ -1,6 +1,6 @@
 pkgname=julia-datastructures-git
 pkgver=0.3.8
-pkgrel=3
+pkgrel=4
 pkgdesc="DataStructures.jl"
 url="https://github.com/JuliaLang/DataStructures.jl"
 arch=('any')
@@ -26,7 +26,7 @@ package() {
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/DataStructures.jl"
+  install -dm755 "${pkgdir}/${site_dir}/DataStructures"
 
-  cp -a src "${pkgdir}/${site_dir}/DataStructures.jl"
+  cp -a src "${pkgdir}/${site_dir}/DataStructures"
 }
