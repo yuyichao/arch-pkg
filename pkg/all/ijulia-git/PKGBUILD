@@ -1,0 +1,83 @@
+pkgname=ijulia-git
+pkgver=0.2.3
+pkgrel=1
+pkgdesc="IJulia.jl"
+url="https://github.com/JuliaLang/IJulia.jl"
+arch=('any')
+license=('LGPLv3')
+makedepends=('git' 'ipython' 'ipython2')
+# TODO version depends
+depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq')
+provides=('ijulia')
+source=(git://github.com/JuliaLang/IJulia.jl
+        ijulia
+        0001-support-system-wise-install-ijulia.patch)
+md5sums=('SKIP'
+         'a25756f804d68b991cb770b7f4745b1f'
+         'bec2db68d683600814015a3a182b6c67')
+
+_site_dir_cmd=(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
+
+pkgver() {
+  cd IJulia.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+prepare() {
+  cd IJulia.jl
+
+  patch -Np1 < ../0001-support-system-wise-install-ijulia.patch
+}
+
+build() {
+  cd IJulia.jl
+
+  rm -rf "${srcdir}/"{ipython,julia}
+  mkdir -p "${srcdir}/"{ipython,julia}
+
+  site_dir=$("${_site_dir_cmd[@]}" "/usr")
+  tmp_pkgdir=${srcdir}/julia
+  src_ijulia_dir=$(JULIA_PKGDIR="$tmp_pkgdir" \
+                               julia -f -e 'print(Pkg.dir("IJulia"))')
+  mkdir -p "$(dirname "${src_ijulia_dir}")"
+  ln -s "${PWD}" "${src_ijulia_dir}"
+
+  IPYTHONDIR="${srcdir}/ipython" \
+            JULIA_PKGDIR="$tmp_pkgdir" \
+            IJULIA_DIR="${site_dir}/IJulia" \
+            julia -f deps/build.jl
+}
+
+package() {
+  cd IJulia.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$("${_site_dir_cmd[@]}" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/IJulia"
+
+  cp -a src deps "${pkgdir}/${site_dir}/IJulia"
+
+  rm "${pkgdir}/${site_dir}/IJulia/deps/build.jl"
+
+  # Install IPython profiles, kernel, and wrapper script
+
+  python_site2=$(python2 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
+  python_site3=$(python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
+
+  for site in "$python_site2" "$python_site3"; do
+    profile_dir="$pkgdir/$site/IPython/config/profile/"
+    install -dm755 "$profile_dir"
+    cp -a "$srcdir/ipython/profile_julia" "$profile_dir/julia"
+  done
+
+  kernels_dir="${pkgdir}/usr/share/jupyter"
+  install -dm755 "$kernels_dir"
+    cp -a "$srcdir/ipython/kernels" "$kernels_dir"
+
+  install -dm755 "${pkgdir}/usr/bin/"
+  install -m755 "$srcdir/ijulia" "${pkgdir}/usr/bin/"
+}
