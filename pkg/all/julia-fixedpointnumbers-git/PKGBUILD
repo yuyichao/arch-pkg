@@ -1,14 +1,14 @@
 pkgname=julia-fixedpointnumbers-git
 pkgver=0.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="FixedPointNumbers.jl"
 url="https://github.com/JeffBezanson/FixedPointNumbers.jl"
 arch=('any')
 license=('LGPLv3')
+makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-compat')
 provides=('julia-fixedpointnumbers')
-options=('debug' 'strip')
 source=(git://github.com/JeffBezanson/FixedPointNumbers.jl)
 md5sums=('SKIP')
 
@@ -26,7 +26,7 @@ package() {
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/FixedPointNumbers.jl"
+  install -dm755 "${pkgdir}/${site_dir}/FixedPointNumbers"
 
-  cp -a src "${pkgdir}/${site_dir}/FixedPointNumbers.jl"
+  cp -a src "${pkgdir}/${site_dir}/FixedPointNumbers"
 }
