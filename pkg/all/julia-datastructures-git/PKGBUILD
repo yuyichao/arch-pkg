@@ -1,15 +1,14 @@
 pkgname=julia-datastructures-git
 pkgver=0.3.8
-pkgrel=2
+pkgrel=3
 pkgdesc="DataStructures.jl"
 url="https://github.com/JuliaLang/DataStructures.jl"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('LGPLv3')
 # TODO version depends
+makedepends=('git')
 depends=('julia' 'julia-compat')
-makedepends=('cmake')
 provides=('julia-datastructures')
-options=('debug' 'strip')
 source=(git://github.com/JuliaLang/DataStructures.jl)
 md5sums=('SKIP')
 
