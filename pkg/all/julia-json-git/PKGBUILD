@@ -1,0 +1,29 @@
+pkgname=julia-json-git
+pkgver=0.4.3
+pkgrel=1
+pkgdesc="JSON.jl"
+url="https://github.com/JuliaLang/JSON.jl"
+arch=('any')
+license=('LGPLv3')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat')
+provides=('julia-json')
+source=(git://github.com/JuliaLang/JSON.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd JSON.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd JSON.jl
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/JSON"
+
+  cp -a src "${pkgdir}/${site_dir}/JSON"
+}
