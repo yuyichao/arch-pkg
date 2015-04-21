@@ -1,6 +1,6 @@
 pkgname=julia-devectorize-git
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Devectorize.jl"
 url="https://github.com/lindahua/Devectorize.jl"
 arch=('any')
@@ -26,7 +26,7 @@ package() {
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/Devectorize.jl"
+  install -dm755 "${pkgdir}/${site_dir}/Devectorize"
 
-  cp -a src "${pkgdir}/${site_dir}/Devectorize.jl"
+  cp -a src "${pkgdir}/${site_dir}/Devectorize"
 }
