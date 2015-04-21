@@ -1,11 +1,12 @@
 pkgname=julia-compat-git
-pkgver=0.5.0
+pkgver=0.4.1.0.1.g204652a
 pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"
 arch=('any')
 license=('LGPLv3')
 # TODO version depends
+makedepends=('git')
 depends=('julia')
 provides=('julia-compat')
 source=(git://github.com/JuliaLang/Compat.jl)
