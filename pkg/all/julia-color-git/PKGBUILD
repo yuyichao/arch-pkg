@@ -1,13 +1,13 @@
 pkgname=julia-color-git
 pkgver=0.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Color.jl"
 url="https://github.com/JuliaLang/Color.jl"
 arch=('any')
 license=('LGPLv3')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-graphics')
 provides=('julia-color')
 source=(git://github.com/JuliaLang/Color.jl)
 md5sums=('SKIP')
