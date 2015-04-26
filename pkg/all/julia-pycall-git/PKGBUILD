@@ -1,5 +1,5 @@
 pkgname=julia-pycall-git
-pkgver=0.7.6.0.2.g4d2ac68
+pkgver=0.8.0.0.2.g66ad5f9
 pkgrel=1
 pkgdesc="PyCall.jl"
 url="https://github.com/stevengj/PyCall.jl"
