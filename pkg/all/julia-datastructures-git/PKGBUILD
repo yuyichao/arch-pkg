@@ -4,7 +4,7 @@ pkgrel=4
 pkgdesc="DataStructures.jl"
 url="https://github.com/JuliaLang/DataStructures.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 # TODO version depends
 makedepends=('git')
 depends=('julia' 'julia-compat')

@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Nettle.jl"
 url="https://github.com/staticfloat/Nettle.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
 depends=('julia' 'julia-compat' 'nettle')

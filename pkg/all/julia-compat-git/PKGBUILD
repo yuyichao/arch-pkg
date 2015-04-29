@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 # TODO version depends
 makedepends=('git')
 depends=('julia')

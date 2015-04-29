@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="StatsBase.jl"
 url="https://github.com/JuliaStats/StatsBase.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-arrayviews' 'julia-compat')

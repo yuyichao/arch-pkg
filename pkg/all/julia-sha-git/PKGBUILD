@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="SHA.jl"
 url="https://github.com/staticfloat/SHA.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-compat')

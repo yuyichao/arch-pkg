@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Graphics.jl"
 url="https://github.com/JuliaLang/Graphics.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia')

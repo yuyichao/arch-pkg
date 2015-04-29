@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="ZMQ.jl"
 url="https://github.com/JuliaLang/ZMQ.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
 depends=('julia' 'julia-compat' 'zeromq')

@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Polynomials.jl"
 url="https://github.com/Keno/Polynomials.jl"
 arch=('any')
-license=('LGPLv3')
+license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia')
