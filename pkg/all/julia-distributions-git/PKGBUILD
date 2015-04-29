@@ -1,0 +1,33 @@
+pkgname=julia-distributions-git
+pkgver=0.7.1.0.2.g22e38f1
+pkgrel=1
+pkgdesc="Distributions.jl"
+url="https://github.com/JuliaStats/Distributions.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat' 'julia-arrayviews' 'julia-pdmats'
+         'julia-statsbase')
+provides=('julia-distributions')
+source=(git://github.com/JuliaStats/Distributions.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Distributions.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Distributions.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Distributions"
+
+  cp -a src "${pkgdir}/${site_dir}/Distributions"
+}
