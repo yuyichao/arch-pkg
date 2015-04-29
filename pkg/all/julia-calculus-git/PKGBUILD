@@ -1,0 +1,32 @@
+pkgname=julia-calculus-git
+pkgver=0.1.7.0.2.g88370c6
+pkgrel=1
+pkgdesc="Calculus.jl"
+url="https://github.com/johnmyleswhite/Calculus.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat')
+provides=('julia-calculus')
+source=(git://github.com/johnmyleswhite/Calculus.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Calculus.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Calculus.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Calculus"
+
+  cp -a src "${pkgdir}/${site_dir}/Calculus"
+}
