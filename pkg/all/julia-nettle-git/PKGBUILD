@@ -1,6 +1,6 @@
 pkgname=julia-nettle-git
-pkgver=0.1.8.0.6.gb7dd1ab
-pkgrel=1
+pkgver=0.1.8.0.12.gbfec54c
+pkgrel=2
 pkgdesc="Nettle.jl"
 url="https://github.com/staticfloat/Nettle.jl"
 arch=('any')
@@ -9,8 +9,16 @@ makedepends=('git' 'julia-bindeps')
 # TODO version depends
 depends=('julia' 'julia-compat' 'nettle')
 provides=('julia-nettle')
-source=(git://github.com/staticfloat/Nettle.jl)
-md5sums=('SKIP')
+source=(git://github.com/staticfloat/Nettle.jl
+        0001-Nettle-3-compatible.patch)
+md5sums=('SKIP'
+         '4c601e670424cca0896661d2fc6867c8')
+
+prepare() {
+  cd Nettle.jl
+
+  patch -Np1 < ../0001-Nettle-3-compatible.patch
+}
 
 pkgver() {
   cd Nettle.jl

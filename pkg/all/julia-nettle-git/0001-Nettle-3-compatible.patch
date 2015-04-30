@@ -1,0 +1,108 @@
+From 32971a7adfca6d8c887118d50caf046209ae211c Mon Sep 17 00:00:00 2001
+From: Yichao Yu <yyc1992@gmail.com>
+Date: Thu, 30 Apr 2015 18:35:04 -0400
+Subject: [PATCH] Nettle 3+ compatible
+
+---
+ deps/build.jl | 29 +++++++++++++++++++++++++++++
+ src/Nettle.jl |  9 ++++++++-
+ src/cipher.jl | 16 ++++++++++++++--
+ 3 files changed, 51 insertions(+), 3 deletions(-)
+
+diff --git a/deps/build.jl b/deps/build.jl
+index d769192..306b974 100644
+--- a/deps/build.jl
++++ b/deps/build.jl
+@@ -37,3 +37,32 @@ provides( BuildProcess,
+           nettle )
+ 
+ @compat @BinDeps.install Dict(:nettle => :nettle)
++
++function get_nettle_ver(cmd::AbstractString)
++    m = match(r"\(nettle ([0-9]+)\..*\)", readall(`$cmd -V`))
++    parse(Int, m.captures[1])
++end
++
++function get_nettle_ver()
++    try
++        return get_nettle_ver("nettle-hash")
++    end
++    try
++        return get_nettle_ver("nettle-pbkdf2")
++    end
++    try
++        return get_nettle_ver("sexp-conv")
++    end
++    try
++        return get_nettle_ver("pkcs1-conv")
++    end
++    return 2
++end
++
++open(joinpath(dirname(@__FILE__), "version.jl"), "w") do verfile
++    print(verfile,
++          """
++          # This is an auto-generated file; do not edit
++          const nettle_major_version = $(get_nettle_ver())
++          """)
++end
+diff --git a/src/Nettle.jl b/src/Nettle.jl
+index 9e22588..183f17b 100644
+--- a/src/Nettle.jl
++++ b/src/Nettle.jl
+@@ -1,11 +1,18 @@
+ module Nettle
+ 
+-const depfile = joinpath(dirname(@__FILE__), "..", "deps", "deps.jl")
++const depdir = joinpath(dirname(@__FILE__), "..", "deps")
++const depfile = joinpath(depdir, "deps.jl")
+ if isfile(depfile)
+     include(depfile)
+ else
+     error("Nettle not properly installed. Please run Pkg.build(\"Nettle\")")
+ end
++const verfile = joinpath(depdir, "version.jl")
++if isfile(verfile)
++    include(verfile)
++else
++    const nettle_major_version = 2
++end
+ include( "hash.jl" )
+ include( "hmac.jl" )
+ include( "cipher.jl" )
+diff --git a/src/cipher.jl b/src/cipher.jl
+index e831b16..41afb02 100644
+--- a/src/cipher.jl
++++ b/src/cipher.jl
+@@ -75,14 +75,26 @@ function cipher_init()
+     @eval function CipherEncrypt(::Type{$name},key::Union(String,Vector{Uint8}))
+         length(key) != key_size($name) && error("Key must be $(key_size($name)) bytes long")
+         ctx = Array(Uint8, ctx_size($name))
+-        ccall($fptr_set_encrypt_key,Void,(Ptr{Void},Cuint,Ptr{Uint8}),ctx,length(key),pointer(key))
++        if nettle_major_version >= 3
++            ccall($fptr_set_encrypt_key, Void, (Ptr{Void}, Ptr{Uint8}),
++                  ctx, pointer(key))
++        else
++            ccall($fptr_set_encrypt_key, Void, (Ptr{Void}, Cuint, Ptr{Uint8}),
++                  ctx, length(key), pointer(key))
++        end
+         CipherEncrypt{$name}(ctx)
+     end
+ 
+     @eval function CipherDecrypt(::Type{$name},key::Union(String,Vector{Uint8}))
+         length(key) != key_size($name) && error("Key must be $(key_size($name)) bytes long")
+         ctx = Array(Uint8, ctx_size($name))
+-        ccall($fptr_set_decrypt_key,Void,(Ptr{Void},Cuint,Ptr{Uint8}),ctx,length(key),pointer(key))
++        if nettle_major_version >= 3
++            ccall($fptr_set_decrypt_key, Void, (Ptr{Void}, Ptr{Uint8}),
++                  ctx, pointer(key))
++        else
++            ccall($fptr_set_decrypt_key, Void, (Ptr{Void}, Cuint, Ptr{Uint8}),
++                  ctx, length(key), pointer(key))
++        end
+         CipherDecrypt{$name}(ctx)
+     end
+ 
+-- 
+2.3.7
+
