@@ -1,5 +1,5 @@
 pkgname=julia-factcheck-git
-pkgver=0.2.3.0.24.ge1e2cac
+pkgver=0.2.7
 pkgrel=1
 pkgdesc="FactCheck.jl"
 url="https://github.com/JuliaLang/FactCheck.jl"
