@@ -1,0 +1,32 @@
+pkgname=julia-dataarrays-git
+pkgver=0.2.14.0.5.gd11cba1
+pkgrel=1
+pkgdesc="DataArrays.jl"
+url="https://github.com/JuliaStats/DataArrays.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-statsbase' 'julia-compat' 'julia-reexport')
+provides=('julia-dataarrays')
+source=(git://github.com/JuliaStats/DataArrays.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd DataArrays.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd DataArrays.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/DataArrays"
+
+  cp -a src "${pkgdir}/${site_dir}/DataArrays"
+}
