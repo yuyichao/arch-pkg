@@ -1,5 +1,5 @@
 pkgname=julia-graphs-git
-pkgver=0.5.4.0.4.g56f1cf6
+pkgver=0.5.4.0.6.gc20fb24
 pkgrel=1
 pkgdesc="Graphs.jl"
 url="https://github.com/JuliaLang/Graphs.jl"
