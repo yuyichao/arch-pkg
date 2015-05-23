@@ -1,0 +1,32 @@
+pkgname=julia-texextensions-git
+pkgver=0.0.1.0.3.g72ea141
+pkgrel=1
+pkgdesc="TexExtensions.jl"
+url="https://github.com/Keno/TexExtensions.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia')
+provides=('julia-texextensions')
+source=(git://github.com/Keno/TexExtensions.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd TexExtensions.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd TexExtensions.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/TexExtensions"
+
+  cp -a src "${pkgdir}/${site_dir}/TexExtensions"
+}
