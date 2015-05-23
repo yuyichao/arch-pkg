@@ -1,0 +1,32 @@
+pkgname=julia-docile-git
+pkgver=0.5.3
+pkgrel=1
+pkgdesc="Docile.jl"
+url="https://github.com/MichaelHatherly/Docile.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat')
+provides=('julia-docile')
+source=(git://github.com/MichaelHatherly/Docile.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Docile.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Docile.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Docile"
+
+  cp -a src "${pkgdir}/${site_dir}/Docile"
+}
