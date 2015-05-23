@@ -1,0 +1,41 @@
+pkgname=julia-images-git
+pkgver=0.4.37.0.1.g8bfaad0
+pkgrel=1
+pkgdesc="Images.jl"
+url="https://github.com/timholy/Images.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat' 'julia-color' 'julia-bindeps' 'julia-siunits'
+         'julia-zlib' 'julia-graphics')
+provides=('julia-images')
+source=(git://github.com/timholy/Images.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Images.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd Images.jl
+
+  julia -f deps/build.jl
+}
+
+package() {
+  cd Images.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.txt "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Images"
+
+  cp -a src deps "${pkgdir}/${site_dir}/Images"
+
+  rm -rf "${pkgdir}/${site_dir}/Images/deps/"{build.jl,windows}
+}
