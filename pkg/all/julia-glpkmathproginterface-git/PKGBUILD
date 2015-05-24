@@ -1,0 +1,32 @@
+pkgname=julia-glpkmathproginterface-git
+pkgver=0.1.13.0.2.g7558657
+pkgrel=1
+pkgdesc="GLPKMathProgInterface.jl"
+url="https://github.com/JuliaOpt/GLPKMathProgInterface.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-glpk' 'julia-compat' 'julia-mathprogbase')
+provides=('julia-glpkmathproginterface')
+source=(git://github.com/JuliaOpt/GLPKMathProgInterface.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd GLPKMathProgInterface.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd GLPKMathProgInterface.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/GLPKMathProgInterface"
+
+  cp -a src "${pkgdir}/${site_dir}/GLPKMathProgInterface"
+}
