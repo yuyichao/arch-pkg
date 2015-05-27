@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=0.2.5.0.1.ga6e5746
+pkgver=0.2.5.0.3.g45bc9e9
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -10,11 +10,9 @@ makedepends=('git' 'ipython' 'ipython2')
 depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq')
 provides=('ijulia')
 source=(git://github.com/JuliaLang/IJulia.jl
-        ijulia
-        0001-support-system-wise-install-ijulia.patch)
+        ijulia)
 md5sums=('SKIP'
-         'a25756f804d68b991cb770b7f4745b1f'
-         'bec2db68d683600814015a3a182b6c67')
+         'a25756f804d68b991cb770b7f4745b1f')
 
 _site_dir_cmd=(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
 
@@ -22,12 +20,6 @@ pkgver() {
   cd IJulia.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
-}
-
-prepare() {
-  cd IJulia.jl
-
-  patch -Np1 < ../0001-support-system-wise-install-ijulia.patch
 }
 
 build() {
