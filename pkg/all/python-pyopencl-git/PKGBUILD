@@ -3,7 +3,7 @@
 
 pkgbase=python-pyopencl-git
 pkgname=('python2-pyopencl-git' 'python-pyopencl-git')
-pkgver=2014.1.0.35.g1466246
+pkgver=2015.1.0.7.g43e67e1
 pkgrel=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python. Python version on top of cffi"
 arch=('i686' 'x86_64')
@@ -19,12 +19,12 @@ options=('debug' 'strip')
 
 _gitname=pyopencl
 
-_gitroot=https://github.com/yuyichao/pyopencl
-# _gitroot=/home/yuyichao/projects/dev/pyopencl-cffi/
-# _gitref=test
-_gitref=master-test
-# _gitroot=https://github.com/pyopencl/pyopencl
-# _gitref=cffi
+# _gitroot=https://github.com/yuyichao/pyopencl
+# # _gitroot=/home/yuyichao/projects/dev/pyopencl-cffi/
+# # _gitref=test
+# _gitref=master-test
+_gitroot=https://github.com/pyopencl/pyopencl
+_gitref=master
 exec 5>&1
 
 _fetch_git() {
