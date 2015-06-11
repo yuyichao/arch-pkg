@@ -1,5 +1,5 @@
 pkgname=julia-ode-git
-pkgver=0.1.2.0.22.g4058120
+pkgver=0.1.2.0.24.g01620ad
 pkgrel=1
 pkgdesc="ODE.jl"
 url="https://github.com/JuliaLang/ODE.jl"
