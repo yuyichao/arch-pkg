@@ -1,5 +1,5 @@
 pkgname=julia-compat-git
-pkgver=0.4.4.0.16.g2e0ee96
+pkgver=0.4.6.0.2.g3ecf55d
 pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"

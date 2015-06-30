@@ -1,5 +1,5 @@
 pkgname=julia-cairo-git
-pkgver=0.2.27
+pkgver=0.2.28
 pkgrel=1
 pkgdesc="Cairo.jl"
 url="https://github.com/JuliaLang/Cairo.jl"
