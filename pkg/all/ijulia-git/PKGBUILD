@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=0.2.5.0.9.gee61013
+pkgver=0.2.5.0.12.g5be8253
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -9,10 +9,8 @@ makedepends=('git' 'ipython' 'ipython2')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq')
 provides=('ijulia')
-source=(git://github.com/JuliaLang/IJulia.jl
-        ijulia)
-md5sums=('SKIP'
-         'a25756f804d68b991cb770b7f4745b1f')
+source=(git://github.com/JuliaLang/IJulia.jl)
+md5sums=('SKIP')
 
 _site_dir_cmd=(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
 
@@ -55,21 +53,9 @@ package() {
 
   rm "${pkgdir}/${site_dir}/IJulia/deps/build.jl"
 
-  # Install IPython profiles, kernel, and wrapper script
-
-  python_site2=$(python2 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
-  python_site3=$(python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
-
-  for site in "$python_site2" "$python_site3"; do
-    profile_dir="$pkgdir/$site/IPython/config/profile/"
-    install -dm755 "$profile_dir"
-    cp -a "$srcdir/ipython/profile_julia" "$profile_dir/julia"
-  done
+  # Install Jupyter kernel, and wrapper script
 
   kernels_dir="${pkgdir}/usr/share/jupyter"
   install -dm755 "$kernels_dir"
-    cp -a "$srcdir/ipython/kernels" "$kernels_dir"
-
-  install -dm755 "${pkgdir}/usr/bin/"
-  install -m755 "$srcdir/ijulia" "${pkgdir}/usr/bin/"
+  cp -a "$srcdir/ipython/kernels" "$kernels_dir"
 }
