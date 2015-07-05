@@ -1,6 +1,6 @@
 pkgname=julia-fixedpointnumbers-git
-pkgver=0.0.7
-pkgrel=2
+pkgver=0.0.7.0.1.g0c55728
+pkgrel=1
 pkgdesc="FixedPointNumbers.jl"
 url="https://github.com/JeffBezanson/FixedPointNumbers.jl"
 arch=('any')
