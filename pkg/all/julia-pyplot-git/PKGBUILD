@@ -1,5 +1,5 @@
 pkgname=julia-pyplot-git
-pkgver=1.5.3.0.4.g11c0431
+pkgver=1.5.3.0.6.g8520bf2
 pkgrel=1
 pkgdesc="PyPlot.jl"
 url="https://github.com/stevengj/PyPlot.jl"

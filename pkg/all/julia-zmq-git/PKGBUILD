@@ -1,5 +1,5 @@
 pkgname=julia-zmq-git
-pkgver=0.1.18
+pkgver=0.1.18.0.2.gfab71ed
 pkgrel=1
 pkgdesc="ZMQ.jl"
 url="https://github.com/JuliaLang/ZMQ.jl"
