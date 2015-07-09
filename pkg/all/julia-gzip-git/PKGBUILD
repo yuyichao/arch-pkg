@@ -1,0 +1,33 @@
+pkgname=julia-gzip-git
+pkgver=0.2.17
+pkgrel=1
+pkgdesc="GZip.jl"
+url="https://github.com/JuliaLang/GZip.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-bindeps')
+# TODO version depends
+depends=('julia' 'julia-compat' 'gzip')
+provides=('julia-gzip')
+options=('debug' 'strip')
+source=(git://github.com/JuliaLang/GZip.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd GZip.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd GZip.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/GZip"
+
+  cp -a src "${pkgdir}/${site_dir}/GZip"
+}
