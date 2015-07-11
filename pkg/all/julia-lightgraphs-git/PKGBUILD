@@ -1,5 +1,5 @@
 pkgname=julia-lightgraphs-git
-pkgver=0.2.0.0.14.g66bfdc2
+pkgver=0.2.0.0.16.ga7fb1c7
 pkgrel=1
 pkgdesc="LightGraphs.jl"
 url="https://github.com/JuliaGraphs/LightGraphs.jl"

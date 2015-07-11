@@ -1,5 +1,5 @@
 pkgname=julia-docile-git
-pkgver=0.5.10
+pkgver=0.5.12
 pkgrel=1
 pkgdesc="Docile.jl"
 url="https://github.com/MichaelHatherly/Docile.jl"
