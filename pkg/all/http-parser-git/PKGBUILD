@@ -1,8 +1,8 @@
 # Maintainer: Brian Bidulock <bidulock@openss7.org>
 
 pkgname=http-parser-git
-pkgver=2.5.r4.gab0b162
-pkgrel=2
+pkgver=2.5.r11.ge01811e
+pkgrel=1
 pkgdesc="Parser for HTTP Request/Response written in C"
 arch=('i686' 'x86_64')
 url="https://github.com/joyent/http-parser"
