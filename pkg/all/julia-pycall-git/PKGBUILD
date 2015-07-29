@@ -18,6 +18,12 @@ pkgver() {
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
+build() {
+  cd PyCall.jl/deps
+
+  julia -f build.jl
+}
+
 package() {
   cd PyCall.jl
 
@@ -28,5 +34,7 @@ package() {
 
   install -dm755 "${pkgdir}/${site_dir}/PyCall"
 
-  cp -a src "${pkgdir}/${site_dir}/PyCall"
+  cp -a src deps "${pkgdir}/${site_dir}/PyCall"
+
+  rm "${pkgdir}/${site_dir}/PyCall/deps/build.jl"
 }
