@@ -1,0 +1,32 @@
+pkgname=julia-soarrays-git
+pkgver=0.0.1.0.1.g8f35cd3
+pkgrel=1
+pkgdesc="SoArrays.jl"
+url="https://github.com/simonster/SoArrays.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia')
+provides=('julia-soarrays')
+source=(git://github.com/simonster/SoArrays.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd SoArrays.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd SoArrays.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/SoArrays"
+
+  cp -a src "${pkgdir}/${site_dir}/SoArrays"
+}
