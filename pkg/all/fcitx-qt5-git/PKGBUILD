@@ -3,14 +3,14 @@
 
 _pkgname=fcitx-qt5
 pkgname=${_pkgname}-git
-pkgver=1.0.3
+pkgver=1.0.3.1.g73337c5
 pkgrel=1
 epoch=1
 pkgdesc="QT5 IM Module for Fcitx"
 arch=('i686' 'x86_64')
 url="http://fcitx-im.org/"
 license=('GPL')
-depends=('fcitx-git' 'qt5-base=5.4.2')
+depends=('fcitx-git' 'qt5-base=5.5.0')
 makedepends=('git' 'cmake' 'extra-cmake-modules')
 provides=('fcitx-qt5')
 conflicts=('fcitx-qt5')
