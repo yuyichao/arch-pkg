@@ -1,5 +1,5 @@
 pkgname=julia-reversediffsparse-git
-pkgver=0.2.9.0.1.ge9e4f55
+pkgver=0.2.10.0.1.g2530b75
 pkgrel=1
 pkgdesc="ReverseDiffSparse.jl"
 url="https://github.com/mlubin/ReverseDiffSparse.jl"
