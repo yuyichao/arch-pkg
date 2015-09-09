@@ -1,5 +1,5 @@
 pkgname=julia-structsofarrays-git
-pkgver=0.0.1.0.5.gd83e4a7
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="StructsOfArrays.jl"
 url="https://github.com/simonster/StructsOfArrays.jl"
