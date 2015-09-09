@@ -1,5 +1,5 @@
 pkgname=julia-bindeps-git
-pkgver=0.3.14
+pkgver=0.3.15.0.4.gc34d70c
 pkgrel=1
 pkgdesc="BinDeps.jl"
 url="https://github.com/JuliaLang/BinDeps.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=('julia' 'julia-compat' 'julia-uriparser' 'julia-sha')
 provides=('julia-bindeps')
 source=(git://github.com/JuliaLang/BinDeps.jl)
 md5sums=('SKIP')
