@@ -1,5 +1,5 @@
 pkgname=julia-ode-git
-pkgver=0.1.2.0.24.g01620ad
+pkgver=0.2.0.0.8.g239d8eb
 pkgrel=1
 pkgdesc="ODE.jl"
 url="https://github.com/JuliaLang/ODE.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-polynomials')
+depends=('julia' 'julia-compat' 'julia-polynomials')
 provides=('julia-ode')
 source=(git://github.com/JuliaLang/ODE.jl)
 md5sums=('SKIP')
