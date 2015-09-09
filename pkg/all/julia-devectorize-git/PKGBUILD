@@ -1,6 +1,6 @@
 pkgname=julia-devectorize-git
-pkgver=0.4.1
-pkgrel=3
+pkgver=0.4.1.0.2.g92f2002
+pkgrel=1
 pkgdesc="Devectorize.jl"
 url="https://github.com/lindahua/Devectorize.jl"
 arch=('any')
