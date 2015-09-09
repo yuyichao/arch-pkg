@@ -1,11 +1,11 @@
 pkgname=julia-approxfun-git
-pkgver=0.0.7.0.28.g098b85a
+pkgver=0.0.7.0.102.g8951189
 pkgrel=1
 pkgdesc="ApproxFun.jl"
 url="https://github.com/ApproxFun/ApproxFun.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-compat')
 provides=('julia-approxfun')
