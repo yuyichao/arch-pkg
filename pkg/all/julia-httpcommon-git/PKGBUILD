@@ -1,5 +1,5 @@
 pkgname=julia-httpcommon-git
-pkgver=0.0.12.0.2.g4f54f03
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="HttpCommon.jl"
 url="https://github.com/JuliaWeb/HttpCommon.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-uriparser')
 provides=('julia-httpcommon')
 source=(git://github.com/JuliaWeb/HttpCommon.jl)
 md5sums=('SKIP')
