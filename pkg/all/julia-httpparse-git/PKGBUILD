@@ -1,13 +1,13 @@
 pkgname=julia-httpparser-git
-pkgver=0.0.11.0.9.g617de80
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="HttpParser.jl"
 url="https://github.com/JuliaWeb/HttpParser.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-httpcommon' 'julia-bindeps' 'julia-compat'
+depends=('julia' 'julia-httpcommon' 'julia-compat'
          'http-parser')
 provides=('julia-httpparser')
 source=(git://github.com/JuliaWeb/HttpParser.jl)
