@@ -1,0 +1,32 @@
+pkgname=julia-colortypes-git
+pkgver=0.1.4
+pkgrel=1
+pkgdesc="ColorTypes.jl"
+url="https://github.com/JuliaGraphics/ColorTypes.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-fixedpointnumbers' 'julia-compat')
+provides=('julia-colortypes')
+source=(git://github.com/JuliaGraphics/ColorTypes.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ColorTypes.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ColorTypes.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/ColorTypes"
+
+  cp -a src "${pkgdir}/${site_dir}/ColorTypes"
+}
