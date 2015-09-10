@@ -1,5 +1,5 @@
 pkgname=julia-graphics-git
-pkgver=0.1.1
+pkgver=0.1.3.0.1.g0b74596
 pkgrel=1
 pkgdesc="Graphics.jl"
 url="https://github.com/JuliaLang/Graphics.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-colors')
 provides=('julia-graphics')
 source=(git://github.com/JuliaLang/Graphics.jl)
 md5sums=('SKIP')
