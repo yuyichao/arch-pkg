@@ -1,13 +1,13 @@
 pkgname=julia-glpk-git
-pkgver=0.2.16
+pkgver=0.2.16.0.3.g88df83c
 pkgrel=1
 pkgdesc="GLPK.jl"
 url="https://github.com/JuliaOpt/GLPK.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-bindeps' 'julia-compat')
+depends=('julia' 'julia-compat' 'glpk')
 provides=('julia-glpk')
 source=(git://github.com/JuliaOpt/GLPK.jl)
 md5sums=('SKIP')
