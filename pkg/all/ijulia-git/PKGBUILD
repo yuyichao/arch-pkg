@@ -1,13 +1,14 @@
 pkgname=ijulia-git
-pkgver=0.2.5.0.15.g2503f2b
+pkgver=0.2.5.0.26.g7052b07
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'ipython' 'ipython2')
+makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq')
+depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq'
+         'jupyter')
 provides=('ijulia')
 source=(git://github.com/JuliaLang/IJulia.jl)
 md5sums=('SKIP')
@@ -23,8 +24,8 @@ pkgver() {
 build() {
   cd IJulia.jl
 
-  rm -rf "${srcdir}/"{ipython,julia}
-  mkdir -p "${srcdir}/"{ipython,julia}
+  rm -rf "${srcdir}/"{jupyter,julia}
+  mkdir -p "${srcdir}/"{jupyter,julia}
 
   site_dir=$("${_site_dir_cmd[@]}" "/usr")
   tmp_pkgdir=${srcdir}/julia
@@ -33,10 +34,10 @@ build() {
   mkdir -p "$(dirname "${src_ijulia_dir}")"
   ln -s "${PWD}" "${src_ijulia_dir}"
 
-  IPYTHONDIR="${srcdir}/ipython" \
-            JULIA_PKGDIR="$tmp_pkgdir" \
-            IJULIA_DIR="${site_dir}/IJulia" \
-            julia -f deps/build.jl
+  HOME="${srcdir}/jupyter" \
+      JULIA_PKGDIR="$tmp_pkgdir" \
+      IJULIA_DIR="${site_dir}/IJulia" \
+      julia -f deps/build.jl
 }
 
 package() {
@@ -53,9 +54,9 @@ package() {
 
   rm "${pkgdir}/${site_dir}/IJulia/deps/build.jl"
 
-  # Install Jupyter kernel, and wrapper script
+  # Install Jupyter kernel
 
   kernels_dir="${pkgdir}/usr/share/jupyter"
   install -dm755 "$kernels_dir"
-  cp -a "$srcdir/ipython/kernels" "$kernels_dir"
+  cp -a "$srcdir/jupyter/.local/share/jupyter/kernels" "$kernels_dir"
 }
