@@ -1,0 +1,42 @@
+#
+
+_pkgname=jupyter-rise
+pkgname="${_pkgname}-git"
+pkgver=3.x.19.gd9f1c0d
+pkgrel=1
+pkgdesc='RISE: "Live" Reveal.js Jupyter/IPython Slideshow Extension'
+url="https://github.com/damianavila/RISE"
+arch=('any')
+license=('BSD')
+depends=('jupyter' 'python')
+makedepends=('git')
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+source=(git://github.com/damianavila/RISE)
+md5sums=('SKIP')
+install=jupyter-rise.install
+
+pkgver() {
+  cd RISE
+
+  git describe | sed -e 's/-/./g'
+}
+
+prepare() {
+  rm -rf home
+  mkdir -p home/.jupyter/nbconfig
+}
+
+build() {
+  cd RISE
+
+  HOME="${srcdir}/home" python setup.py install
+}
+
+package() {
+  cd home
+
+  jupyter_dir="${pkgdir}/usr/share/jupyter/"
+  mkdir -p "$jupyter_dir"
+  cp -a "$srcdir/home/.local/share/jupyter/nbextensions" "$jupyter_dir"
+}
