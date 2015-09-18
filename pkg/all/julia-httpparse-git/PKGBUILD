@@ -1,5 +1,5 @@
 pkgname=julia-httpparser-git
-pkgver=0.1.0
+pkgver=0.1.0.0.1.gb649d27
 pkgrel=1
 pkgdesc="HttpParser.jl"
 url="https://github.com/JuliaWeb/HttpParser.jl"

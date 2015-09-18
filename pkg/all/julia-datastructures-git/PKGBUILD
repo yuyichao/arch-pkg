@@ -1,5 +1,5 @@
 pkgname=julia-datastructures-git
-pkgver=0.3.11.0.29.g1f55a1a
+pkgver=0.3.11.0.31.g3ef0658
 pkgrel=1
 pkgdesc="DataStructures.jl"
 url="https://github.com/JuliaLang/DataStructures.jl"
