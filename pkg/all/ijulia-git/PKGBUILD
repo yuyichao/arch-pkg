@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=0.2.5.0.26.g7052b07
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -34,10 +34,12 @@ build() {
   mkdir -p "$(dirname "${src_ijulia_dir}")"
   ln -s "${PWD}" "${src_ijulia_dir}"
 
+  cd deps/
+
   HOME="${srcdir}/jupyter" \
       JULIA_PKGDIR="$tmp_pkgdir" \
       IJULIA_DIR="${site_dir}/IJulia" \
-      julia -f deps/build.jl
+      julia -f build.jl
 }
 
 package() {

@@ -1,5 +1,5 @@
 pkgname=julia-images-git
-pkgver=0.4.46.0.4.g9966872
+pkgver=0.4.47
 pkgrel=1
 pkgdesc="Images.jl"
 url="https://github.com/timholy/Images.jl"
