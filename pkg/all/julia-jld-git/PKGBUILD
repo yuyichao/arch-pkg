@@ -1,0 +1,29 @@
+pkgname=julia-jld-git
+pkgver=0.5.4.0.5.g9df5238
+pkgrel=1
+pkgdesc="JLD.jl"
+url="https://github.com/JuliaLang/JLD.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git')
+depends=('julia' 'julia-compat' 'julia-hdf5')
+provides=('julia-jld')
+source=(git://github.com/JuliaLang/JLD.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd JLD.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd JLD.jl
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/JLD"
+
+  cp -a src "${pkgdir}/${site_dir}/JLD"
+}
