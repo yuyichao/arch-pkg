@@ -1,5 +1,5 @@
 pkgname=julia-iterators-git
-pkgver=0.1.8.0.5.gfa5fc3f
+pkgver=0.1.9
 pkgrel=1
 pkgdesc="Iterators.jl"
 url="https://github.com/JuliaLang/Iterators.jl"

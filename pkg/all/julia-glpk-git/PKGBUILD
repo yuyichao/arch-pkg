@@ -1,5 +1,5 @@
 pkgname=julia-glpk-git
-pkgver=0.2.16.0.3.g88df83c
+pkgver=0.2.17
 pkgrel=1
 pkgdesc="GLPK.jl"
 url="https://github.com/JuliaOpt/GLPK.jl"
