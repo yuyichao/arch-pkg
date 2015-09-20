@@ -1,5 +1,5 @@
 pkgname=julia-colortypes-git
-pkgver=0.1.4.0.5.ga8dd9a3
+pkgver=0.1.5.0.2.g17218b2
 pkgrel=1
 pkgdesc="ColorTypes.jl"
 url="https://github.com/JuliaGraphics/ColorTypes.jl"
