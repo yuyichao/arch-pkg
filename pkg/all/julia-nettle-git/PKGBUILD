@@ -1,5 +1,5 @@
 pkgname=julia-nettle-git
-pkgver=0.1.8.0.19.g1c43a50
+pkgver=0.1.8.0.26.ged4d932
 pkgrel=1
 pkgdesc="Nettle.jl"
 url="https://github.com/staticfloat/Nettle.jl"
