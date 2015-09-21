@@ -1,5 +1,5 @@
 pkgname=julia-polynomials-git
-pkgver=0.0.3.0.12.gc567f8f
+pkgver=0.0.3.0.14.g0f9db9e
 pkgrel=1
 pkgdesc="Polynomials.jl"
 url="https://github.com/Keno/Polynomials.jl"
