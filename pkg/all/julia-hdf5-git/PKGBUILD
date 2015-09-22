@@ -2,14 +2,14 @@ pkgname=julia-hdf5-git
 pkgver=0.5.5.0.5.gc324b4f
 pkgrel=1
 pkgdesc="HDF5.jl"
-url="https://github.com/timholy/HDF5.jl"
+url="https://github.com/JuliaLang/HDF5.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
 depends=('julia' 'julia-blosc' 'julia-compat' 'hdf5')
 provides=('julia-hdf5')
-source=(git://github.com/timholy/HDF5.jl)
+source=(git://github.com/JuliaLang/HDF5.jl)
 md5sums=('SKIP')
 
 pkgver() {
