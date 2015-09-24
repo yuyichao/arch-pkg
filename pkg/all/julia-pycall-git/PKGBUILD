@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=('julia' 'julia-compat' 'python')
 provides=('julia-pycall')
 source=(git://github.com/stevengj/PyCall.jl)
 md5sums=('SKIP')
