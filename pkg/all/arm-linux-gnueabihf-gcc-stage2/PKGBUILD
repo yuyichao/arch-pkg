@@ -23,10 +23,11 @@ build() {
 
   export CFLAGS="-O2 -pipe"
   export CXXFLAGS="-O2 -pipe"
+  export CPP="/usr/bin/cpp"
 
   echo ${pkgver} > gcc/BASE-VER
 
-  [[ -d gcc-build ]] || mkdir gcc-build
+  mkdir -p gcc-build
   cd gcc-build
 
   [ $NOEXTRACT -eq 1 ] || ../configure \
@@ -35,7 +36,9 @@ build() {
     --target=${_target} \
     --host=$CHOST \
     --build=$CHOST \
+    --disable-shared \
     --disable-nls \
+    --disable-threads \
     --enable-languages=c \
     --enable-multilib \
     --with-local-prefix=/usr/${_target} \
@@ -43,6 +46,7 @@ build() {
     --with-as=/usr/bin/${_target}-as \
     --with-ld=/usr/bin/${_target}-ld \
     --with-float=hard \
+    --with-newlib \
     --disable-libgomp \
     --enable-interwork \
     --enable-addons
@@ -55,12 +59,13 @@ package() {
 
   export CFLAGS="-O2 -pipe"
   export CXXFLAGS="-O2 -pipe"
+  export CPP="/usr/bin/cpp"
 
   make DESTDIR="$pkgdir" install-gcc install-target-libgcc
 
   rm -rf "$pkgdir"/usr/share/{man/man7,info}/
 
-  cp -r "$pkgdir"/usr/libexec/* "$pkgdir"/usr/lib/
+  cp -r "$pkgdir"/usr/libexec/* "$pkgdir/usr/lib/"
   rm -rf "$pkgdir/usr/libexec"
 
   # strip it manually

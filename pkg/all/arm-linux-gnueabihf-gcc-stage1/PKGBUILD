@@ -57,8 +57,7 @@ package() {
 
   make DESTDIR="$pkgdir" install-gcc install-target-libgcc
 
-  rm -rf "$pkgdir"/usr/share/man/man7/
-  rm -rf "$pkgdir/usr/share/info"
+  rm -rf "$pkgdir"/usr/share/{man/man7,info}/
 
   cp -r "$pkgdir"/usr/libexec/* "$pkgdir/usr/lib/"
   rm -rf "$pkgdir/usr/libexec"
