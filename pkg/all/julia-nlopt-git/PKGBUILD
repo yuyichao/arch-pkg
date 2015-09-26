@@ -1,0 +1,40 @@
+pkgname=julia-nlopt-git
+pkgver=0.2.3
+pkgrel=1
+pkgdesc="NLopt.jl"
+url="https://github.com/JuliaOpt/NLopt.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-bindeps')
+# TODO version depends
+depends=('julia' 'julia-mathprogbase' 'julia-compat' 'nlopt')
+provides=('julia-nlopt')
+source=(git://github.com/JuliaOpt/NLopt.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd NLopt.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd NLopt.jl/deps
+
+  julia -f ./build.jl
+}
+
+package() {
+  cd NLopt.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/NLopt"
+
+  cp -a src deps "${pkgdir}/${site_dir}/NLopt"
+
+  rm "${pkgdir}/${site_dir}/NLopt/deps/build.jl"
+}
