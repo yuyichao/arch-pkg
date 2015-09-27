@@ -5,14 +5,14 @@
 pkgname=cscope
 pkgver=15.8.a
 _realver=15.8a
-pkgrel=2
+pkgrel=3
 pkgdesc="A developers tool for browsing program code"
 arch=('i686' 'x86_64')
 url="http://cscope.sourceforge.net/"
 license=('BSD')
 depends=('ncurses' 'sh')
 source=(http://downloads.sourceforge.net/${pkgname}/${pkgname}-${_realver}.tar.gz
-  0001-patched.patch)
+        0001-patched.patch)
 md5sums=('b5c898ccedcfe2d4aa69537dad73b610'
          '1b06200f32a03eb067484ede98ff9437')
 options=(debug strip)
