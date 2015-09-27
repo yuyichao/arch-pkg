@@ -1,5 +1,5 @@
 pkgname=julia-lightxml-git
-pkgver=0.2.0.0.2.g41d3a32
+pkgver=0.2.0.0.6.g404817e
 pkgrel=1
 pkgdesc="LightXML.jl"
 url="https://github.com/JuliaLang/LightXML.jl"
