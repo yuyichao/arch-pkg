@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia' 'julia-compat')
+depends=('julia')
 provides=('julia-uriparser')
 source=(git://github.com/JuliaWeb/URIParser.jl)
 md5sums=('SKIP')

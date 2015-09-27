@@ -7,8 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-httpcommon' 'julia-compat'
-         'http-parser')
+depends=('julia' 'julia-httpcommon' 'http-parser')
 provides=('julia-httpparser')
 source=(git://github.com/JuliaWeb/HttpParser.jl)
 md5sums=('SKIP')

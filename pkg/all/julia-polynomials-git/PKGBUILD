@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-polynomials')
 source=(git://github.com/Keno/Polynomials.jl)
 md5sums=('SKIP')

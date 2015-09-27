@@ -1,5 +1,5 @@
 pkgname=julia-zlib-git
-pkgver=0.1.9.0.6.g8e2a6c8
+pkgver=0.1.10
 pkgrel=1
 pkgdesc="Zlib.jl"
 url="https://github.com/dcjones/Zlib.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-zlib')
 source=(git://github.com/dcjones/Zlib.jl)
 md5sums=('SKIP')
