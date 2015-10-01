@@ -1,5 +1,5 @@
 pkgname=julia-uriparser-git
-pkgver=0.1.0.0.8.g40adba6
+pkgver=0.1.0.0.9.g54a8dd1
 pkgrel=1
 pkgdesc="URIParser.jl"
 url="https://github.com/JuliaLang/URIParser.jl"
