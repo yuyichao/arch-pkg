@@ -1,14 +1,14 @@
 pkgname=julia-images-git
-pkgver=0.4.48.0.8.g945bf2e
+pkgver=0.4.48.0.25.ga615f93
 pkgrel=1
 pkgdesc="Images.jl"
 url="https://github.com/timholy/Images.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-colors' 'julia-colorvectorspace'
-         'julia-siunits' 'julia-zlib' 'julia-graphics' 'imagemagick')
+         'julia-siunits' 'julia-zlib' 'julia-graphics' 'julia-fileio')
 provides=('julia-images')
 source=(git://github.com/timholy/Images.jl)
 md5sums=('SKIP')
@@ -17,12 +17,6 @@ pkgver() {
   cd Images.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
-}
-
-build() {
-  cd Images.jl
-
-  julia -f deps/build.jl
 }
 
 package() {
@@ -35,7 +29,5 @@ package() {
 
   install -dm755 "${pkgdir}/${site_dir}/Images"
 
-  cp -a src deps "${pkgdir}/${site_dir}/Images"
-
-  rm -rf "${pkgdir}/${site_dir}/Images/deps/"{build.jl,windows}
+  cp -a src "${pkgdir}/${site_dir}/Images"
 }
