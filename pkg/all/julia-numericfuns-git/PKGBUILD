@@ -1,5 +1,5 @@
 pkgname=julia-numericfuns-git
-pkgver=0.2.3.0.5.g947c61f
+pkgver=0.2.4
 pkgrel=1
 pkgdesc="NumericFuns.jl"
 url="https://github.com/lindahua/NumericFuns.jl"
