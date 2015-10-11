@@ -1,0 +1,32 @@
+pkgname=julia-forwarddiff-git
+pkgver=0.1.1.0.3.gbb98b73
+pkgrel=1
+pkgdesc="ForwardDiff.jl"
+url="https://github.com/JuliaDiff/ForwardDiff.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-calculus' 'julia-nanmath')
+provides=('julia-forwarddiff')
+source=(git://github.com/JuliaDiff/ForwardDiff.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ForwardDiff.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ForwardDiff.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/ForwardDiff"
+
+  cp -a src "${pkgdir}/${site_dir}/ForwardDiff"
+}
