@@ -1,5 +1,5 @@
 pkgname=julia-hdf5-git
-pkgver=0.5.6
+pkgver=0.5.6.0.2.g47f2f96
 pkgrel=1
 pkgdesc="HDF5.jl"
 url="https://github.com/JuliaLang/HDF5.jl"

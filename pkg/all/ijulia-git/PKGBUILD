@@ -1,11 +1,11 @@
 pkgname=ijulia-git
-pkgver=1.1.3
-pkgrel=1
+pkgver=1.1.7.0.5.g40258ab
+pkgrel=2
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-conda')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq'
          'jupyter')

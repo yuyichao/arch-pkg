@@ -1,6 +1,6 @@
 pkgname=julia-jump-git
-pkgver=0.10.0.0.50.ge3fd391
-pkgrel=1
+pkgver=0.10.0.0.60.g40c9d22
+pkgrel=2
 pkgdesc="JuMP.jl"
 url="https://github.com/JuliaOpt/JuMP.jl"
 arch=('any')
@@ -8,7 +8,7 @@ license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-mathprogbase' 'julia-reversediffsparse'
-         'julia-arrayviews' 'julia-compat' 'julia-calculus')
+         'julia-arrayviews' 'julia-calculus')
 provides=('julia-jump')
 source=(git://github.com/JuliaOpt/JuMP.jl)
 md5sums=('SKIP')

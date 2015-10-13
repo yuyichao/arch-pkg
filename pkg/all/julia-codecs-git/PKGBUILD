@@ -1,5 +1,5 @@
 pkgname=julia-codecs-git
-pkgver=0.1.4.0.4.ge48b871
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="Codecs.jl"
 url="https://github.com/dcjones/Codecs.jl"

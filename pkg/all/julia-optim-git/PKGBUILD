@@ -1,13 +1,13 @@
 pkgname=julia-optim-git
-pkgver=0.4.2.0.17.g8ad3d9b
-pkgrel=1
+pkgver=0.4.2.0.23.gd9f9594
+pkgrel=2
 pkgdesc="Optim.jl"
 url="https://github.com/JuliaOpt/Optim.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-calculus' 'julia-dualnumbers' 'julia-compat')
+depends=('julia' 'julia-calculus' 'julia-dualnumbers')
 provides=('julia-optim')
 source=(git://github.com/JuliaOpt/Optim.jl)
 md5sums=('SKIP')
