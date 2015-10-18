@@ -1,6 +1,6 @@
 pkgname=julia-jump-git
-pkgver=0.10.0.0.60.g40c9d22
-pkgrel=2
+pkgver=0.10.0.0.62.g5e0216c
+pkgrel=1
 pkgdesc="JuMP.jl"
 url="https://github.com/JuliaOpt/JuMP.jl"
 arch=('any')

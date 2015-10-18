@@ -1,5 +1,5 @@
 pkgname=julia-parsercombinator-git
-pkgver=1.7.0.0.2.gabf7928
+pkgver=1.7.0.0.7.g0325a10
 pkgrel=1
 pkgdesc="ParserCombinator.jl"
 url="https://github.com/andrewcooke/ParserCombinator.jl"
