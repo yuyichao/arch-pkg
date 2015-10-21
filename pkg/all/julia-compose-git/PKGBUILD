@@ -1,0 +1,33 @@
+pkgname=julia-compose-git
+pkgver=0.3.17.0.5.g2b99f69
+pkgrel=1
+pkgdesc="Compose.jl"
+url="https://github.com/dcjones/Compose.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-colors' 'julia-datastructures' 'julia-iterators'
+         'julia-json' 'julia-compat')
+provides=('julia-compose')
+source=(git://github.com/dcjones/Compose.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Compose.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Compose.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Compose"
+
+  cp -a src data "${pkgdir}/${site_dir}/Compose"
+}
