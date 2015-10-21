@@ -1,0 +1,30 @@
+pkgname=julia-interact-git
+pkgver=0.2.1.0.9.gb3a381d
+pkgrel=1
+pkgdesc="Interact.jl"
+url="https://github.com/JuliaLang/Interact.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git')
+depends=('julia' 'julia-json' 'julia-compat' 'julia-reactive'
+         'julia-datastructures')
+provides=('julia-interact')
+source=(git://github.com/JuliaLang/Interact.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Interact.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Interact.jl
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Interact"
+
+  cp -a src "${pkgdir}/${site_dir}/Interact"
+}
