@@ -1,5 +1,5 @@
 pkgname=julia-andorsif-git
-pkgver=0.0.2
+pkgver=0.0.2.0.2.g860eaeb
 pkgrel=1
 pkgdesc="AndorSIF.jl"
 url="https://github.com/JuliaIO/AndorSIF.jl"

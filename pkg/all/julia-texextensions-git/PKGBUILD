@@ -1,5 +1,5 @@
 pkgname=julia-texextensions-git
-pkgver=0.0.1.0.7.g006d0c8
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="TexExtensions.jl"
 url="https://github.com/Keno/TexExtensions.jl"

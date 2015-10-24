@@ -1,5 +1,5 @@
 pkgname=julia-approxfun-git
-pkgver=0.0.7.0.134.gc52c05d
+pkgver=0.0.8.0.105.gcb062d6
 pkgrel=1
 pkgdesc="ApproxFun.jl"
 url="https://github.com/ApproxFun/ApproxFun.jl"

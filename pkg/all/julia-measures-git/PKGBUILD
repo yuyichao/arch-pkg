@@ -1,32 +1,33 @@
-pkgname=julia-distributedarrays-git
-pkgver=0.1.5.0.9.gddff4d4
+pkgname=julia-measures-git
+pkgver=0.0.1
 pkgrel=1
-pkgdesc="DistributedArrays.jl"
-url="https://github.com/JuliaParallel/DistributedArrays.jl"
+pkgdesc="Measures.jl"
+url="https://github.com/dcjones/Measures.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-distributedarrays')
-source=(git://github.com/JuliaParallel/DistributedArrays.jl)
+depends=('julia' 'julia-colors' 'julia-datastructures' 'julia-iterators'
+         'julia-json' 'julia-compat')
+provides=('julia-measures')
+source=(git://github.com/dcjones/Measures.jl)
 md5sums=('SKIP')
 
 pkgver() {
-  cd DistributedArrays.jl
+  cd Measures.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
-  cd DistributedArrays.jl
+  cd Measures.jl
 
   install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
   install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/DistributedArrays"
+  install -dm755 "${pkgdir}/${site_dir}/Measures"
 
-  cp -a src "${pkgdir}/${site_dir}/DistributedArrays"
+  cp -a src "${pkgdir}/${site_dir}/Measures"
 }
