@@ -1,0 +1,32 @@
+pkgname=julia-rdatasets-git
+pkgver=0.1.13.0.2.g22d064d
+pkgrel=1
+pkgdesc="RDatasets.jl"
+url="https://github.com/johnmyleswhite/RDatasets.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-dataframes' 'julia-reexport' 'julia-compat')
+provides=('julia-rdatasets')
+source=(git://github.com/johnmyleswhite/RDatasets.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd RDatasets.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd RDatasets.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/RDatasets"
+
+  cp -a src data doc "${pkgdir}/${site_dir}/RDatasets"
+}

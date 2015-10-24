@@ -1,0 +1,32 @@
+pkgname=julia-grid-git
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Grid.jl"
+url="https://github.com/timholy/Grid.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-compat' 'julia-woodburymatrices')
+provides=('julia-grid')
+source=(git://github.com/timholy/Grid.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Grid.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Grid.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.txt "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Grid"
+
+  cp -a src "${pkgdir}/${site_dir}/Grid"
+}

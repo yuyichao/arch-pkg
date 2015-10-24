@@ -1,0 +1,32 @@
+pkgname=julia-woodburymatrices-git
+pkgver=0.1.2
+pkgrel=1
+pkgdesc="WoodburyMatrices.jl"
+url="https://github.com/timholy/WoodburyMatrices.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia')
+provides=('julia-woodburymatrices')
+source=(git://github.com/timholy/WoodburyMatrices.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd WoodburyMatrices.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd WoodburyMatrices.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/WoodburyMatrices"
+
+  cp -a src "${pkgdir}/${site_dir}/WoodburyMatrices"
+}
