@@ -1,5 +1,5 @@
 pkgname=julia-gadfly-git
-pkgver=0.3.18.0.16.g52afaa7
+pkgver=0.3.18.0.19.g0bfb2f0
 pkgrel=1
 pkgdesc="Gadfly.jl"
 url="https://github.com/dcjones/Gadfly.jl"
