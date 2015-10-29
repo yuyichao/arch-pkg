@@ -1,5 +1,5 @@
 pkgname=julia-measures-git
-pkgver=0.0.1
+pkgver=0.0.1.0.1.gdb6e955
 pkgrel=1
 pkgdesc="Measures.jl"
 url="https://github.com/dcjones/Measures.jl"
@@ -7,8 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-colors' 'julia-datastructures' 'julia-iterators'
-         'julia-json' 'julia-compat')
+depends=('julia')
 provides=('julia-measures')
 source=(git://github.com/dcjones/Measures.jl)
 md5sums=('SKIP')

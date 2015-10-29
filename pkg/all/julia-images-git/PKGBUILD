@@ -1,5 +1,5 @@
 pkgname=julia-images-git
-pkgver=0.4.48.0.43.g596a603
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="Images.jl"
 url="https://github.com/timholy/Images.jl"
@@ -7,8 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-colors' 'julia-colorvectorspace'
-         'julia-siunits' 'julia-zlib' 'julia-graphics' 'julia-fileio')
+depends=('julia' 'julia-colors' 'julia-colorvectorspace'
+         'julia-fixedpointnumbers' 'julia-siunits' 'julia-zlib'
+         'julia-graphics' 'julia-fileio')
 provides=('julia-images')
 source=(git://github.com/timholy/Images.jl)
 md5sums=('SKIP')
