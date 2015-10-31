@@ -1,0 +1,32 @@
+pkgname=julia-lazy-git
+pkgver=0.10.0.0.8.g42b81ab
+pkgrel=1
+pkgdesc="Lazy.jl"
+url="https://github.com/one-more-minute/Lazy.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-macrotools' 'julia-compat')
+provides=('julia-lazy')
+source=(git://github.com/one-more-minute/Lazy.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Lazy.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Lazy.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Lazy"
+
+  cp -a src "${pkgdir}/${site_dir}/Lazy"
+}
