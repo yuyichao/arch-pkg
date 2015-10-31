@@ -1,5 +1,5 @@
 pkgname=julia-benchmarks-git
-pkgver=0.1.13.0.2.g22d064d
+pkgver=0.0.0.36.99ed343
 pkgrel=1
 pkgdesc="Benchmarks.jl"
 url="https://github.com/johnmyleswhite/Benchmarks.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Benchmarks.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  echo "0.0.0.$(git rev-list --count master).$(git rev-parse --short master)"
 }
 
 package() {

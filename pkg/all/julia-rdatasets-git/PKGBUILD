@@ -1,5 +1,5 @@
 pkgname=julia-rdatasets-git
-pkgver=0.1.13.0.2.g22d064d
+pkgver=0.0.0.55.1868811
 pkgrel=1
 pkgdesc="RDatasets.jl"
 url="https://github.com/johnmyleswhite/RDatasets.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd RDatasets.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  echo "0.0.0.$(git rev-list --count master).$(git rev-parse --short master)"
 }
 
 package() {

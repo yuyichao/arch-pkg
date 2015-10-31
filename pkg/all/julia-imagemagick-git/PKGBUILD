@@ -1,5 +1,5 @@
 pkgname=julia-imagemagick-git
-pkgver=0.0.0.0.90.9b93798
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="ImageMagick.jl"
 url="https://github.com/JuliaIO/ImageMagick.jl"
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 pkgver() {
   cd ImageMagick.jl
 
-  echo "0.0.0.0.$(git rev-list --count master).$(git rev-parse --short master)"
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

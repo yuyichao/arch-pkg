@@ -1,5 +1,5 @@
 pkgname=julia-clang-git
-pkgver=0.3.0
+pkgver=0.0.0.397.ca3880c
 pkgrel=1
 pkgdesc="Clang.jl"
 url="https://github.com/ihnorton/Clang.jl"
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Clang.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  echo "0.0.0.$(git rev-list --count master).$(git rev-parse --short master)"
 }
 
 build() {
