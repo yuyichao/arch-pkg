@@ -1,5 +1,5 @@
 pkgname=julia-uriparser-git
-pkgver=0.1.1.0.3.gd42cadb
+pkgver=0.1.1.0.5.g67f6a31
 pkgrel=1
 pkgdesc="URIParser.jl"
 url="https://github.com/JuliaLang/URIParser.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia' 'julia-lazy')
+depends=('julia')
 provides=('julia-uriparser')
 source=(git://github.com/JuliaWeb/URIParser.jl)
 md5sums=('SKIP')

@@ -1,5 +1,5 @@
 pkgname=julia-mathprogbase-git
-pkgver=0.3.19
+pkgver=0.3.19.0.2.g48d55c3
 pkgrel=1
 pkgdesc="MathProgBase.jl"
 url="https://github.com/JuliaOpt/MathProgBase.jl"
