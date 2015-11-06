@@ -1,5 +1,5 @@
 pkgname=julia-dualnumbers-git
-pkgver=0.1.5
+pkgver=0.1.5.0.2.gca3a9ec
 pkgrel=1
 pkgdesc="DualNumbers.jl"
 url="https://github.com/JuliaDiff/DualNumbers.jl"

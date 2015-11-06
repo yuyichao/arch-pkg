@@ -1,5 +1,5 @@
 pkgname=julia-autohashequals-git
-pkgver=0.0.5
+pkgver=0.0.7.0.1.g6baf019
 pkgrel=1
 pkgdesc="AutoHashEquals.jl"
 url="https://github.com/andrewcooke/AutoHashEquals.jl"
