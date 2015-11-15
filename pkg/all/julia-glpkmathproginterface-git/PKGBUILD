@@ -1,5 +1,5 @@
 pkgname=julia-glpkmathproginterface-git
-pkgver=0.1.15.0.6.g063f7b9
+pkgver=0.1.16
 pkgrel=1
 pkgdesc="GLPKMathProgInterface.jl"
 url="https://github.com/JuliaOpt/GLPKMathProgInterface.jl"

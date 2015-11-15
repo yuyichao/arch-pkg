@@ -1,5 +1,5 @@
 pkgname=julia-opencl-git
-pkgver=0.3.6.0.2.gf529546
+pkgver=0.3.6.0.8.ge05be14
 pkgrel=1
 pkgdesc="OpenCL.jl"
 url="https://github.com/JuliaGPU/OpenCL.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia' 'julia-compat' 'libcl')
+depends=('julia' 'libcl')
 provides=('julia-opencl')
 source=(git://github.com/JuliaGPU/OpenCL.jl)
 md5sums=('SKIP')
