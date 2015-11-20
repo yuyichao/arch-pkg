@@ -1,5 +1,5 @@
 pkgname=julia-interact-git
-pkgver=0.2.1.0.9.gb3a381d
+pkgver=0.2.1.0.10.g17f8864
 pkgrel=1
 pkgdesc="Interact.jl"
 url="https://github.com/JuliaLang/Interact.jl"

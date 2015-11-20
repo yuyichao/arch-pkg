@@ -1,5 +1,5 @@
 pkgname=julia-compose-git
-pkgver=0.3.18.0.48.g5261159
+pkgver=0.4.0.0.2.g55eabfe
 pkgrel=1
 pkgdesc="Compose.jl"
 url="https://github.com/dcjones/Compose.jl"
@@ -8,7 +8,7 @@ license=('MIT')
 makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-colors' 'julia-datastructures' 'julia-iterators'
-         'julia-json' 'julia-compat' 'julia-measures')
+         'julia-json' 'julia-measures')
 provides=('julia-compose')
 source=(git://github.com/dcjones/Compose.jl)
 md5sums=('SKIP')

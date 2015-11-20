@@ -1,5 +1,5 @@
 pkgname=julia-fastgaussquadrature-git
-pkgver=0.0.1.0.4.g503f4ff
+pkgver=0.0.1.0.12.gae560a1
 pkgrel=1
 pkgdesc="FastGaussQuadrature.jl"
 url="https://github.com/ajt60gaibb/FastGaussQuadrature.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-fastgaussquadrature')
 options=('debug' 'strip')
 source=(git://github.com/ajt60gaibb/FastGaussQuadrature.jl)

@@ -1,5 +1,5 @@
 pkgname=julia-opencl-git
-pkgver=0.3.6.0.8.ge05be14
+pkgver=0.3.6.0.17.g235fd2a
 pkgrel=1
 pkgdesc="OpenCL.jl"
 url="https://github.com/JuliaGPU/OpenCL.jl"
