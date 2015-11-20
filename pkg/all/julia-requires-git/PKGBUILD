@@ -1,0 +1,32 @@
+pkgname=julia-requires-git
+pkgver=0.2.0.0.1.g57b2746
+pkgrel=1
+pkgdesc="Requires.jl"
+url="https://github.com/one-more-minute/Requires.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-macrotools')
+provides=('julia-requires')
+source=(git://github.com/one-more-minute/Requires.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Requires.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Requires.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Requires"
+
+  cp -a src "${pkgdir}/${site_dir}/Requires"
+}
