@@ -28,5 +28,5 @@ package() {
 
   install -dm755 "${pkgdir}/${site_dir}/MathProgBase"
 
-  cp -a src "${pkgdir}/${site_dir}/MathProgBase"
+  cp -a src test "${pkgdir}/${site_dir}/MathProgBase"
 }
