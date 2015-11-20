@@ -7,8 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-gzip' 'julia-statsbase' 'julia-lightxml'
-         'julia-parsercombinator' 'julia-clustering' 'julia-combinatorics')
+depends=('julia' 'julia-requires' 'julia-compat' 'julia-gzip' 'julia-statsbase'
+         'julia-lightxml' 'julia-parsercombinator' 'julia-clustering'
+         'julia-combinatorics')
 provides=('julia-lightgraphs')
 options=('debug' 'strip')
 source=(git://github.com/JuliaGraphs/LightGraphs.jl)
