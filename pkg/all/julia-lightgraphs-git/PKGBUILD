@@ -1,13 +1,13 @@
 pkgname=julia-lightgraphs-git
-pkgver=0.4.0.0.88.gd982bab
-pkgrel=2
+pkgver=0.4.2.0.2.gdf40ce7
+pkgrel=1
 pkgdesc="LightGraphs.jl"
 url="https://github.com/JuliaGraphs/LightGraphs.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-requires' 'julia-compat' 'julia-gzip' 'julia-statsbase'
+depends=('julia' 'julia-requires' 'julia-gzip' 'julia-statsbase'
          'julia-lightxml' 'julia-parsercombinator' 'julia-clustering'
          'julia-combinatorics')
 provides=('julia-lightgraphs')

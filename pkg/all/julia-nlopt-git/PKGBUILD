@@ -1,5 +1,5 @@
 pkgname=julia-nlopt-git
-pkgver=0.2.3
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="NLopt.jl"
 url="https://github.com/JuliaOpt/NLopt.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-mathprogbase' 'julia-compat' 'nlopt')
+depends=('julia' 'julia-mathprogbase' 'nlopt')
 provides=('julia-nlopt')
 source=(git://github.com/JuliaOpt/NLopt.jl)
 md5sums=('SKIP')

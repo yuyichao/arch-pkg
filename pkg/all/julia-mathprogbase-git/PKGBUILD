@@ -1,5 +1,5 @@
 pkgname=julia-mathprogbase-git
-pkgver=0.3.19.0.4.g2ea5645
+pkgver=0.4.0.0.2.gfb400f0
 pkgrel=1
 pkgdesc="MathProgBase.jl"
 url="https://github.com/JuliaOpt/MathProgBase.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=('julia')
 provides=('julia-mathprogbase')
 source=(git://github.com/JuliaOpt/MathProgBase.jl)
 md5sums=('SKIP')

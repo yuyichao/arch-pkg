@@ -1,5 +1,5 @@
 pkgname=julia-lazy-git
-pkgver=0.10.0.0.9.ga1def3e
+pkgver=0.10.0.0.10.ge73ccaf
 pkgrel=1
 pkgdesc="Lazy.jl"
 url="https://github.com/one-more-minute/Lazy.jl"

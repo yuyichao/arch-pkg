@@ -1,5 +1,5 @@
 pkgname=julia-glpkmathproginterface-git
-pkgver=0.1.16
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="GLPKMathProgInterface.jl"
 url="https://github.com/JuliaOpt/GLPKMathProgInterface.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-glpk' 'julia-compat' 'julia-mathprogbase')
+depends=('julia' 'julia-glpk' 'julia-mathprogbase')
 provides=('julia-glpkmathproginterface')
 source=(git://github.com/JuliaOpt/GLPKMathProgInterface.jl)
 md5sums=('SKIP')

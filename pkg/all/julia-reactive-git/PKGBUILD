@@ -1,5 +1,5 @@
 pkgname=julia-reactive-git
-pkgver=0.2.4.0.71.g1d746a1
+pkgver=0.2.4.0.72.ga041742
 pkgrel=1
 pkgdesc="Reactive.jl"
 url="https://github.com/JuliaLang/Reactive.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia' 'julia-compat')
+depends=('julia')
 provides=('julia-reactive')
 source=(git://github.com/JuliaLang/Reactive.jl)
 md5sums=('SKIP')

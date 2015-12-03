@@ -1,5 +1,5 @@
 pkgname=julia-ipopt-git
-pkgver=0.1.18.0.1.ged85a1f
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Ipopt.jl"
 url="https://github.com/JuliaOpt/Ipopt.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-mathprogbase' 'julia-compat' 'coin-or-ipopt')
+depends=('julia' 'julia-mathprogbase' 'coin-or-ipopt')
 provides=('julia-ipopt')
 source=(git://github.com/JuliaOpt/Ipopt.jl)
 md5sums=('SKIP')

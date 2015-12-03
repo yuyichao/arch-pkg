@@ -1,5 +1,5 @@
 pkgname=julia-colors-git
-pkgver=0.6.0
+pkgver=0.6.0.0.1.ga3b9f0c
 pkgrel=1
 pkgdesc="Colors.jl"
 url="https://github.com/JuliaGraphics/Colors.jl"
@@ -7,8 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-colortypes' 'julia-fixedpointnumbers' 'julia-compat'
-         'julia-reexport')
+depends=('julia' 'julia-colortypes' 'julia-fixedpointnumbers' 'julia-reexport')
 provides=('julia-colors')
 source=(git://github.com/JuliaGraphics/Colors.jl)
 md5sums=('SKIP')
