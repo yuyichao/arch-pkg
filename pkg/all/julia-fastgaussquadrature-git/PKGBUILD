@@ -1,5 +1,5 @@
 pkgname=julia-fastgaussquadrature-git
-pkgver=0.0.2.0.1.gc71dc4e
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="FastGaussQuadrature.jl"
 url="https://github.com/ajt60gaibb/FastGaussQuadrature.jl"

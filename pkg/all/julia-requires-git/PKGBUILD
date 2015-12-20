@@ -1,5 +1,5 @@
 pkgname=julia-requires-git
-pkgver=0.2.0.0.1.g57b2746
+pkgver=0.2.0.0.2.gce05a02
 pkgrel=1
 pkgdesc="Requires.jl"
 url="https://github.com/one-more-minute/Requires.jl"
