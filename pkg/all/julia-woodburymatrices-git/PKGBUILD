@@ -1,5 +1,5 @@
 pkgname=julia-woodburymatrices-git
-pkgver=0.1.3
+pkgver=0.1.4
 pkgrel=1
 pkgdesc="WoodburyMatrices.jl"
 url="https://github.com/timholy/WoodburyMatrices.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-woodburymatrices')
 source=(git://github.com/timholy/WoodburyMatrices.jl)
 md5sums=('SKIP')
