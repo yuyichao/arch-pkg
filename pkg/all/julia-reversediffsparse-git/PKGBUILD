@@ -1,5 +1,5 @@
 pkgname=julia-reversediffsparse-git
-pkgver=0.3.0
+pkgver=0.4.0.0.3.g843cba3
 pkgrel=1
 pkgdesc="ReverseDiffSparse.jl"
 url="https://github.com/mlubin/ReverseDiffSparse.jl"
@@ -7,8 +7,8 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-dualnumbers' 'julia-nanmath'
-         'julia-datastructures' 'julia-arrayviews')
+depends=('julia' 'julia-calculus' 'julia-lazy' 'julia-datastructures'
+         'julia-mathprogbase' 'julia-dualnumbers' 'julia-nanmath')
 provides=('julia-reversediffsparse')
 source=(git://github.com/mlubin/ReverseDiffSparse.jl)
 md5sums=('SKIP')

@@ -1,5 +1,5 @@
 pkgname=julia-nlopt-git
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="NLopt.jl"
 url="https://github.com/JuliaOpt/NLopt.jl"

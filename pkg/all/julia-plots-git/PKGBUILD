@@ -1,0 +1,29 @@
+pkgname=julia-plots-git
+pkgver=0.5.1.0.15.gb6e6273
+pkgrel=1
+pkgdesc="Plots.jl"
+url="https://github.com/tbreloff/Plots.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git')
+depends=('julia' 'julia-colors' 'julia-reexport' 'julia-compat')
+provides=('julia-plots')
+source=(git://github.com/tbreloff/Plots.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Plots.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Plots.jl
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/Plots"
+
+  cp -a src "${pkgdir}/${site_dir}/Plots"
+}

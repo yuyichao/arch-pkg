@@ -1,5 +1,5 @@
 pkgname=julia-json-git
-pkgver=0.5.0
+pkgver=0.5.0.0.2.g01ab147
 pkgrel=1
 pkgdesc="JSON.jl"
 url="https://github.com/JuliaLang/JSON.jl"

@@ -1,6 +1,6 @@
 pkgname=julia-optim-git
-pkgver=0.4.2.0.23.gd9f9594
-pkgrel=2
+pkgver=0.4.2.0.30.ge5b0f00
+pkgrel=1
 pkgdesc="Optim.jl"
 url="https://github.com/JuliaOpt/Optim.jl"
 arch=('any')

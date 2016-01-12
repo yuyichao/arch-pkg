@@ -1,5 +1,5 @@
 pkgname=julia-approxfun-git
-pkgver=0.0.8.0.105.gcb062d6
+pkgver=0.0.8.0.193.g2c0b46c
 pkgrel=1
 pkgdesc="ApproxFun.jl"
 url="https://github.com/ApproxFun/ApproxFun.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-fastgaussquadrature')
+depends=('julia' 'julia-plots' 'julia-fastgaussquadrature')
 provides=('julia-approxfun')
 options=('debug' 'strip')
 source=(git://github.com/ApproxFun/ApproxFun.jl)

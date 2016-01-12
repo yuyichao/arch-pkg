@@ -1,5 +1,5 @@
 pkgname=julia-gzip-git
-pkgver=0.2.18.0.2.gc9422de
+pkgver=0.2.18.0.4.g58c34d5
 pkgrel=1
 pkgdesc="GZip.jl"
 url="https://github.com/JuliaLang/GZip.jl"
