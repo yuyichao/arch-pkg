@@ -1,5 +1,5 @@
 pkgname=julia-ipopt-git
-pkgver=0.2.0
+pkgver=0.2.0.0.4.gcc7aee5
 pkgrel=1
 pkgdesc="Ipopt.jl"
 url="https://github.com/JuliaOpt/Ipopt.jl"

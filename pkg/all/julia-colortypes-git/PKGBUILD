@@ -1,5 +1,5 @@
 pkgname=julia-colortypes-git
-pkgver=0.2.0
+pkgver=0.2.0.0.2.gf5deae2
 pkgrel=1
 pkgdesc="ColorTypes.jl"
 url="https://github.com/JuliaGraphics/ColorTypes.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-fixedpointnumbers' 'julia-compat')
+depends=('julia' 'julia-fixedpointnumbers')
 provides=('julia-colortypes')
 source=(git://github.com/JuliaGraphics/ColorTypes.jl)
 md5sums=('SKIP')

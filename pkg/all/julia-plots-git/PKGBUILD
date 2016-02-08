@@ -1,5 +1,5 @@
 pkgname=julia-plots-git
-pkgver=0.5.1.0.15.gb6e6273
+pkgver=0.5.1.0.64.gac3c041
 pkgrel=1
 pkgdesc="Plots.jl"
 url="https://github.com/tbreloff/Plots.jl"

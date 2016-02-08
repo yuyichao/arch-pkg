@@ -1,5 +1,5 @@
 pkgname=julia-measures-git
-pkgver=0.0.1.0.1.gdb6e955
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Measures.jl"
 url="https://github.com/dcjones/Measures.jl"

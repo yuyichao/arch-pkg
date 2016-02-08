@@ -1,5 +1,5 @@
 pkgname=julia-reactive-git
-pkgver=0.2.4.0.72.ga041742
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="Reactive.jl"
 url="https://github.com/JuliaLang/Reactive.jl"

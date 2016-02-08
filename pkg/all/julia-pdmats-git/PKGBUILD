@@ -1,5 +1,5 @@
 pkgname=julia-pdmats-git
-pkgver=0.3.5.0.10.gdebf558
+pkgver=0.3.5.0.14.g8e61686
 pkgrel=1
 pkgdesc="PDMats.jl"
 url="https://github.com/JuliaStats/PDMats.jl"
