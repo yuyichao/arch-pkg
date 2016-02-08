@@ -1,5 +1,5 @@
 pkgname=julia-contour-git
-pkgver=0.0.7.0.11.g18d3653
+pkgver=0.0.7.0.17.gbdabbcd
 pkgrel=1
 pkgdesc="Contour.jl"
 url="https://github.com/tlycken/Contour.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-immutablearrays')
+depends=('julia' 'julia-compat' 'julia-fixedsizearrays')
 provides=('julia-contour')
 source=(git://github.com/tlycken/Contour.jl)
 md5sums=('SKIP')
