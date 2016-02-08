@@ -1,0 +1,32 @@
+pkgname=julia-fixedsizearrays-git
+pkgver=0.0.9.0.3.gc0f3a65
+pkgrel=1
+pkgdesc="FixedSizeArrays.jl"
+url="https://github.com/SimonDanisch/FixedSizeArrays.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia')
+provides=('julia-fixedsizearrays')
+source=(git://github.com/SimonDanisch/FixedSizeArrays.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd FixedSizeArrays.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd FixedSizeArrays.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/FixedSizeArrays"
+
+  cp -a src "${pkgdir}/${site_dir}/FixedSizeArrays"
+}
