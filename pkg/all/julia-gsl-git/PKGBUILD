@@ -1,0 +1,40 @@
+pkgname=julia-gsl-git
+pkgver=0.3.1.0.8.ga0bcbe8
+pkgrel=1
+pkgdesc="GSL.jl"
+url="https://github.com/jiahao/GSL.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-bindeps')
+# TODO version depends
+depends=('julia' 'julia-mathprogbase' 'gsl')
+provides=('julia-gsl')
+source=(git://github.com/jiahao/GSL.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd GSL.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd GSL.jl/deps
+
+  julia -f ./build.jl
+}
+
+package() {
+  cd GSL.jl
+
+  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+
+  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+
+  install -dm755 "${pkgdir}/${site_dir}/GSL"
+
+  cp -a src deps "${pkgdir}/${site_dir}/GSL"
+
+  rm "${pkgdir}/${site_dir}/GSL/deps/build.jl"
+}
