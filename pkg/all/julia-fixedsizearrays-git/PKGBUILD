@@ -1,5 +1,5 @@
 pkgname=julia-fixedsizearrays-git
-pkgver=0.0.9.0.3.gc0f3a65
+pkgver=0.0.9.0.8.g3642f02
 pkgrel=1
 pkgdesc="FixedSizeArrays.jl"
 url="https://github.com/SimonDanisch/FixedSizeArrays.jl"

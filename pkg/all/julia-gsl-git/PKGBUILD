@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia' 'julia-mathprogbase' 'gsl')
+depends=('julia' 'gsl')
 provides=('julia-gsl')
 source=(git://github.com/jiahao/GSL.jl)
 md5sums=('SKIP')
