@@ -15,7 +15,7 @@ if ((BUILD_EXTRA)); then
 else
    pkgname=('julia-git')
 fi
-pkgver=0.4.0.rc1.2800.ga415911
+pkgver=0.4.0.rc1.2812.ga48f458
 pkgrel=1
 pkgdesc="Julia is a high-level, high-performance, dynamic programming language."
 arch=('any' 'i686' 'x86_64' 'armv7h' 'aarch64')
@@ -110,8 +110,9 @@ build() {
     ulimit -s 81920
     make "${julia_opts[@]}" -C base version_git.jl.phony
     make "${julia_opts[@]}" -C deps
+    make "${julia_opts[@]}" julia-ui-release
     if ((BUILD_EXTRA)); then
-        make "${julia_opts[@]}" release debug docs
+      make "${julia_opts[@]}" release debug docs
     else
       make "${julia_opts[@]}" release debug
     fi
