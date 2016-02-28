@@ -5,32 +5,31 @@
 # Contributor: Lucien Immink <l.immink@student.fnt.hvu.nl>
 
 pkgname=('pidgin' 'libpurple' 'finch')
-pkgver=2.10.11
-pkgrel=2
+pkgver=2.10.12
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://pidgin.im/"
 license=('GPL')
 makedepends=('startup-notification' 'gtkspell' 'libxss' 'nss' 'libsasl' 'libsm'
-             'libidn' 'libgadu' 'python2' 'hicolor-icon-theme' 'farstream-0.1'
+             'libidn' 'libgadu' 'python' 'hicolor-icon-theme' 'farstream'
              'avahi' 'tk' 'ca-certificates' 'intltool' 'networkmanager')
 options=('!libtool' 'strip' 'debug')
 source=(https://downloads.sourceforge.net/project/$pkgname/Pidgin/$pkgver/$pkgname-$pkgver.tar.bz2
+        pidgin-2.10.12-py3-fixes.patch
         grab_focus.patch)
-sha256sums=('f2ae211341fc77efb9945d40e9932aa535cdf3a6c8993fe7919fca8cc1c04007'
+sha256sums=('2c7523f0fefe89749c03b2b738ab9f7bd186da435be4762f1487eee31e77ffdd'
+            'e38bd61e0dcfcc2e5761078ea709b92c5bf8d025d5eb1288aa8a550715babb7e'
             '30b946d812e870b259b711d7709dccc29a23a4e3f932bc7f05d1c0fdc8f0f8be')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgbase-$pkgver
 
   patch -p1 -i "$srcdir/grab_focus.patch"
-
-  # Use Python 2
-  sed -i 's/env python$/&2/' */plugins/*.py \
-      libpurple/purple-{remote,notifications-example,url-handler}
+  patch -Np1 -i ../pidgin-2.10.12-py3-fixes.patch
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgbase-$pkgver
 
   ./configure \
       --prefix=/usr \
@@ -41,7 +40,6 @@ build() {
       --enable-cyrus-sasl \
       --disable-doxygen \
       --enable-nm \
-      --with-python=/usr/bin/python2 \
       --with-system-ssl-certs=/etc/ssl/certs
   make
 }
@@ -49,11 +47,11 @@ build() {
 package_pidgin(){
   pkgdesc="Multi-protocol instant messaging client"
   depends=('libpurple' 'startup-notification' 'gtkspell' 'libxss' 'libsm'
-           'hicolor-icon-theme')
+           'gst-plugins-base' 'gst-plugins-good' 'hicolor-icon-theme')
   optdepends=('aspell: for spelling correction')
   install=pidgin.install
 
-  cd "$srcdir/pidgin-$pkgver"
+  cd $pkgbase-$pkgver
 
   # For linking
   make -C libpurple DESTDIR="$pkgdir" install-libLTLIBRARIES
@@ -69,28 +67,24 @@ package_pidgin(){
 
 package_libpurple(){
   pkgdesc="IM library extracted from Pidgin"
-  depends=('farstream-0.1' 'libsasl' 'libidn' 'libgadu' 'dbus-glib' 'nss')
+  depends=('farstream' 'libsasl' 'libidn' 'libgadu' 'dbus-glib' 'nss')
   optdepends=('avahi: Bonjour protocol support'
               'ca-certificates: SSL CA certificates'
-              'python2-dbus: for purple-remote and purple-url-handler'
+              'python-dbus: for purple-remote and purple-url-handler'
               'tk: Tcl/Tk scripting support')
 
-  cd "$srcdir/pidgin-$pkgver"
+  cd $pkgbase-$pkgver
 
   for _dir in libpurple share/sounds share/ca-certs m4macros po; do
     make -C "$_dir" DESTDIR="$pkgdir" install
   done
-
-  # Remove GConf schema file
-  rm "$pkgdir/etc/gconf/schemas/purple.schemas"
-  rmdir "$pkgdir"/etc{/gconf{/schemas,},}
 }
 
 package_finch(){
   pkgdesc="A ncurses-based messaging client"
-  depends=('libpurple' 'libx11' 'python2')
+  depends=('libpurple' 'libx11' 'python')
 
-  cd "$srcdir/pidgin-$pkgver"
+  cd $pkgbase-$pkgver
 
   # For linking
   make -C libpurple DESTDIR="$pkgdir" install-libLTLIBRARIES

@@ -1,5 +1,5 @@
 pkgname=julia-gsl-git
-pkgver=0.3.1.0.8.ga0bcbe8
+pkgver=0.3.1.0.9.ge4c7431
 pkgrel=1
 pkgdesc="GSL.jl"
 url="https://github.com/jiahao/GSL.jl"

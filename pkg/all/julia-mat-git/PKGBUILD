@@ -1,29 +1,29 @@
-pkgname=julia-compat-git
-pkgver=0.7.12
+pkgname=julia-mat-git
+pkgver=0.2.14
 pkgrel=1
-pkgdesc="Compat.jl"
-url="https://github.com/JuliaLang/Compat.jl"
+pkgdesc="MAT.jl"
+url="https://github.com/simonster/MAT.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia')
-provides=('julia-compat')
-source=(git://github.com/JuliaLang/Compat.jl)
+depends=('julia' 'julia-hdf5' 'julia-zlib' 'julia-compat')
+provides=('julia-mat')
+source=(git://github.com/simonster/MAT.jl)
 md5sums=('SKIP')
 
 pkgver() {
-  cd Compat.jl
+  cd MAT.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
-  cd Compat.jl
+  cd MAT.jl
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/Compat"
+  install -dm755 "${pkgdir}/${site_dir}/MAT"
 
-  cp -a src "${pkgdir}/${site_dir}/Compat"
+  cp -a src "${pkgdir}/${site_dir}/MAT"
 }
