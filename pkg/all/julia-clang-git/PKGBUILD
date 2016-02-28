@@ -1,5 +1,5 @@
 pkgname=julia-clang-git
-pkgver=0.0.0.397.ca3880c
+pkgver=0.0.0.401.4ebbafa
 pkgrel=1
 pkgdesc="Clang.jl"
 url="https://github.com/ihnorton/Clang.jl"

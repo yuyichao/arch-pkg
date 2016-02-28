@@ -1,32 +1,40 @@
-pkgname=julia-mathprogbase-git
-pkgver=0.4.1.0.5.gd78c6ec
+pkgname=julia-gsl-git
+pkgver=0.3.1.0.9.ge4c7431
 pkgrel=1
-pkgdesc="MathProgBase.jl"
-url="https://github.com/JuliaOpt/MathProgBase.jl"
+pkgdesc="GSL.jl"
+url="https://github.com/jiahao/GSL.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-bindeps')
 # TODO version depends
-depends=('julia')
-provides=('julia-mathprogbase')
-source=(git://github.com/JuliaOpt/MathProgBase.jl)
+depends=('julia' 'gsl')
+provides=('julia-gsl')
+source=(git://github.com/jiahao/GSL.jl)
 md5sums=('SKIP')
 
 pkgver() {
-  cd MathProgBase.jl
+  cd GSL.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
+build() {
+  cd GSL.jl/deps
+
+  julia -f ./build.jl
+}
+
 package() {
-  cd MathProgBase.jl
+  cd GSL.jl
 
   install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
   install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
 
   site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
 
-  install -dm755 "${pkgdir}/${site_dir}/MathProgBase"
+  install -dm755 "${pkgdir}/${site_dir}/GSL"
 
-  cp -a src test "${pkgdir}/${site_dir}/MathProgBase"
+  cp -a src deps "${pkgdir}/${site_dir}/GSL"
+
+  rm "${pkgdir}/${site_dir}/GSL/deps/build.jl"
 }
