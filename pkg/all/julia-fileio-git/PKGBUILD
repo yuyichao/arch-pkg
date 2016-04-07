@@ -1,5 +1,5 @@
 pkgname=julia-fileio-git
-pkgver=0.0.3.0.17.g3ae36a8
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="FileIO.jl"
 url="https://github.com/JuliaIO/FileIO.jl"

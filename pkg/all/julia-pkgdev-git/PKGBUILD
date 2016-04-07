@@ -1,5 +1,5 @@
 pkgname=julia-pkgdev-git
-pkgver=0.1.0.0.15.ge7e0e5a
+pkgver=0.1.0.0.24.g3dc3c13
 pkgrel=1
 pkgdesc="PkgDev.jl"
 url="https://github.com/JuliaLang/PkgDev.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git')
-depends=('julia' 'julia-json')
+depends=('julia' 'julia-json' 'julia-uriparser' 'julia-compat')
 provides=('julia-pkgdev')
 source=(git://github.com/JuliaLang/PkgDev.jl)
 md5sums=('SKIP')
