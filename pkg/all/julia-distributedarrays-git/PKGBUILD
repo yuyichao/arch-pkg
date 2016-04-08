@@ -1,5 +1,5 @@
 pkgname=julia-distributedarrays-git
-pkgver=0.1.5.0.33.g6bef5d9
+pkgver=0.1.5.0.40.g8e0e723
 pkgrel=1
 pkgdesc="DistributedArrays.jl"
 url="https://github.com/JuliaParallel/DistributedArrays.jl"

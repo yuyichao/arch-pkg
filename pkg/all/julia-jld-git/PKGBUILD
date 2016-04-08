@@ -1,5 +1,5 @@
 pkgname=julia-jld-git
-pkgver=0.5.8
+pkgver=0.5.9.0.3.g12fc3bb
 pkgrel=1
 pkgdesc="JLD.jl"
 url="https://github.com/JuliaLang/JLD.jl"
