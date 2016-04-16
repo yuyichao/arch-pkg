@@ -1,7 +1,7 @@
 # Maintainer: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 # Contributor: Allan McRae <allan@archlinux.org>
 pkgname=gdb-git
-pkgver=86786.a1e5994
+pkgver=87063.92fce9b
 pkgrel=1
 pkgdesc="The GNU Debugger"
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ conflicts=('gdb')
 backup=('etc/gdb/gdbinit')
 options=('!libtool')
 install=gdb.install
-source=('gdb::git+git://sourceware.org/git/binutils-gdb.git#branch=users/palves/jit-speedup')
+source=('gdb::git+git://sourceware.org/git/binutils-gdb.git')
 md5sums=('SKIP')
 
 pkgver() {
