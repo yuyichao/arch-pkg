@@ -1,5 +1,5 @@
 pkgname=julia-colorvectorspace-git
-pkgver=0.1.1.0.8.g510aa63
+pkgver=0.1.4
 pkgrel=1
 pkgdesc="ColorVectorSpace.jl"
 url="https://github.com/JuliaGraphics/ColorVectorSpace.jl"

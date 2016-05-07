@@ -1,5 +1,5 @@
 pkgname=julia-macrotools-git
-pkgver=0.3.0.0.1.g909ee6b
+pkgver=0.3.0.0.5.ga6cdc02
 pkgrel=1
 pkgdesc="MacroTools.jl"
 url="https://github.com/one-more-minute/MacroTools.jl"

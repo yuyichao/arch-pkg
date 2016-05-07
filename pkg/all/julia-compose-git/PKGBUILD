@@ -1,5 +1,5 @@
 pkgname=julia-compose-git
-pkgver=0.4.2.0.18.gf7b17e3
+pkgver=0.4.2.0.20.gadd8c6a
 pkgrel=1
 pkgdesc="Compose.jl"
 url="https://github.com/dcjones/Compose.jl"

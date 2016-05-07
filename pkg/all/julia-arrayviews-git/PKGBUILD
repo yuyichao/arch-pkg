@@ -1,5 +1,5 @@
 pkgname=julia-arrayviews-git
-pkgver=0.6.4.0.5.g4ec5569
+pkgver=0.6.4.0.12.g93e8039
 pkgrel=1
 pkgdesc="ArrayViews.jl"
 url="https://github.com/JuliaLang/ArrayViews.jl"

@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=1.1.8.0.5.ga675ac5
+pkgver=1.1.9.0.8.g1ff304f
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
