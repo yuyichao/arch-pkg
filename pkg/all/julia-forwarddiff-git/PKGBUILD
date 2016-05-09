@@ -1,5 +1,5 @@
 pkgname=julia-forwarddiff-git
-pkgver=0.1.7.0.2.gd723cfc
+pkgver=0.1.8
 pkgrel=1
 pkgdesc="ForwardDiff.jl"
 url="https://github.com/JuliaDiff/ForwardDiff.jl"
