@@ -7,8 +7,8 @@ arch=('any')
 license=('MIT')
 makedepends=('git')
 # TODO version depends
-depends=('julia')
-provides=('julia-macrotools' 'julia-compat')
+depends=('julia' 'julia-compat')
+provides=('julia-macrotools')
 source=(git://github.com/one-more-minute/MacroTools.jl)
 md5sums=('SKIP')
 
