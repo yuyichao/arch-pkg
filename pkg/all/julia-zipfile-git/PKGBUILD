@@ -1,0 +1,45 @@
+pkgname=julia-zipfile-git
+pkgver=0.2.6.0.3.g8fdff7b
+pkgrel=1
+pkgdesc="ZipFile.jl"
+url="https://github.com/fhs/ZipFile.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git')
+# TODO version depends
+depends=('julia' 'julia-zlib' 'julia-compat')
+provides=('julia-zipfile')
+source=(git://github.com/fhs/ZipFile.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ZipFile.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ZipFile.jl
+
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/ZipFile/"
+
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/ZipFile/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
+}
