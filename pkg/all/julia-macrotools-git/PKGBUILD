@@ -1,5 +1,5 @@
 pkgname=julia-macrotools-git
-pkgver=0.3.0.0.7.g180de9b
+pkgver=0.3.0.0.8.g149e1de
 pkgrel=1
 pkgdesc="MacroTools.jl"
 url="https://github.com/one-more-minute/MacroTools.jl"
@@ -21,22 +21,24 @@ pkgver() {
 package() {
   cd MacroTools.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/MacroTools"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/MacroTools/"
 
   install -dm755 "${dest_dir}"
   # This should ignore the .* files automatically
   for f in *; do
     case "$f" in
       LICENSE*)
+        cp -a "$f" "${dest_dir}"
         install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        install "$f" "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/MacroTools/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
         ;;
       appveyor.yml)
         true
         ;;
       *)
-        cp -a "$f" "${pkgdir}/${site_dir}/MacroTools"
+        cp -a "$f" "${dest_dir}"
         ;;
     esac
   done

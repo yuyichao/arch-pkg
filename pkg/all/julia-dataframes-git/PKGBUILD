@@ -1,5 +1,5 @@
 pkgname=julia-dataframes-git
-pkgver=0.7.0.0.8.gf89fca5
+pkgver=0.7.0.0.11.gc543cbe
 pkgrel=1
 pkgdesc="DataFrames.jl"
 url="https://github.com/JuliaStats/DataFrames.jl"
@@ -23,12 +23,25 @@ pkgver() {
 package() {
   cd DataFrames.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/DataFrames/"
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/DataFrames"
-
-  cp -a src "${pkgdir}/${site_dir}/DataFrames"
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/DataFrames/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
 }

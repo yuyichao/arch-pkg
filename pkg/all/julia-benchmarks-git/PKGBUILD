@@ -1,5 +1,5 @@
 pkgname=julia-benchmarks-git
-pkgver=0.0.0.48.def8a59
+pkgver=0.0.0.51.49f90b3
 pkgrel=1
 pkgdesc="Benchmarks.jl"
 url="https://github.com/johnmyleswhite/Benchmarks.jl"
@@ -21,12 +21,25 @@ pkgver() {
 package() {
   cd Benchmarks.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/Benchmarks/"
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Benchmarks"
-
-  cp -a src "${pkgdir}/${site_dir}/Benchmarks"
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/Benchmarks/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
 }
