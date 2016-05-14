@@ -1,5 +1,5 @@
 pkgname=julia-images-git
-pkgver=0.5.4.0.6.gfbf9e98
+pkgver=0.5.4.0.8.g8840a95
 pkgrel=1
 pkgdesc="Images.jl"
 url="https://github.com/timholy/Images.jl"
@@ -9,7 +9,7 @@ makedepends=('git')
 # TODO version depends
 depends=('julia' 'julia-colors' 'julia-colorvectorspace'
          'julia-fixedpointnumbers' 'julia-siunits' 'julia-zlib'
-         'julia-graphics' 'julia-fileio')
+         'julia-graphics' 'julia-fileio' 'julia-compat')
 provides=('julia-images')
 source=(git://github.com/timholy/Images.jl)
 md5sums=('SKIP')
@@ -23,12 +23,25 @@ pkgver() {
 package() {
   cd Images.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/Images/"
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Images"
-
-  cp -a src "${pkgdir}/${site_dir}/Images"
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/Images/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
 }

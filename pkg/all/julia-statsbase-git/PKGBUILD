@@ -1,5 +1,5 @@
 pkgname=julia-statsbase-git
-pkgver=0.8.0.0.9.g4687603
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="StatsBase.jl"
 url="https://github.com/JuliaStats/StatsBase.jl"

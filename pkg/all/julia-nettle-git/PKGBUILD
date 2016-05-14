@@ -1,5 +1,5 @@
 pkgname=julia-nettle-git
-pkgver=0.2.3
+pkgver=0.2.3.0.2.g091f877
 pkgrel=1
 pkgdesc="Nettle.jl"
 url="https://github.com/staticfloat/Nettle.jl"
@@ -27,14 +27,27 @@ build() {
 package() {
   cd Nettle.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/Nettle/"
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/Nettle/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
 
-  install -dm755 "${pkgdir}/${site_dir}/Nettle"
-
-  cp -a src deps "${pkgdir}/${site_dir}/Nettle"
-
-  rm "${pkgdir}/${site_dir}/Nettle/deps/build.jl"
+  rm -rf "${dest_dir}/deps/"build.jl
 }
