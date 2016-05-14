@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=1.1.9.0.8.g1ff304f
+pkgver=1.1.9.0.10.g527ca23
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -45,16 +45,29 @@ build() {
 package() {
   cd IJulia.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  dest_dir="${pkgdir}/${site_dir}/IJulia/"
 
-  site_dir=$("${_site_dir_cmd[@]}" "/usr")
+  install -dm755 "${dest_dir}"
+  # This should ignore the .* files automatically
+  for f in *; do
+    case "$f" in
+      LICENSE*)
+        cp -a "$f" "${dest_dir}"
+        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
+        ln -sf "../../../..${site_dir}/IJulia/$f" \
+           "${pkgdir}/usr/share/licenses/$pkgname/"
+        ;;
+      appveyor.yml)
+        true
+        ;;
+      *)
+        cp -a "$f" "${dest_dir}"
+        ;;
+    esac
+  done
 
-  install -dm755 "${pkgdir}/${site_dir}/IJulia"
-
-  cp -a src deps "${pkgdir}/${site_dir}/IJulia"
-
-  rm "${pkgdir}/${site_dir}/IJulia/deps/build.jl"
+  rm -rf "${dest_dir}/deps/"build.jl
 
   # Install Jupyter kernel
 
