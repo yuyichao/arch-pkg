@@ -2,7 +2,7 @@
 _UNIFONT_VER="6.3.20131217"
 _EFI_ARCH="arm64"
 
-pkgname="grub"
+pkgname="grub-git"
 pkgdesc="GNU GRand Unified Bootloader (2)"
 pkgver=2.02.beta3.16.gb524fa2
 pkgrel=1
@@ -10,7 +10,7 @@ url="https://www.gnu.org/software/grub/"
 arch=('aarch64')
 license=('GPL3')
 backup=('boot/grub/grub.cfg' 'etc/default/grub' 'etc/grub.d/40_custom')
-install="${pkgname}.install"
+install="grub.install"
 options=('!makeflags')
 
 makedepends=('git' 'rsync' 'xz' 'freetype2' 'ttf-dejavu' 'python' 'autogen'
