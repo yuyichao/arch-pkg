@@ -4,7 +4,7 @@ _EFI_ARCH="arm64"
 
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.02.beta2
+pkgver=2.02.beta3.16.gb524fa2
 pkgrel=1
 url="https://www.gnu.org/software/grub/"
 arch=('aarch64')
@@ -15,17 +15,16 @@ options=('!makeflags')
 
 makedepends=('git' 'rsync' 'xz' 'freetype2' 'ttf-dejavu' 'python' 'autogen'
              'texinfo' 'help2man' 'gettext' 'device-mapper' 'fuse')
-depends=('sh' 'xz' 'gettext' 'device-mapper')
+depends=('sh' 'xz' 'gettext' 'device-mapper' 'efibootmgr')
 optdepends=('freetype2: For grub-mkfont usage'
             'fuse: For grub-mount usage'
             'dosfstools: For grub-mkrescue FAT FS and EFI support'
-            'efibootmgr: For grub-install EFI support'
             'libisoburn: Provides xorriso for generating grub rescue iso using grub-mkrescue'
             'os-prober: To detect other OSes when generating grub.cfg in BIOS systems'
             'mtools: For grub-mkrescue FAT FS support')
 
 source=("git://git.sv.gnu.org/grub.git"
-        "git+git://git.sv.gnu.org/grub-extras.git"
+        "git://git.sv.gnu.org/grub-extras.git"
         "http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
         'grub-10_linux-detect-archlinux-initramfs.patch'
         'grub-add-GRUB_COLOR_variables.patch'
@@ -35,9 +34,7 @@ source=("git://git.sv.gnu.org/grub.git"
 md5sums=('SKIP'
          'SKIP'
          '728b7439ac733a7c0d56049adec364c7'
-         '9589ec46a04f9bb4d5da987340a4a324'
          '945527e0de8d384166a4cf23439ae9ee'
-         'a678629bc82c4e70c48d28242036d1d7'
          'e506ae4a9f9f7d1b765febfa84e10d48'
          'a03ffd56324520393bf574cefccb893d'
          'c8b9511586d57d6f2524ae7898397a46')
@@ -82,23 +79,23 @@ prepare() {
 build() {
   cd grub
 
-  msg "Add the grub-extra sources for bios build"
+  msg "Add the grub-extra sources"
   install -d grub-extras
   cp -r ../grub-extras/915resolution grub-extras/915resolution
   export GRUB_CONTRIB="${srcdir}/grub/grub-extras/"
 
-  msg "Unset all compiler FLAGS for bios build"
+  msg "Unset all compiler FLAGS"
   unset CFLAGS
   unset CPPFLAGS
   unset CXXFLAGS
   unset LDFLAGS
   unset MAKEFLAGS
 
-  msg "Run autogen.sh for bios build"
+  msg "Run autogen.sh"
   ./autogen.sh
   echo
 
-  msg "Run ./configure for bios build"
+  msg "Run ./configure"
   ./configure \
       --enable-mm-debug \
       --enable-nls \
@@ -121,14 +118,14 @@ build() {
       --disable-werror
   echo
 
-  msg "Run make for bios build"
+  msg "Run make"
   make
 }
 
 package() {
   cd grub
 
-  msg "Run make install for bios build"
+  msg "Run make install"
   make DESTDIR="${pkgdir}/" \
        bashcompletiondir="/usr/share/bash-completion/completions" install
   echo
