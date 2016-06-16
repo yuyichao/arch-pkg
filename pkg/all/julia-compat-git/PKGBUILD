@@ -1,5 +1,5 @@
 pkgname=julia-compat-git
-pkgver=0.7.20.0.12.g8021737
+pkgver=0.7.20.0.25.gd225067
 pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"
@@ -21,7 +21,7 @@ pkgver() {
 package() {
   cd Compat.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
+  site_dir=$(julia --startup-file=no -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
   dest_dir="${pkgdir}/${site_dir}/Compat/"
 
   install -dm755 "${dest_dir}"
