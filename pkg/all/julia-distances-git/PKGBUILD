@@ -1,5 +1,5 @@
 pkgname=julia-distances-git
-pkgver=0.3.0.0.4.gb283f53
+pkgver=0.3.0.0.8.g5fbc985
 pkgrel=1
 pkgdesc="Distances.jl"
 url="https://github.com/JuliaStats/Distances.jl"

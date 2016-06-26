@@ -1,5 +1,5 @@
 pkgname=julia-dataframes-git
-pkgver=0.7.0.0.13.g815a1ca
+pkgver=0.7.2.0.29.g55a319a
 pkgrel=1
 pkgdesc="DataFrames.jl"
 url="https://github.com/JuliaStats/DataFrames.jl"

@@ -1,0 +1,25 @@
+pkgname=julia-primes-git
+pkgver=0.1.0.0.66.g62545e7
+pkgrel=1
+pkgdesc="Primes.jl"
+url="https://github.com/JuliaMath/Primes.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git' 'julia-pkg-scripts')
+depends=('julia')
+provides=('julia-primes')
+source=(git://github.com/JuliaMath/Primes.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Primes.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Primes.jl
+
+  . julia-install-pkg.sh Primes "${pkgdir}" "${pkgname}"
+}
