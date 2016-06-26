@@ -5,7 +5,7 @@ pkgdesc="AndorSIF.jl"
 url="https://github.com/JuliaIO/AndorSIF.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-images' 'julia-fileio' 'julia-compat')
 provides=('julia-andorsif')
@@ -21,12 +21,5 @@ pkgver() {
 package() {
   cd AndorSIF.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/AndorSIF"
-
-  cp -a src "${pkgdir}/${site_dir}/AndorSIF"
+  . julia-install-pkg.sh AndorSIF "${pkgdir}" "${pkgname}"
 }

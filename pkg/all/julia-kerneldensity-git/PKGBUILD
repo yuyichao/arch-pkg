@@ -5,7 +5,7 @@ pkgdesc="KernelDensity.jl"
 url="https://github.com/JuliaStats/KernelDensity.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-statsbase' 'julia-distributions' 'julia-optim'
          'julia-grid' 'julia-compat')
@@ -22,12 +22,5 @@ pkgver() {
 package() {
   cd KernelDensity.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/KernelDensity"
-
-  cp -a src "${pkgdir}/${site_dir}/KernelDensity"
+  . julia-install-pkg.sh KernelDensity "${pkgdir}" "${pkgname}"
 }

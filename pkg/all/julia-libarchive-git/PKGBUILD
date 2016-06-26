@@ -5,7 +5,7 @@ pkgdesc="LibArchive.jl"
 url="https://github.com/yuyichao/LibArchive.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'libarchive')
 provides=('julia-libarchive')
@@ -21,20 +21,11 @@ pkgver() {
 build() {
   cd LibArchive.jl/deps
 
-  julia -f ./build.jl
+  julia --startup-file=no ./build.jl
 }
 
 package() {
   cd LibArchive.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/LibArchive"
-
-  cp -a src deps "${pkgdir}/${site_dir}/LibArchive"
-
-  rm "${pkgdir}/${site_dir}/LibArchive/deps/build.jl"
+  . julia-install-pkg.sh LibArchive "${pkgdir}" "${pkgname}"
 }

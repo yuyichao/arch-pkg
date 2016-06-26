@@ -6,7 +6,7 @@ url="https://github.com/JuliaLang/Compat.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 depends=('julia')
 provides=('julia-compat')
 source=(git://github.com/JuliaLang/Compat.jl)
@@ -21,25 +21,5 @@ pkgver() {
 package() {
   cd Compat.jl
 
-  site_dir=$(julia --startup-file=no -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/Compat/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/Compat/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
+  . julia-install-pkg.sh Compat "${pkgdir}" "${pkgname}"
 }

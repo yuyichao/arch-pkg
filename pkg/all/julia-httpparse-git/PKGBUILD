@@ -5,7 +5,7 @@ pkgdesc="HttpParser.jl"
 url="https://github.com/JuliaWeb/HttpParser.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-httpcommon' 'http-parser')
 provides=('julia-httpparser')
@@ -21,20 +21,12 @@ pkgver() {
 build() {
   cd HttpParser.jl
 
-  julia -f deps/build.jl
+  julia --startup-file=no deps/build.jl
 }
 
 package() {
   cd HttpParser.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/HttpParser"
-
-  cp -a src deps "${pkgdir}/${site_dir}/HttpParser"
-
-  rm -rf "${pkgdir}/${site_dir}/HttpParser/deps/"{build.jl,src}
+  . julia-install-pkg.sh HttpParser "${pkgdir}" "${pkgname}"
+  rm -rf "${dest_dir}/deps/src"
 }

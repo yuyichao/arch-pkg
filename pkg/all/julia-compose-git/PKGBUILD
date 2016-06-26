@@ -5,7 +5,7 @@ pkgdesc="Compose.jl"
 url="https://github.com/dcjones/Compose.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-colors' 'julia-compat' 'julia-datastructures'
          'julia-iterators' 'julia-json' 'julia-measures')
@@ -22,25 +22,5 @@ pkgver() {
 package() {
   cd Compose.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/Compose/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/Compose/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
+  . julia-install-pkg.sh Compose "${pkgdir}" "${pkgname}"
 }

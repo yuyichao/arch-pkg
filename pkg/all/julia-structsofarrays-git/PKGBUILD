@@ -5,7 +5,7 @@ pkgdesc="StructsOfArrays.jl"
 url="https://github.com/simonster/StructsOfArrays.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia')
 provides=('julia-structsofarrays')
@@ -22,12 +22,5 @@ pkgver() {
 package() {
   cd StructsOfArrays.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/StructsOfArrays"
-
-  cp -a src "${pkgdir}/${site_dir}/StructsOfArrays"
+  . julia-install-pkg.sh StructsOfArrays "${pkgdir}" "${pkgname}"
 }

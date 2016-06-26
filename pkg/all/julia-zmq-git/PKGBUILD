@@ -1,11 +1,11 @@
 pkgname=julia-zmq-git
-pkgver=0.3.1.0.6.g721ca92
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="ZMQ.jl"
 url="https://github.com/JuliaLang/ZMQ.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat' 'zeromq')
 provides=('julia-zmq')
@@ -22,33 +22,11 @@ pkgver() {
 build() {
   cd ZMQ.jl
 
-  julia -f deps/build.jl
+  julia --startup-file=no deps/build.jl
 }
 
 package() {
   cd ZMQ.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/ZMQ/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/ZMQ/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
-
-  rm -rf "${dest_dir}/deps/"build.jl
+  . julia-install-pkg.sh ZMQ "${pkgdir}" "${pkgname}"
 }

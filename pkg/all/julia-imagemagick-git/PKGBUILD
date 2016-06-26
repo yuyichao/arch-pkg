@@ -5,7 +5,7 @@ pkgdesc="ImageMagick.jl"
 url="https://github.com/JuliaIO/ImageMagick.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-fixedpointnumbers' 'julia-colortypes' 'julia-fileio'
          'julia-images' 'julia-compat' 'imagemagick')
@@ -22,33 +22,11 @@ pkgver() {
 build() {
   cd ImageMagick.jl
 
-  julia -f deps/build.jl
+  julia --startup-file=no deps/build.jl
 }
 
 package() {
   cd ImageMagick.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/ImageMagick/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/ImageMagick/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
-
-  rm -rf "${dest_dir}/deps/"build.jl
+  . julia-install-pkg.sh ImageMagick "${pkgdir}" "${pkgname}"
 }

@@ -5,7 +5,7 @@ pkgdesc="LsqFit.jl"
 url="https://github.com/JuliaOpt/LsqFit.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-calculus' 'julia-distributions' 'julia-optim')
 provides=('julia-lsqfit')
@@ -21,12 +21,5 @@ pkgver() {
 package() {
   cd LsqFit.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/LsqFit"
-
-  cp -a src "${pkgdir}/${site_dir}/LsqFit"
+  . julia-install-pkg.sh LsqFit "${pkgdir}" "${pkgname}"
 }

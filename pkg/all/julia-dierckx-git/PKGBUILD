@@ -6,7 +6,7 @@ url="https://github.com/kbarbary/Dierckx.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 depends=('julia' 'julia-compat')
 provides=('julia-dierckx')
 source=(git://github.com/kbarbary/Dierckx.jl)
@@ -21,18 +21,12 @@ pkgver() {
 build() {
   cd Dierckx.jl
 
-  julia -f deps/build.jl
+  julia --startup-file=no deps/build.jl
 }
 
 package() {
   cd Dierckx.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Dierckx"
-
-  cp -a src deps "${pkgdir}/${site_dir}/Dierckx"
-
-  rm "${pkgdir}/${site_dir}/Dierckx/deps/build.jl"
-  rm "${pkgdir}/${site_dir}/Dierckx/deps/src/ddierckx"/{*.{f,o},Makefile}
+  . julia-install-pkg.sh Dierckx "${pkgdir}" "${pkgname}"
+  rm "${dest_dir}/deps/src/ddierckx"/{*.{f,o},Makefile}
 }

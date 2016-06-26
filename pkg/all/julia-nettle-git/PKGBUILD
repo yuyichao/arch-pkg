@@ -5,7 +5,7 @@ pkgdesc="Nettle.jl"
 url="https://github.com/staticfloat/Nettle.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat' 'nettle')
 provides=('julia-nettle')
@@ -21,33 +21,11 @@ pkgver() {
 build() {
   cd Nettle.jl
 
-  julia -f deps/build.jl
+  julia --startup-file=no deps/build.jl
 }
 
 package() {
   cd Nettle.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/Nettle/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/Nettle/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
-
-  rm -rf "${dest_dir}/deps/"build.jl
+  . julia-install-pkg.sh Nettle "${pkgdir}" "${pkgname}"
 }

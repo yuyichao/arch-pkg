@@ -6,7 +6,7 @@ url="https://github.com/JuliaLang/SortingAlgorithms.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 depends=('julia' 'julia-compat')
 provides=('julia-sortingalgorithms')
 source=(git://github.com/JuliaLang/SortingAlgorithms.jl)
@@ -21,12 +21,5 @@ pkgver() {
 package() {
   cd SortingAlgorithms.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/SortingAlgorithms"
-
-  cp -a src "${pkgdir}/${site_dir}/SortingAlgorithms"
+  . julia-install-pkg.sh SortingAlgorithms "${pkgdir}" "${pkgname}"
 }

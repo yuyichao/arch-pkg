@@ -5,7 +5,7 @@ pkgdesc="Graphics.jl"
 url="https://github.com/JuliaLang/Graphics.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-colors')
 provides=('julia-graphics')
@@ -21,12 +21,5 @@ pkgver() {
 package() {
   cd Graphics.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Graphics"
-
-  cp -a src "${pkgdir}/${site_dir}/Graphics"
+  . julia-install-pkg.sh Graphics "${pkgdir}" "${pkgname}"
 }

@@ -5,7 +5,7 @@ pkgdesc="Blosc.jl"
 url="https://github.com/stevengj/Blosc.jl"
 arch=('i686' 'x86_64')
 license=('MIT')
-makedepends=('git' 'julia-bindeps')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat')
 provides=('julia-blosc')
@@ -23,20 +23,13 @@ pkgver() {
 build() {
   cd Blosc.jl/deps
 
-  julia -f build.jl
+  julia --startup-file=no build.jl
 }
 
 package() {
   cd Blosc.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install LICENSE.md "${pkgdir}/usr/share/licenses/$pkgname/"
+  . julia-install-pkg.sh Blocs "${pkgdir}" "${pkgname}"
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Blosc"
-
-  cp -a src deps "${pkgdir}/${site_dir}/Blosc"
-
-  rm -rf "${pkgdir}/${site_dir}/Blosc/deps/"{build.jl,c-blosc-*,make.blosc}
+  rm -rf "${dest_dir}/deps/"{c-blosc-*,make.blosc}
 }

@@ -5,7 +5,7 @@ pkgdesc="PyCall.jl"
 url="https://github.com/stevengj/PyCall.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-conda')
+makedepends=('git' 'julia-conda' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-macrotools' 'python')
 provides=('julia-pycall')
@@ -21,33 +21,11 @@ pkgver() {
 build() {
   cd PyCall.jl/deps
 
-  julia -f build.jl
+  julia --startup-file=no build.jl
 }
 
 package() {
   cd PyCall.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/PyCall/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/PyCall/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
-
-  rm -rf "${dest_dir}/deps/"build.jl
+  . julia-install-pkg.sh PyCall "${pkgdir}" "${pkgname}"
 }

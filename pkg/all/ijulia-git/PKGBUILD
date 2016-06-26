@@ -5,7 +5,7 @@ pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-conda')
+makedepends=('git' 'julia-conda' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq'
          'jupyter')
@@ -13,7 +13,7 @@ provides=('ijulia')
 source=(git://github.com/JuliaLang/IJulia.jl)
 md5sums=('SKIP')
 
-_site_dir_cmd=(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
+_site_dir_cmd=(julia --startup-file=no -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
 
 pkgver() {
   cd IJulia.jl
@@ -30,7 +30,7 @@ build() {
   site_dir=$("${_site_dir_cmd[@]}" "/usr")
   tmp_pkgdir=${srcdir}/julia
   src_ijulia_dir=$(JULIA_PKGDIR="$tmp_pkgdir" \
-                               julia -f -e 'print(Pkg.dir("IJulia"))')
+                               julia --startup-file=no -e 'print(Pkg.dir("IJulia"))')
   mkdir -p "$(dirname "${src_ijulia_dir}")"
   ln -s "${PWD}" "${src_ijulia_dir}"
 
@@ -39,35 +39,13 @@ build() {
   HOME="${srcdir}/jupyter" \
       JULIA_PKGDIR="$tmp_pkgdir" \
       IJULIA_DIR="${site_dir}/IJulia" \
-      julia -f build.jl
+      julia --startup-file=no build.jl
 }
 
 package() {
   cd IJulia.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter((x->startswith(x, pre)), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-  dest_dir="${pkgdir}/${site_dir}/IJulia/"
-
-  install -dm755 "${dest_dir}"
-  # This should ignore the .* files automatically
-  for f in *; do
-    case "$f" in
-      LICENSE*)
-        cp -a "$f" "${dest_dir}"
-        install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-        ln -sf "../../../..${site_dir}/IJulia/$f" \
-           "${pkgdir}/usr/share/licenses/$pkgname/"
-        ;;
-      appveyor.yml)
-        true
-        ;;
-      *)
-        cp -a "$f" "${dest_dir}"
-        ;;
-    esac
-  done
-
-  rm -rf "${dest_dir}/deps/"build.jl
+  . julia-install-pkg.sh IJulia "${pkgdir}" "${pkgname}"
 
   # Install Jupyter kernel
 

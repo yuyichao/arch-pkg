@@ -5,7 +5,7 @@ pkgdesc="HttpCommon.jl"
 url="https://github.com/JuliaWeb/HttpCommon.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-uriparser')
 provides=('julia-httpcommon')
@@ -21,12 +21,5 @@ pkgver() {
 package() {
   cd HttpCommon.jl
 
-  install -dm755 "${pkgdir}/usr/share/licenses/$pkgname/"
-  install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/$pkgname/"
-
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/HttpCommon"
-
-  cp -a src "${pkgdir}/${site_dir}/HttpCommon"
+  . julia-install-pkg.sh HttpCommon "${pkgdir}" "${pkgname}"
 }

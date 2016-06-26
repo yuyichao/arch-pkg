@@ -6,7 +6,7 @@ url="https://github.com/JuliaLang/Formatting.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
-makedepends=('git')
+makedepends=('git' 'julia-pkg-scripts')
 depends=('julia' 'julia-compat')
 provides=('julia-formatting')
 source=(git://github.com/JuliaLang/Formatting.jl)
@@ -21,9 +21,5 @@ pkgver() {
 package() {
   cd Formatting.jl
 
-  site_dir=$(julia -f -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))" "/usr")
-
-  install -dm755 "${pkgdir}/${site_dir}/Formatting"
-
-  cp -a src "${pkgdir}/${site_dir}/Formatting"
+  . julia-install-pkg.sh Formatting "${pkgdir}" "${pkgname}"
 }
