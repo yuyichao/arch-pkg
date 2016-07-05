@@ -2,7 +2,7 @@
 
 pkgname=qtcurve-git
 _realver=1.8.18
-pkgver=1.8.18.256.g6afcf2a
+pkgver=1.8.18.258.g3d313d5
 pkgrel=1
 pkgdesc='A configurable set of widget styles for KDE and Gtk.'
 arch=('i686' 'x86_64')
