@@ -1,5 +1,5 @@
 pkgname=julia-dataarrays-git
-pkgver=0.2.21
+pkgver=0.3.3.0.4.g57bea9f
 pkgrel=1
 pkgdesc="DataArrays.jl"
 url="https://github.com/JuliaStats/DataArrays.jl"

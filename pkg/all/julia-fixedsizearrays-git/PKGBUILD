@@ -1,5 +1,5 @@
 pkgname=julia-fixedsizearrays-git
-pkgver=0.1.0.0.15.ga501d25
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="FixedSizeArrays.jl"
 url="https://github.com/SimonDanisch/FixedSizeArrays.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-fixedsizearrays')
 source=(git://github.com/SimonDanisch/FixedSizeArrays.jl)
 md5sums=('SKIP')

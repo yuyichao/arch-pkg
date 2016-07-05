@@ -1,5 +1,5 @@
 pkgname=julia-distributedarrays-git
-pkgver=0.2.0.0.5.g5db9943
+pkgver=0.2.0.0.11.gec9ab98
 pkgrel=1
 pkgdesc="DistributedArrays.jl"
 url="https://github.com/JuliaParallel/DistributedArrays.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=('julia' 'julia-compat' 'julia-primes')
 provides=('julia-distributedarrays')
 source=(git://github.com/JuliaParallel/DistributedArrays.jl)
 md5sums=('SKIP')
