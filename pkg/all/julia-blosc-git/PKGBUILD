@@ -29,7 +29,7 @@ build() {
 package() {
   cd Blosc.jl
 
-  . julia-install-pkg.sh Blocs "${pkgdir}" "${pkgname}"
+  . julia-install-pkg.sh Blosc "${pkgdir}" "${pkgname}"
 
   rm -rf "${dest_dir}/deps/"{c-blosc-*,make.blosc}
 }
