@@ -9,7 +9,6 @@ arch:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
     - haskell-core=http://xsounds.org/~haskell/core/$arch
   packages:
-    - devtools-cn-git
     - haveged
     - archlinux-keyring
     - archlinuxcn-keyring
