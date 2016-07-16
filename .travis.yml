@@ -2,8 +2,8 @@ sudo: required
 language: c
 matrix:
   include:
-    - env: BUILD_ARCH="i686"
-    - env: BUILD_ARCH="x86_64"
+    - env: ARCH_TRAVIS_ARCH="i686"
+    - env: ARCH_TRAVIS_ARCH="x86_64"
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
@@ -14,6 +14,7 @@ arch:
     - archlinux-keyring
     - archlinuxcn-keyring
   script:
+    - uname -a
     - sudo /usr/bin/haveged -F -w 1024 -v 1 &
     - sudo pacman-key --init
     - sudo pacman-key -r 4209170B
@@ -21,8 +22,7 @@ arch:
     - sudo pacman-key --populate archlinux
     - sudo pacman-key --populate archlinuxcn
     - git clone git://github.com/archlinuxcn/repo
-    - cd repo/julia-git;
-      sudo archlinuxcn-$BUILD_ARCH-build
+    - cd repo/julia-git && makepkg -s  --noconfirm
 
 script:
   - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
