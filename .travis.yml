@@ -9,6 +9,7 @@ arch:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
   packages:
     - devtools-cn-git
+    - git
   script:
     - git clone git://github.com/archlinuxcn/repo
     - |
