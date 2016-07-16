@@ -12,7 +12,7 @@ arch:
     - devtools-cn-git
     - haveged
   script:
-    - sudo systemctl start haveged
+    - sudo /usr/bin/haveged -F -w 1024 -v 1 &
     - sudo pacman-key --init
     - git clone git://github.com/archlinuxcn/repo
     - cd repo/julia-git;
