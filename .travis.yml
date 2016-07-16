@@ -1,0 +1,23 @@
+sudo: required
+language: c
+matrix:
+  include:
+    - env: ARCH_TRAVIS_ARCH="i686"
+    - env: ARCH_TRAVIS_ARCH="x86_64"
+arch:
+  repos:
+    - archlinuxcn=http://repo.archlinuxcn.org/$arch
+  packages:
+    - devtools-cn-git
+  script:
+    - git clone git://github.com/archlinuxcn/repo
+    - |
+      cd repo/julia-git
+      if [[ "$ARCH_TRAVIS_ARCH" == i686 ]]; then
+          sudo archlinuxcn-i686-build
+      else
+          sudo archlinuxcn-x86_64-build
+      fi
+
+script:
+  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
