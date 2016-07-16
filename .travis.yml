@@ -10,7 +10,10 @@ arch:
     - haskell-core=http://xsounds.org/~haskell/core/$arch
   packages:
     - devtools-cn-git
+    - haveged
   script:
+    - sudo systemctl start haveged
+    - sudo pacman-key --init
     - git clone git://github.com/archlinuxcn/repo
     - cd repo/julia-git;
       sudo archlinuxcn-$BUILD_ARCH-build
