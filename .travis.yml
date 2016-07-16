@@ -7,10 +7,10 @@ matrix:
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
+    - haskell-core=http://xsounds.org/~haskell/core/$arch
   packages:
     - devtools-cn-git
   script:
-    - sudo pacman-key --init
     - git clone git://github.com/archlinuxcn/repo
     - cd repo/julia-git;
       sudo archlinuxcn-$BUILD_ARCH-build
