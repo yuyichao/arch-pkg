@@ -14,6 +14,8 @@ arch:
   script:
     - sudo /usr/bin/haveged -F -w 1024 -v 1 &
     - sudo pacman-key --init
+    - sudo pacman-key -r 4209170B
+    - sudo pacman-key --lsign-key 4209170B
     - git clone git://github.com/archlinuxcn/repo
     - cd repo/julia-git;
       sudo archlinuxcn-$BUILD_ARCH-build
