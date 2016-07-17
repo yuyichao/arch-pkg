@@ -18,7 +18,8 @@ git clone -q --depth 1 git://github.com/archlinuxcn/repo archlinuxcn
 # Build package
 cd archlinuxcn/$pkg
 get_pkgver() {
-    (. PKGBUILD; echo $pkgver)
+    (. PKGBUILD;
+     echo $epoch:$pkgver-$pkgrel)
 }
 # Update version first
 makepkg -o -d --noconfirm > /dev/null
