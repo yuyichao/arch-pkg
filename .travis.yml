@@ -1,11 +1,13 @@
 sudo: required
 language: c
-env:
-  - MAKEFLAGS="-j2"
 matrix:
   include:
-    - env: ARCH_TRAVIS_ARCH="i686"
-    - env: ARCH_TRAVIS_ARCH="x86_64"
+    - env:
+        - ARCH_TRAVIS_ARCH="i686"
+        - MAKEFLAGS="-j2"
+    - env:
+        - ARCH_TRAVIS_ARCH="x86_64"
+        - MAKEFLAGS="-j2"
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
