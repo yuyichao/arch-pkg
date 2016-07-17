@@ -2,29 +2,42 @@ sudo: required
 language: c
 matrix:
   include:
-    - env: ARCH_TRAVIS_ARCH="i686"
-    - env: ARCH_TRAVIS_ARCH="x86_64"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="julia-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="x86_64"
+      - ARCH_PACKAGE="julia-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="rr-git"
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
     - haskell-core=http://xsounds.org/~haskell/core/$arch
   packages:
+    - psmisc
     - haveged
     - archlinux-keyring
     - archlinuxcn-keyring
   script:
+    # System info
     - uname -a
+    # Setup keys
     - sudo /usr/bin/haveged -F -w 1024 -v 1 &
     - sudo pacman-key --init
     - sudo pacman-key -r 4209170B
     - sudo pacman-key --lsign-key 4209170B
     - sudo pacman-key --populate archlinux
     - sudo pacman-key --populate archlinuxcn
-    - git clone git://github.com/archlinuxcn/repo
+    # Setup package dir
     - rm -rf pkgdir
     - mkdir pkgdir
-    - cd repo/julia-git &&
-      MAKEFLAGS="-j2" PKGDEST=$PWD/../../pkgdir makepkg -s --noconfirm
+    - export PKGDEST=$PWD/pkgdir
+    - export MAKEFLAGS="-j2"
+    - git clone git://github.com/archlinuxcn/repo archlinuxcn
+    # Build package
+    - cd archlinuxcn/$ARCH_PACKAGE && makepkg -s --noconfirm
     - sudo killall haveged
 script:
   - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
