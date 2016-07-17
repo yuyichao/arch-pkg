@@ -13,7 +13,9 @@
     "files":
     [
         {"includePattern": "repo/julia-git/(.*\\.pkg\\.tar\\..*)",
-         "uploadPattern": "$1"}
+         "uploadPattern": "$1",
+         "matrixParams": {"override": 1}
+        }
     ],
     "publish": true
 }

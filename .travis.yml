@@ -25,6 +25,7 @@ arch:
     - mkdir pkgdir
     - cd repo/julia-git &&
       MAKEFLAGS="-j2" PKGDEST=$PWD/../../pkgdir makepkg -s --noconfirm
+    - sudo killall haveged
 script:
   - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
 deploy:
