@@ -4,13 +4,28 @@ matrix:
   include:
     - env:
       - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="rr-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="openlibm-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="openblas-lapack-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="openspecfun-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="libunwind-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
+      - ARCH_PACKAGE="libutf8proc-git"
+    - env:
+      - ARCH_TRAVIS_ARCH="i686"
       - ARCH_PACKAGE="julia-git"
     - env:
       - ARCH_TRAVIS_ARCH="x86_64"
       - ARCH_PACKAGE="julia-git"
-    - env:
-      - ARCH_TRAVIS_ARCH="i686"
-      - ARCH_PACKAGE="rr-git"
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
@@ -30,7 +45,7 @@ arch:
     - sudo killall -w -KILL haveged || true
 cache:
   directories:
-    - $TRAVIS_BUILD_DIR/cache.${ARCH_TRAVIS_ARCH}/${ARCH_PACKAGE}
+    - $TRAVIS_BUILD_DIR/cache.${ARCH_TRAVIS_ARCH}
 script:
   - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
 deploy:
