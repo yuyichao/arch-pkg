@@ -38,11 +38,9 @@ arch:
   script:
     # System info
     - uname -a
-    - sudo /usr/bin/haveged -F -w 1024 -v 1 &
+    - sudo /usr/bin/haveged -F -w 1024 -v 1 &> /dev/null &
     - bash compile_package.sh $ARCH_PACKAGE $ARCH_TRAVIS_ARCH
     - sudo killall haveged
-    - sleep 1
-    - sudo killall -w -KILL haveged || true
 cache:
   directories:
     - $TRAVIS_BUILD_DIR/cache.${ARCH_TRAVIS_ARCH}
