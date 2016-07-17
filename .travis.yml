@@ -1,5 +1,7 @@
 sudo: required
 language: c
+env:
+  - MAKEFLAGS="-j2"
 matrix:
   include:
     - env: ARCH_TRAVIS_ARCH="i686"
