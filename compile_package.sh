@@ -42,7 +42,7 @@ fi
 
 if [[ $pkg = openblas-lapack-git ]]; then
     makepkg -s -e --noconfirm | \
-        sed 's/\( *\)gcc .*-o \([^ ].o\)/\1CC \2/'
+        sed 's/\( *\)gcc .*-o *\([^ ]*.o\)/\1CC \2/'
 else
     makepkg -s -e --noconfirm
 fi
