@@ -1,0 +1,32 @@
+pkgname=julia-libalpm-git
+pkgver=0.0.0.120.cce016f
+pkgrel=1
+pkgdesc="LibALPM.jl"
+url="https://github.com/yuyichao/LibALPM.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
+# TODO version depends
+depends=('julia' 'julia-compat' 'pacman')
+provides=('julia-libalpm')
+source=(git://github.com/yuyichao/LibALPM.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd LibALPM.jl
+
+  echo "0.0.0.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+  # git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd LibALPM.jl/deps
+
+  julia --startup-file=no ./build.jl
+}
+
+package() {
+  cd LibALPM.jl
+
+  . julia-install-pkg.sh LibALPM "${pkgdir}" "${pkgname}"
+}
