@@ -33,12 +33,13 @@ arch:
     # Setup package dir
     - rm -rf pkgdir
     - mkdir pkgdir
-    - export PKGDEST=$PWD/pkgdir
-    - export MAKEFLAGS="-j2"
     - git clone git://github.com/archlinuxcn/repo archlinuxcn
     # Build package
-    - cd archlinuxcn/$ARCH_PACKAGE && makepkg -s --noconfirm
+    - bash compile_package.sh $ARCH_PACKAGE
     - sudo killall haveged
+cache:
+  directories:
+    - $TRAVIS_BUILD_DIR/
 script:
   - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
 deploy:
