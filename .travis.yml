@@ -23,23 +23,14 @@ arch:
   script:
     # System info
     - uname -a
-    # Setup keys
     - sudo /usr/bin/haveged -F -w 1024 -v 1 &
-    - sudo pacman-key --init
-    - sudo pacman-key -r 4209170B
-    - sudo pacman-key --lsign-key 4209170B
-    - sudo pacman-key --populate archlinux
-    - sudo pacman-key --populate archlinuxcn
-    # Setup package dir
-    - rm -rf pkgdir
-    - mkdir pkgdir
-    - git clone git://github.com/archlinuxcn/repo archlinuxcn
-    # Build package
-    - bash compile_package.sh $ARCH_PACKAGE
+    - bash compile_package.sh $ARCH_PACKAGE $ARCH_TRAVIS_ARCH
     - sudo killall haveged
+    - sleep 1
+    - sudo killall -w -KILL haveged || true
 cache:
   directories:
-    - $TRAVIS_BUILD_DIR/
+    - $TRAVIS_BUILD_DIR/cache.${ARCH_TRAVIS_ARCH}/${ARCH_PACKAGE}
 script:
   - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
 deploy:
