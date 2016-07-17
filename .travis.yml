@@ -2,12 +2,8 @@ sudo: required
 language: c
 matrix:
   include:
-    - env:
-        - ARCH_TRAVIS_ARCH="i686"
-        - MAKEFLAGS="-j2"
-    - env:
-        - ARCH_TRAVIS_ARCH="x86_64"
-        - MAKEFLAGS="-j2"
+    - env: ARCH_TRAVIS_ARCH="i686"
+    - env: ARCH_TRAVIS_ARCH="x86_64"
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
@@ -25,7 +21,15 @@ arch:
     - sudo pacman-key --populate archlinux
     - sudo pacman-key --populate archlinuxcn
     - git clone git://github.com/archlinuxcn/repo
-    - cd repo/julia-git && makepkg -s  --noconfirm
-
+    - rm -rf pkgdir
+    - mkdir pkgdir
+    - cd repo/julia-git &&
+      MAKEFLAGS="-j2" PKGDEST=$PWD/../../pkgdir makepkg -s --noconfirm
 script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+  - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
+deploy:
+  provider: bintray
+  file: pkg.json
+  user: yuyichao
+  key:
+    secure: EThHlOLHG5lBtd9U8nSG/F4qgzgBObInBYaFaCT66cgVxiXoNoqThiwrYEsWqgm7FSB4IoKEKcNuQBFdlL76S2D/HNgri9cXh0olmnoRyFC9+qzZLjAy48jBaJA9QhBlWfx8fTkf7V6HOmIz1wg0WYJZjnWltiYQsc9fO7FXPhf6k1dDuRxBflsD4+LXmP76tWQEYHSgDBaz0DS2RKhRc+3XsY+qyQ9J3PIhfGdWshEQIB0tLhAUfjjN/mjIMWtfXU3+6zKb/KvoUQ/RRKo2+BOG8qvTznvZRFH3VMoEDS4y3DK7F3VKlYlFgBe+vl30ap2M1OVyK3XD4i8y51+od69D2sG9k+vsgvO+AR6BAxs2uAJj8G/GwMiAgf0BXYevA91lJEcChTul4haKWU8h07LRqRhH0y1mTW5S5VTfqcDGx9QgpLdWlT7XsaFF6tjgPmSxRwYkrHInK12mZ8VM1+0x+EDOXGGZnsqGX/SJn1lJ3LYiyNEoI8tDiSFIkSdzyErxlmicd+3+lI8CMlY5T9DW8SoZyq9XFXPr6zZiHu7q1pUTYvUq10OTE8RhJxni9+5pY9cw9istAUSUnI3DRDGD8+hlDOS4L9+hEY2QxMBkwDLX4pinHm0fkV/6ylx0av3idal4Wh/+2S/yrebqjRXGCSzjRZsHbBUq/2az220=
