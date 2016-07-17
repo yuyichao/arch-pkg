@@ -1,8 +1,12 @@
 {
-    "ArchPkg": {
-        "name": "packages",
+    "package": {
+        "name": "arch",
         "repo": "ArchPkg",
-        "subject": "TestPkg"
+        "subject": "yuyichao"
+    },
+
+    "version": {
+        "name": "0.0",
     },
 
     "files":
