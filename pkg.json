@@ -2,7 +2,8 @@
     "package": {
         "name": "arch",
         "repo": "ArchPkg",
-        "subject": "yuyichao"
+        "subject": "yuyichao",
+        "licenses": ["GPL-2.0"]
     },
 
     "version": {
