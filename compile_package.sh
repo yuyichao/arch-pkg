@@ -21,7 +21,7 @@ get_pkgver() {
     (. PKGBUILD; echo $pkgver)
 }
 # Update version first
-makepkg -o -d --noconfirm
+makepkg -o -d --noconfirm > /dev/null
 if [[ -f $cachedir/version ]]; then
     oldver=$(cat "$cachedir/version")
     if [[ $(get_pkgver) = $oldver ]]; then
@@ -37,7 +37,7 @@ fi
     sudo pacman-key --lsign-key 4209170B
     sudo pacman-key --populate archlinux
     sudo pacman-key --populate archlinuxcn
-} > /dev/null
+} &> /dev/null
 
 makepkg -s -e --noconfirm
 get_pkgver > $cachedir/version
