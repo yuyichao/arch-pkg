@@ -2,13 +2,13 @@
     "ArchPkg": {
         "name": "packages",
         "repo": "ArchPkg",
-        "subject": "TestPkg",
+        "subject": "TestPkg"
     },
 
     "files":
     [
         {"includePattern": "repo/julia-git/(.*\\.pkg\\.tar\\..*)",
-         "uploadPattern": "$1"},
+         "uploadPattern": "$1"}
     ],
     "publish": true
 }
