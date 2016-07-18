@@ -1,0 +1,26 @@
+pkgname=julia-elf-git
+pkgver=0.0.3
+pkgrel=1
+pkgdesc="ELF.jl"
+url="https://github.com/Keno/ELF.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+# TODO version depends
+depends=('julia' 'julia-structio' 'julia-dwarf' 'julia-objfilebase'
+         'julia-fileio')
+provides=('julia-elf')
+source=(git://github.com/Keno/ELF.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ELF.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ELF.jl
+
+  . julia-install-pkg.sh ELF "${pkgdir}" "${pkgname}"
+}

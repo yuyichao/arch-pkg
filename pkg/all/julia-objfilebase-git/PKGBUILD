@@ -1,0 +1,25 @@
+pkgname=julia-objfilebase-git
+pkgver=0.0.3
+pkgrel=1
+pkgdesc="ObjFileBase.jl"
+url="https://github.com/Keno/ObjFileBase.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+# TODO version depends
+depends=('julia')
+provides=('julia-objfilebase')
+source=(git://github.com/Keno/ObjFileBase.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ObjFileBase.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ObjFileBase.jl
+
+  . julia-install-pkg.sh ObjFileBase "${pkgdir}" "${pkgname}"
+}

@@ -1,0 +1,25 @@
+pkgname=julia-structio-git
+pkgver=0.0.2.0.2.ge028a9b
+pkgrel=1
+pkgdesc="StructIO.jl"
+url="https://github.com/Keno/StructIO.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+# TODO version depends
+depends=('julia')
+provides=('julia-structio')
+source=(git://github.com/Keno/StructIO.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd StructIO.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd StructIO.jl
+
+  . julia-install-pkg.sh StructIO "${pkgdir}" "${pkgname}"
+}
