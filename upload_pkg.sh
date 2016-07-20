@@ -20,7 +20,7 @@ for file in "${files[@]}"; do
     latest_file["$key"]=$file
 done
 
-dir=pkg_upload_tmp
+dir=.pkg_upload_tmp
 rm -rf --one-file-system "$dir"
 mkdir $dir
 pushd $dir
