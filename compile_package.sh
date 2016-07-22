@@ -8,6 +8,7 @@ arch=$2
 cachedir=$PWD/cache.$arch/$pkg
 export PKGDEST=$PWD/pkgdir
 export MAKEFLAGS="-j2"
+export PACKAGER="Yichao Yu <yyc1992@gmail.com>"
 
 # Setup package dir
 rm -rf pkgdir
