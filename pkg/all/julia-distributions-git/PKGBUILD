@@ -1,5 +1,5 @@
 pkgname=julia-distributions-git
-pkgver=0.9.0.0.8.gf6e2918
+pkgver=0.10.0.0.32.gb4c303e
 pkgrel=1
 pkgdesc="Distributions.jl"
 url="https://github.com/JuliaStats/Distributions.jl"
@@ -7,9 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-pdmats' 'julia-statsbase' 'julia-statsfuns'
-         'julia-compat')
-provides=('julia-distributions')
+depends=(julia julia-pdmats julia-statsbase julia-calculus
+         julia-statsfuns julia-compat)
+provides=(julia-distributions)
 source=(git://github.com/JuliaStats/Distributions.jl)
 md5sums=('SKIP')
 

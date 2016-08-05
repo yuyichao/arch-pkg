@@ -1,6 +1,6 @@
 pkgname=julia-immutablearrays-git
 pkgver=0.0.11
-pkgrel=1
+pkgrel=2
 pkgdesc="ImmutableArrays.jl"
 url="https://github.com/JuliaGeometry/ImmutableArrays.jl"
 arch=('any')

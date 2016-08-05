@@ -1,5 +1,5 @@
 pkgname=julia-kerneldensity-git
-pkgver=0.1.2
+pkgver=0.1.2.0.5.g2de1e7b
 pkgrel=1
 pkgdesc="KernelDensity.jl"
 url="https://github.com/JuliaStats/KernelDensity.jl"

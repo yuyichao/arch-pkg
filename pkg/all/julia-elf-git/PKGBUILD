@@ -1,5 +1,5 @@
 pkgname=julia-elf-git
-pkgver=0.0.3
+pkgver=0.0.3.0.2.g9826801
 pkgrel=1
 pkgdesc="ELF.jl"
 url="https://github.com/Keno/ELF.jl"

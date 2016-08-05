@@ -1,5 +1,5 @@
 pkgname=julia-distances-git
-pkgver=0.3.0.0.8.g5fbc985
+pkgver=0.3.2.0.1.gf6cee36
 pkgrel=1
 pkgdesc="Distances.jl"
 url="https://github.com/JuliaStats/Distances.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-distances')
 source=(git://github.com/JuliaStats/Distances.jl)
 md5sums=('SKIP')

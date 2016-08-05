@@ -1,6 +1,6 @@
 pkgname=julia-zlib-git
 pkgver=0.1.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Zlib.jl"
 url="https://github.com/dcjones/Zlib.jl"
 arch=('any')

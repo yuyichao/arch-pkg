@@ -1,6 +1,6 @@
 pkgname=julia-yaml-git
 pkgver=0.1.10.0.2.gb2ced66
-pkgrel=1
+pkgrel=2
 pkgdesc="YAML.jl"
 url="https://github.com/dcjones/YAML.jl"
 arch=('any')

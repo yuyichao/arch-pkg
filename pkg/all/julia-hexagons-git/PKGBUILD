@@ -1,6 +1,6 @@
 pkgname=julia-hexagons-git
 pkgver=0.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Hexagons.jl"
 url="https://github.com/dcjones/Hexagons.jl"
 arch=('any')

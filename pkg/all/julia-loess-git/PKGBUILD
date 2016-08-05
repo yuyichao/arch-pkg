@@ -1,5 +1,5 @@
 pkgname=julia-loess-git
-pkgver=0.0.6
+pkgver=0.0.6.0.2.g9643b2b
 pkgrel=1
 pkgdesc="Loess.jl"
 url="https://github.com/dcjones/Loess.jl"

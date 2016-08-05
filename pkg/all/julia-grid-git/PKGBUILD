@@ -1,5 +1,5 @@
 pkgname=julia-grid-git
-pkgver=0.4.0.0.9.gac73a38
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Grid.jl"
 url="https://github.com/timholy/Grid.jl"

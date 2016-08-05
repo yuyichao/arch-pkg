@@ -1,6 +1,6 @@
 pkgname=julia-benchmarks-git
 pkgver=0.0.0.51.49f90b3
-pkgrel=1
+pkgrel=2
 pkgdesc="Benchmarks.jl"
 url="https://github.com/johnmyleswhite/Benchmarks.jl"
 arch=('any')

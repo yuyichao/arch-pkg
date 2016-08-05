@@ -1,6 +1,6 @@
 pkgname=julia-httpcommon-git
 pkgver=0.2.6.0.4.gdc64f8b
-pkgrel=1
+pkgrel=2
 pkgdesc="HttpCommon.jl"
 url="https://github.com/JuliaWeb/HttpCommon.jl"
 arch=('any')

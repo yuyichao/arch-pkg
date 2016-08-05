@@ -1,5 +1,5 @@
 pkgname=julia-imagemagick-git
-pkgver=0.1.6
+pkgver=0.1.7.0.1.ge72d4eb
 pkgrel=1
 pkgdesc="ImageMagick.jl"
 url="https://github.com/JuliaIO/ImageMagick.jl"

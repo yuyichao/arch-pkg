@@ -1,5 +1,5 @@
 pkgname=julia-positivefactorizations-git
-pkgver=0.0.1.0.2.g9b1990d
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="PositiveFactorizations.jl"
 url="https://github.com/timholy/PositiveFactorizations.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
+depends=('julia' 'julia-compat')
 provides=('julia-positivefactorizations')
 source=(git://github.com/timholy/PositiveFactorizations.jl)
 md5sums=('SKIP')

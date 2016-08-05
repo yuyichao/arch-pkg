@@ -1,5 +1,5 @@
 pkgname=julia-libarchive-git
-pkgver=0.0.1.0.22.g83961ef
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="LibArchive.jl"
 url="https://github.com/yuyichao/LibArchive.jl"

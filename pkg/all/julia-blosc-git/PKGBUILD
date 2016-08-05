@@ -1,5 +1,5 @@
 pkgname=julia-blosc-git
-pkgver=0.1.5.0.1.g8c17fbd
+pkgver=0.1.6
 pkgrel=1
 pkgdesc="Blosc.jl"
 url="https://github.com/stevengj/Blosc.jl"

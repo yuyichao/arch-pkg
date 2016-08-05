@@ -1,6 +1,6 @@
 pkgname=julia-showoff-git
 pkgver=0.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Showoff.jl"
 url="https://github.com/dcjones/Showoff.jl"
 arch=('any')

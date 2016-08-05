@@ -1,5 +1,5 @@
 pkgname=julia-legacystrings-git
-pkgver=0.1.1.0.1.gdcf45d4
+pkgver=0.1.1.0.2.gd96e96a
 pkgrel=1
 pkgdesc="LegacyStrings.jl"
 url="https://github.com/JuliaArchive/LegacyStrings.jl"

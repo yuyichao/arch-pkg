@@ -1,6 +1,6 @@
 pkgname=julia-mat-git
 pkgver=0.2.14.0.8.g3d7501a
-pkgrel=1
+pkgrel=2
 pkgdesc="MAT.jl"
 url="https://github.com/simonster/MAT.jl"
 arch=('any')

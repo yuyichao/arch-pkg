@@ -1,6 +1,6 @@
 pkgname=julia-calculus-git
 pkgver=0.1.15
-pkgrel=1
+pkgrel=2
 pkgdesc="Calculus.jl"
 url="https://github.com/johnmyleswhite/Calculus.jl"
 arch=('any')
