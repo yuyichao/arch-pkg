@@ -1,15 +1,15 @@
 pkgname=julia-showoff-git
-pkgver=0.0.6
-pkgrel=2
+pkgver=0.0.6.0.3.g11a6134
+pkgrel=1
 pkgdesc="Showoff.jl"
-url="https://github.com/dcjones/Showoff.jl"
+url="https://github.com/JuliaGraphics/Showoff.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat' 'julia-iterators')
 provides=('julia-showoff')
-source=(git://github.com/dcjones/Showoff.jl)
+source=(git://github.com/JuliaGraphics/Showoff.jl)
 md5sums=('SKIP')
 
 pkgver() {
