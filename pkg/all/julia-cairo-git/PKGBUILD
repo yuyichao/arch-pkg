@@ -2,7 +2,7 @@ pkgname=julia-cairo-git
 pkgver=0.2.33.0.2.gcad1977
 pkgrel=1
 pkgdesc="Cairo.jl"
-url="https://github.com/JuliaLang/Cairo.jl"
+url="https://github.com/JuliaGraphics/Cairo.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
@@ -10,7 +10,7 @@ makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 depends=('julia' 'julia-compat' 'julia-colors' 'julia-graphics'
          'glib2' 'pango' 'cairo')
 provides=('julia-cairo')
-source=(git://github.com/JuliaLang/Cairo.jl)
+source=(git://github.com/JuliaGraphics/Cairo.jl)
 md5sums=('SKIP')
 
 pkgver() {
