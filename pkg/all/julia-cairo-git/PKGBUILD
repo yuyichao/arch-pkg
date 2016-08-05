@@ -1,0 +1,32 @@
+pkgname=julia-cairo-git
+pkgver=0.2.33.0.2.gcad1977
+pkgrel=1
+pkgdesc="Cairo.jl"
+url="https://github.com/JuliaLang/Cairo.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
+# TODO version depends
+depends=('julia' 'julia-compat' 'julia-colors' 'julia-graphics'
+         'glib2' 'pango' 'cairo')
+provides=('julia-cairo')
+source=(git://github.com/JuliaLang/Cairo.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Cairo.jl
+
+  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd Cairo.jl
+
+  julia --startup-file=no deps/build.jl
+}
+
+package() {
+  cd Cairo.jl
+
+  . julia-install-pkg.sh Cairo "${pkgdir}" "${pkgname}"
+}
