@@ -21,18 +21,21 @@ for file in "${files[@]}"; do
 done
 
 dir=.pkg_upload_tmp
-rm -rf --one-file-system "$dir"
-mkdir $dir
+mkdir -p $dir
 pushd $dir
+upload_cmd=''
 for key in "${!latest_ver[@]}"; do
-    ver=${latest_ver[$key]}
     file=${latest_file[$key]}
+    if [[ -f ${file} ]] && [[ -f ${file}.sig ]]; then
+        continue
+    fi
+    upload_cmd="$upload_cmd"$'\n'"put ${file}"$'\n'"put ${file}.sig"
     wget "https://bintray.com/yuyichao/ArchPkg/download_file?file_path=$file" \
          -O "$file"
     gpg --detach-sign "$file"
 done
 sftp -b /dev/stdin build.archlinuxcn.org:repo <<EOF
 progress
-put *
+$upload_cmd
 EOF
 popd
