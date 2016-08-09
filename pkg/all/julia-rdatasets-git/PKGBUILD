@@ -1,6 +1,6 @@
 pkgname=julia-rdatasets-git
-pkgver=0.0.0.55.1868811
-pkgrel=2
+pkgver=0.0.0.66.14a5aef
+pkgrel=1
 pkgdesc="RDatasets.jl"
 url="https://github.com/johnmyleswhite/RDatasets.jl"
 arch=('any')

@@ -1,5 +1,5 @@
 pkgname=julia-benchmarktools-git
-pkgver=0.0.2.0.2.g4db2721
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="BenchmarkTools.jl"
 url="https://github.com/JuliaCI/BenchmarkTools.jl"

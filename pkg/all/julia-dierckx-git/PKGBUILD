@@ -1,6 +1,6 @@
 pkgname=julia-dierckx-git
-pkgver=0.1.8.0.4.gaa5ddba
-pkgrel=2
+pkgver=0.1.8.0.6.gf3d7a44
+pkgrel=1
 pkgdesc="Dierckx.jl"
 url="https://github.com/kbarbary/Dierckx.jl"
 arch=('any')
