@@ -1,5 +1,5 @@
 pkgname=julia-contour-git
-pkgver=0.1.0.0.7.g614dc34
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="Contour.jl"
 url="https://github.com/tlycken/Contour.jl"
