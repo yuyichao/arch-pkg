@@ -3,7 +3,7 @@
 
 pkgbase=gtk3
 pkgname=(gtk3 gtk-update-icon-cache)
-pkgver=3.20.2
+pkgver=3.20.8
 pkgrel=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 arch=(i686 x86_64)
@@ -11,14 +11,20 @@ url="http://www.gtk.org/"
 depends=(atk cairo libcups libxcursor libxinerama libxrandr libxi libepoxy
          gdk-pixbuf2 libxcomposite libxdamage pango shared-mime-info colord
          at-spi2-atk wayland libxkbcommon adwaita-icon-theme json-glib rest
-         librsvg wayland-protocols)
+         librsvg wayland-protocols desktop-file-utils mesa)
 makedepends=(gobject-introspection libcanberra gtk-doc)
 license=(LGPL)
 source=(https://download.gnome.org/sources/gtk+/${pkgver:0:4}/gtk+-$pkgver.tar.xz
         settings.ini
+        gtk-query-immodules-3.0.hook
+        gtk-update-icon-cache.hook
+        gtk-update-icon-cache.script
         0001-do-not-apply-consumed_modifier-on-entry-modifiers.patch)
-sha256sums=('1ab1d1068ea55e0046f437d69983f164df5e68cb2e9fdfb38787b867f33f69f7'
+sha256sums=('9841bd9b4d23c045c474b10fdde9da958af904b63783701e796391d55d4396f3'
             '01fc1d81dc82c4a052ac6e25bf9a04e7647267cc3017bc91f9ce3e63e5eb9202'
+            'de46e5514ff39a7a65e01e485e874775ab1c0ad20b8e94ada43f4a6af1370845'
+            '496064a9dd6214bd58f689dd817dbdc4d7f17d42a8c9940a87018c3f829ce308'
+            'f1d3a0dbfd82f7339301abecdbe5f024337919b48bd0e09296bb0e79863b2541'
             'df92185aab973865a4b5389222e769aa21a2e13194e83873b272d4f57c785fcf')
 options=('!libtool' 'debug' 'strip')
 
@@ -53,7 +59,9 @@ package_gtk3() {
 
   cd "gtk+-$pkgver"
   make DESTDIR="$pkgdir" install
+
   install -Dm644 ../settings.ini "$pkgdir/usr/share/gtk-3.0/settings.ini"
+  install -Dm644 ../gtk-query-immodules-3.0.hook "$pkgdir/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
 
   # split this out to use with gtk2 too
   rm "$pkgdir/usr/bin/gtk-update-icon-cache"
@@ -62,8 +70,9 @@ package_gtk3() {
 package_gtk-update-icon-cache() {
   pkgdesc="GTK+ icon cache updater"
   depends=(gdk-pixbuf2 hicolor-icon-theme)
-  install=gtk-update-icon-cache.install
 
-  cd gtk+-$pkgver/gtk
-  install -Dm755 gtk-update-icon-cache "$pkgdir/usr/bin/gtk-update-icon-cache"
+  cd gtk+-$pkgver
+  install -D gtk/gtk-update-icon-cache "$pkgdir/usr/bin/gtk-update-icon-cache"
+  install -Dm644 ../gtk-update-icon-cache.hook "$pkgdir/usr/share/libalpm/hooks/gtk-update-icon-cache.hook"
+  install -D ../gtk-update-icon-cache.script "$pkgdir/usr/share/libalpm/scripts/gtk-update-icon-cache"
 }
