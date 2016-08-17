@@ -1,42 +1,41 @@
-# $Id: PKGBUILD 256092 2015-12-15 01:46:53Z allan $
 # Maintainer: Allan McRae <allan@archlinux.org>
 # Contributer: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gmp
-pkgver=6.1.0
-pkgrel=4
+pkgver=6.1.1
+pkgrel=1
 pkgdesc="A free library for arbitrary precision arithmetic"
 arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="http://gmplib.org/"
 depends=('gcc-libs' 'sh')
 license=('LGPL3' 'GPL')
 source=(https://gmplib.org/download/gmp/gmp-${pkgver}.tar.xz
-        'gmp-exception.patch')
-md5sums=('a9868ef2556ad6a2909babcd1428f3c7'
+        gmp-exception.patch)
+md5sums=('e70e183609244a332d80529e7e155a35'
          '0c2ef3cf4ed46ac7f1b8b0ea10389b0e')
 
 prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
 
   patch -Np1 < ../gmp-exception.patch
 }
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
 
   ./configure --build=${CHOST} \
     --prefix=/usr \
-    --enable-cxx
-    # do not --enable-fat - see https://bugs.archlinux.org/task/47284
+    --enable-cxx \
+    --enable-fat
   make
 }
 
 check() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
   make check
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install
 }
