@@ -1,5 +1,5 @@
 pkgname=julia-abstracttrees-git
-pkgver=0.0.3.0.1.g38c53b5
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="AbstractTrees.jl"
 url="https://github.com/Keno/AbstractTrees.jl"

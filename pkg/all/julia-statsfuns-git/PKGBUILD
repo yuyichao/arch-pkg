@@ -1,5 +1,5 @@
 pkgname=julia-statsfuns-git
-pkgver=0.3.0.0.3.g5fa96c3
+pkgver=0.3.0.0.4.g1d1488c
 pkgrel=1
 pkgdesc="StatsFuns.jl"
 url="https://github.com/JuliaStats/StatsFuns.jl"
