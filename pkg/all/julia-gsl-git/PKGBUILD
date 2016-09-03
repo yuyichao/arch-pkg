@@ -1,5 +1,5 @@
 pkgname=julia-gsl-git
-pkgver=0.3.1.0.13.gc0122a4
+pkgver=0.3.1.0.18.geae3df0
 pkgrel=1
 pkgdesc="GSL.jl"
 url="https://github.com/jiahao/GSL.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'gsl')
+depends=('julia' 'julia-compat' 'gsl')
 provides=('julia-gsl')
 source=(git://github.com/jiahao/GSL.jl)
 md5sums=('SKIP')

@@ -1,15 +1,15 @@
 pkgname=julia-kerneldensity-git
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="KernelDensity.jl"
 url="https://github.com/JuliaStats/KernelDensity.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
+makedepends=(git julia-pkg-scripts)
 # TODO version depends
-depends=('julia' 'julia-statsbase' 'julia-distributions' 'julia-optim'
-         'julia-grid' 'julia-compat')
-provides=('julia-kerneldensity')
+depends=(julia julia-statsbase julia-distributions julia-optim
+         julia-interpolations julia-compat)
+provides=(julia-kerneldensity)
 source=(git://github.com/JuliaStats/KernelDensity.jl)
 md5sums=('SKIP')
 

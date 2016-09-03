@@ -1,5 +1,5 @@
 pkgname=julia-dataframes-git
-pkgver=0.8.0.0.1.g54fb1b5
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="DataFrames.jl"
 url="https://github.com/JuliaStats/DataFrames.jl"
@@ -7,9 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-dataarrays' 'julia-statsbase' 'julia-gzip'
-         'julia-sortingalgorithms' 'julia-compat' 'julia-reexport')
-provides=('julia-dataframes')
+depends=(julia julia-dataarrays julia-statsbase julia-gzip
+         julia-sortingalgorithms julia-reexport julia-compat julia-fileio)
+provides=(julia-dataframes)
 source=(git://github.com/JuliaStats/DataFrames.jl)
 md5sums=('SKIP')
 

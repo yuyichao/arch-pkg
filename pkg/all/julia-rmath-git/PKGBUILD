@@ -1,5 +1,5 @@
 pkgname=julia-rmath-git
-pkgver=0.1.2.0.3.g02774e5
+pkgver=0.1.2.0.6.g4900e49
 pkgrel=1
 pkgdesc="Rmath.jl"
 url="https://github.com/JuliaStats/Rmath.jl"

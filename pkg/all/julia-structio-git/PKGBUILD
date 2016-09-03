@@ -1,6 +1,6 @@
 pkgname=julia-structio-git
-pkgver=0.0.2.0.2.ge028a9b
-pkgrel=2
+pkgver=0.0.2.0.4.g5fdc718
+pkgrel=1
 pkgdesc="StructIO.jl"
 url="https://github.com/Keno/StructIO.jl"
 arch=('any')
