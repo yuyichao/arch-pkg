@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
+depends=(julia julia-compat)
 provides=('julia-benchmarks')
 source=(git://github.com/johnmyleswhite/Benchmarks.jl)
 md5sums=('SKIP')
