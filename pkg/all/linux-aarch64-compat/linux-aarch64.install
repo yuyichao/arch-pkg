@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-aarch64
-KERNEL_VERSION=4.8.0-4-ARCH
+KERNEL_VERSION=4.8.0-6-ARCH
 
 post_install () {
   # updating module dependencies
