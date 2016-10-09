@@ -8,7 +8,7 @@ _srcname=linux-4.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=4.8.1
-pkgrel=5
+pkgrel=6
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -24,18 +24,18 @@ md5sums=('c1af0afbd3df35c1ccdc7a5118cd2d07'
          '349734be5387f1605074515ad7207627'
          '8ed2ac68adaec29a488542f613de6ad9'
          'e6fca8e5ddf634762d9ff7daa5e37a76'
-         '066397f7e596394f2ed112a8f22926dc'
-         '1300d1da443dbe04fd34921dc200dbdd')
+         '61c6f1e09eeb42584d92fce6cf072670'
+         'b4c90834bcf8ae1c85fc979a9098eaf2')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
 
   # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
+  patch -Np1 < ../patch-${pkgver}
 
   # ALARM patches
-  git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
-  git apply ../0002-arm64-dts-qcom-Fix-broken-interrupt-trigger-settings.patch
+  patch -Np1 < ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
+  patch -Np1 < ../0002-arm64-dts-qcom-Fix-broken-interrupt-trigger-settings.patch
 
   cat "${srcdir}/config" > ./.config
 
