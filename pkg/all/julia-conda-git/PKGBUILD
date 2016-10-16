@@ -1,6 +1,6 @@
 pkgname=julia-conda-git
 pkgver=0.3.2.0.25.gda472a5
-pkgrel=1
+pkgrel=2
 pkgdesc="Conda.jl"
 url="https://github.com/JuliaPy/Conda.jl"
 arch=('any')
@@ -16,6 +16,14 @@ pkgver() {
   cd Conda.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd Conda.jl
+
+  cat > deps/deps.jl <<EOF
+const ROOTENV = joinpath(dirname(@__FILE__), "/usr/")
+EOF
 }
 
 package() {
