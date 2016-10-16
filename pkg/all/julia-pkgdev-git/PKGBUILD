@@ -1,5 +1,5 @@
 pkgname=julia-pkgdev-git
-pkgver=0.1.2
+pkgver=0.1.2.0.7.g707a172
 pkgrel=1
 pkgdesc="PkgDev.jl"
 url="https://github.com/JuliaLang/PkgDev.jl"

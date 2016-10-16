@@ -1,5 +1,5 @@
 pkgname=julia-colorvectorspace-git
-pkgver=0.1.7.0.5.g33d6539
+pkgver=0.1.11.0.1.gda0d413
 pkgrel=1
 pkgdesc="ColorVectorSpace.jl"
 url="https://github.com/JuliaGraphics/ColorVectorSpace.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-colortypes' 'julia-fixedpointnumbers')
+depends=('julia' julia-colortypes julia-fixedpointnumbers julia-compat)
 provides=('julia-colorvectorspace')
 source=(git://github.com/JuliaGraphics/ColorVectorSpace.jl)
 md5sums=('SKIP')

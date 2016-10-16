@@ -1,5 +1,5 @@
 pkgname=julia-distributions-git
-pkgver=0.10.1.0.3.ge667803
+pkgver=0.11.0.0.1.g1044076
 pkgrel=1
 pkgdesc="Distributions.jl"
 url="https://github.com/JuliaStats/Distributions.jl"

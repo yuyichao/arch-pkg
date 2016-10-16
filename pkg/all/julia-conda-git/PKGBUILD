@@ -1,15 +1,15 @@
 pkgname=julia-conda-git
-pkgver=0.2.3.0.3.g95db9af
+pkgver=0.3.2.0.25.gda472a5
 pkgrel=1
 pkgdesc="Conda.jl"
-url="https://github.com/Luthaf/Conda.jl"
+url="https://github.com/JuliaPy/Conda.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-bindeps' 'julia-compat' 'julia-json')
 provides=('julia-conda')
-source=(git://github.com/Luthaf/Conda.jl)
+source=(git://github.com/JuliaPy/Conda.jl)
 md5sums=('SKIP')
 
 pkgver() {

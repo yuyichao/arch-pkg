@@ -1,15 +1,15 @@
 pkgname=julia-json-git
-pkgver=0.7.0.0.3.gb064040
+pkgver=0.8.0.0.1.g6b08c8d
 pkgrel=1
 pkgdesc="JSON.jl"
-url="https://github.com/JuliaLang/JSON.jl"
+url="https://github.com/JuliaIO/JSON.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-json')
-source=(git://github.com/JuliaLang/JSON.jl)
+depends=(julia julia-compat)
+provides=(julia-json)
+source=(git://github.com/JuliaIO/JSON.jl)
 md5sums=('SKIP')
 
 pkgver() {

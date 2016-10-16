@@ -1,13 +1,13 @@
 pkgname=julia-dualnumbers-git
-pkgver=0.2.2.0.5.g8a73428
-pkgrel=2
+pkgver=0.2.2.0.9.g945df59
+pkgrel=1
 pkgdesc="DualNumbers.jl"
 url="https://github.com/JuliaDiff/DualNumbers.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-calculus' 'julia-nanmath')
+depends=(julia julia-compat julia-calculus julia-nanmath)
 provides=('julia-dualnumbers')
 source=(git://github.com/JuliaDiff/DualNumbers.jl)
 md5sums=('SKIP')

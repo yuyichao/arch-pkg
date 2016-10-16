@@ -1,5 +1,5 @@
 pkgname=julia-formatting-git
-pkgver=0.1.5.0.5.g39f6db8
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Formatting.jl"
 url="https://github.com/JuliaLang/Formatting.jl"

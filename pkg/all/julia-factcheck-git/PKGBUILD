@@ -2,14 +2,14 @@ pkgname=julia-factcheck-git
 pkgver=0.4.3
 pkgrel=2
 pkgdesc="FactCheck.jl"
-url="https://github.com/JuliaLang/FactCheck.jl"
+url="https://github.com/JuliaArchive/FactCheck.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-compat')
 provides=('julia-factcheck')
-source=(git://github.com/JuliaLang/FactCheck.jl)
+source=(git://github.com/JuliaArchive/FactCheck.jl)
 md5sums=('SKIP')
 
 pkgver() {

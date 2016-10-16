@@ -1,5 +1,5 @@
 pkgname=julia-bufferedstreams-git
-pkgver=0.1.6
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="BufferedStreams.jl"
 url="https://github.com/BioJulia/BufferedStreams.jl"

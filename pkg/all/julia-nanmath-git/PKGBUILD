@@ -1,6 +1,6 @@
 pkgname=julia-nanmath-git
-pkgver=0.2.1
-pkgrel=2
+pkgver=0.2.1.0.3.g6da4a4e
+pkgrel=1
 pkgdesc="NaNMath.jl"
 url="https://github.com/mlubin/NaNMath.jl"
 arch=('any')

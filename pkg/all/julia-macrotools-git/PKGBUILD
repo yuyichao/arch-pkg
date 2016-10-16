@@ -1,15 +1,15 @@
 pkgname=julia-macrotools-git
-pkgver=0.3.2.0.2.g3d91ea5
+pkgver=0.3.2.0.3.g25902e9
 pkgrel=1
 pkgdesc="MacroTools.jl"
-url="https://github.com/one-more-minute/MacroTools.jl"
+url="https://github.com/MikeInnes/MacroTools.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=(julia julia-compat)
 provides=('julia-macrotools')
-source=(git://github.com/one-more-minute/MacroTools.jl)
+source=(git://github.com/MikeInnes/MacroTools.jl)
 md5sums=('SKIP')
 
 pkgver() {

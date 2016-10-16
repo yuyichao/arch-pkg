@@ -1,15 +1,15 @@
 pkgname=julia-jld-git
-pkgver=0.6.3.0.3.g4cb8edb
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="JLD.jl"
-url="https://github.com/JuliaLang/JLD.jl"
+url="https://github.com/JuliaIO/JLD.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git' 'julia-pkg-scripts')
-depends=('julia' 'julia-compat' 'julia-hdf5' julia-fileio julia-legacystrings)
+depends=(julia julia-hdf5 julia-compat julia-fileio julia-legacystrings)
 provides=('julia-jld')
-source=(git://github.com/JuliaLang/JLD.jl)
+source=(git://github.com/JuliaIO/JLD.jl)
 md5sums=('SKIP')
 
 pkgver() {
