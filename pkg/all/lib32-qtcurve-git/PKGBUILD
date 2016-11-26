@@ -6,7 +6,7 @@ pkgname=lib32-qtcurve-git
 true && pkgname=(lib32-qtcurve-utils-git lib32-qtcurve-qt4-git
   lib32-qtcurve-gtk2-git)
 _realver=1.8.18
-pkgver=1.8.18.0.239.gfda0450
+pkgver=1.8.18.0.263.g438553d
 pkgrel=1
 pkgdesc='A configurable set of widget styles for KDE and Gtk. Multilib.'
 arch=('x86_64')
