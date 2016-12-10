@@ -8,7 +8,7 @@ _srcname=linux-4.8
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
 pkgver=4.8.1
-pkgrel=7
+pkgrel=9
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -24,8 +24,8 @@ md5sums=('c1af0afbd3df35c1ccdc7a5118cd2d07'
          '349734be5387f1605074515ad7207627'
          '8ed2ac68adaec29a488542f613de6ad9'
          'e6fca8e5ddf634762d9ff7daa5e37a76'
-         '2691578393023d5b9a3bc92a448e3a7a'
-         'fea656df7a76a82943dfac0f49479ce6')
+         'c8683eb44f2419fa385f4151b1a5b3a4'
+         '3c33bad7dfea4cb60d55fc56c8fa1a59')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
