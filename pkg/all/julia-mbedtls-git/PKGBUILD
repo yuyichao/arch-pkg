@@ -1,13 +1,13 @@
 pkgname=julia-mbedtls-git
-pkgver=0.3.0.0.6.g72de358
+pkgver=0.3.0.0.24.gc62b8bc
 pkgrel=1
 pkgdesc="MbedTLS.jl"
 url="https://github.com/JuliaWeb/MbedTLS.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
+makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat' 'mbedtls')
+depends=('julia' 'mbedtls')
 provides=('julia-mbedtls')
 source=(git://github.com/JuliaWeb/MbedTLS.jl)
 md5sums=('SKIP')
@@ -16,12 +16,6 @@ pkgver() {
   cd MbedTLS.jl
 
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
-}
-
-build() {
-  cd MbedTLS.jl
-
-  julia --startup-file=no deps/build.jl
 }
 
 package() {
