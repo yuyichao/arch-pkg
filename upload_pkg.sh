@@ -2,7 +2,7 @@
 
 set -e
 
-files=($(curl -X GET https://api.bintray.com/packages/yuyichao/ArchPkg/arch/versions/0.0/files | jq -r '.[].name'))
+files=($(curl -X GET https://api.bintray.com/packages/yuyichao/ArchPkg/arch/versions/0.1/files | jq -r '.[].name'))
 
 declare -A latest_ver
 declare -A latest_file
