@@ -29,13 +29,13 @@ prepare() {
 
 build() {
   cd RISE
-  python setup.py build
+  LANG=en_US.utf8 python setup.py build
 }
 
 package() {
   cd RISE
-  python setup.py install --prefix="${pkgdir}/usr"
-  PYTHONPATH="${pkgdir}/usr/lib/python3.6/site-packages/" \
-            jupyter nbextension install rise --py --system \
-            --prefix="${pkgdir}/usr"
+  LANG=en_US.utf8 python setup.py install --prefix="${pkgdir}/usr"
+  LANG=en_US.utf8 PYTHONPATH="${pkgdir}/usr/lib/python3.6/site-packages/" \
+      jupyter nbextension install rise --py --system \
+      --prefix="${pkgdir}/usr"
 }
