@@ -1,6 +1,6 @@
 pkgname=julia-conda-git
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Conda.jl"
 url="https://github.com/JuliaPy/Conda.jl"
 arch=('any')
@@ -30,4 +30,5 @@ package() {
   cd Conda.jl
 
   . julia-install-pkg.sh Conda "${pkgdir}" "${pkgname}"
+  mkdir -p "${dest_dir}/deps/usr"
 }
