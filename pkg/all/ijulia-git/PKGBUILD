@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=1.3.2.0.11.g58fe760
+pkgver=1.3.2.0.33.g7c8fe35
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -37,6 +37,7 @@ build() {
   cd deps/
 
   HOME="${srcdir}/jupyter" \
+      JUPYTER=/usr/bin/jupyter \
       JULIA_PKGDIR="$tmp_pkgdir" \
       IJULIA_DIR="${site_dir}/IJulia" \
       julia --startup-file=no build.jl
