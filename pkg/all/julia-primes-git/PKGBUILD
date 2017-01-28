@@ -1,5 +1,5 @@
 pkgname=julia-primes-git
-pkgver=0.1.1.0.5.gfb939a8
+pkgver=0.1.1.0.6.gc78f3af
 pkgrel=1
 pkgdesc="Primes.jl"
 url="https://github.com/JuliaMath/Primes.jl"
