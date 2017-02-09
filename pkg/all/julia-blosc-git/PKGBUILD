@@ -1,5 +1,5 @@
 pkgname=julia-blosc-git
-pkgver=0.1.7.0.8.gda204a7
+pkgver=0.1.7.0.10.ge5eb611
 pkgrel=1
 pkgdesc="Blosc.jl"
 url="https://github.com/stevengj/Blosc.jl"
@@ -7,7 +7,7 @@ arch=('i686' 'x86_64')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat')
+depends=(julia julia-compat blosc)
 provides=('julia-blosc')
 source=(git://github.com/stevengj/Blosc.jl)
 md5sums=('SKIP')
@@ -20,16 +20,10 @@ pkgver() {
   git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
-build() {
-  cd Blosc.jl/deps
-
-  julia --startup-file=no build.jl
-}
-
 package() {
   cd Blosc.jl
 
   . julia-install-pkg.sh Blosc "${pkgdir}" "${pkgname}"
 
-  rm -rf "${dest_dir}/deps/"{c-blosc-*,make.blosc}
+  ln -sf /usr/lib/libblosc.so "${dest_dir}/deps/"
 }
