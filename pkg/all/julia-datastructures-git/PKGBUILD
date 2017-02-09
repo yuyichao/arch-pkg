@@ -1,15 +1,15 @@
 pkgname=julia-datastructures-git
-pkgver=0.4.6.0.107.g16f4450
+pkgver=0.4.6.0.111.g76106b5
 pkgrel=1
 pkgdesc="DataStructures.jl"
-url="https://github.com/JuliaLang/DataStructures.jl"
+url="https://github.com/JuliaCollections/DataStructures.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git' 'julia-pkg-scripts')
 depends=(julia julia-compat)
 provides=('julia-datastructures')
-source=(git://github.com/JuliaLang/DataStructures.jl)
+source=(git://github.com/JuliaCollections/DataStructures.jl)
 md5sums=('SKIP')
 
 pkgver() {
