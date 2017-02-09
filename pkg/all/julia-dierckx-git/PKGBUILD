@@ -1,12 +1,12 @@
 pkgname=julia-dierckx-git
-pkgver=0.1.9
+pkgver=0.1.9.0.6.g078eb6e
 pkgrel=1
 pkgdesc="Dierckx.jl"
 url="https://github.com/kbarbary/Dierckx.jl"
 arch=('any')
 license=('MIT')
 # TODO version depends
-makedepends=('git' 'julia-pkg-scripts')
+makedepends=(git julia-pkg-scripts gcc-fortran)
 depends=('julia' 'julia-compat')
 provides=('julia-dierckx')
 source=(git://github.com/kbarbary/Dierckx.jl)
