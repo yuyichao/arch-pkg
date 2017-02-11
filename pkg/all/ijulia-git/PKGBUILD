@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=1.3.2.0.33.g7c8fe35
+pkgver=1.3.2.0.35.g13551c6
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -7,9 +7,8 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-conda' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-nettle' 'julia-json' 'julia-zmq'
-         'jupyter')
-provides=('ijulia')
+depends=(julia julia-mbedtls julia-json julia-zmq julia-compat jupyter)
+provides=(ijulia)
 source=(git://github.com/JuliaLang/IJulia.jl)
 md5sums=('SKIP')
 
