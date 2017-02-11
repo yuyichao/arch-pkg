@@ -1,5 +1,5 @@
 pkgname=julia-latexstrings-git
-pkgver=0.2.0
+pkgver=0.2.0.0.2.gf30b5b1
 pkgrel=1
 pkgdesc="LaTeXStrings.jl"
 url="https://github.com/stevengj/LaTeXStrings.jl"

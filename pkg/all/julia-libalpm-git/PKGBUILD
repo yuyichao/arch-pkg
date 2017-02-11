@@ -1,5 +1,5 @@
 pkgname=julia-libalpm-git
-pkgver=0.0.0.130.93b3e17
+pkgver=0.0.0.132.b0aabaa
 pkgrel=1
 pkgdesc="LibALPM.jl"
 url="https://github.com/yuyichao/LibALPM.jl"

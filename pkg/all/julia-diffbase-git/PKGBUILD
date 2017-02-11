@@ -1,5 +1,5 @@
 pkgname=julia-diffbase-git
-pkgver=0.0.4
+pkgver=0.0.4.0.2.gf5a861c
 pkgrel=1
 pkgdesc="DiffBase.jl"
 url="https://github.com/JuliaDiff/DiffBase.jl"
