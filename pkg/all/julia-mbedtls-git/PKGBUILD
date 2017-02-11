@@ -1,5 +1,5 @@
 pkgname=julia-mbedtls-git
-pkgver=0.3.0.0.24.gc62b8bc
+pkgver=0.3.0.0.44.g960c682
 pkgrel=1
 pkgdesc="MbedTLS.jl"
 url="https://github.com/JuliaWeb/MbedTLS.jl"
