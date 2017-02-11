@@ -1,0 +1,25 @@
+pkgname=julia-specialfunctions-git
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="SpecialFunctions.jl"
+url="https://github.com/JuliaMath/SpecialFunctions.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git' 'julia-pkg-scripts')
+depends=(julia julia-compat)
+provides=('julia-specialfunctions')
+source=(git://github.com/JuliaMath/SpecialFunctions.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd SpecialFunctions.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd SpecialFunctions.jl
+
+  . julia-install-pkg.sh SpecialFunctions "${pkgdir}" "${pkgname}"
+}
