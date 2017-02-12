@@ -1,5 +1,5 @@
 pkgname=julia-quadgk-git
-pkgver=0.0.0.32.1094910
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="QuadGK.jl"
 url="https://github.com/JuliaMath/QuadGK.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 # TODO version depends
 makedepends=('git' 'julia-pkg-scripts')
-depends=('julia')
+depends=(julia julia-datastructures)
 provides=('julia-quadgk')
 source=(git://github.com/JuliaMath/QuadGK.jl)
 md5sums=('SKIP')
@@ -15,8 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd QuadGK.jl
 
-  # git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
-  echo "0.0.0.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
