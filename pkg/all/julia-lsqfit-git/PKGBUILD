@@ -1,5 +1,5 @@
 pkgname=julia-lsqfit-git
-pkgver=0.1.0.0.8.g308361c
+pkgver=0.1.1.0.8.g6d0f8ae
 pkgrel=1
 pkgdesc="LsqFit.jl"
 url="https://github.com/JuliaOpt/LsqFit.jl"
