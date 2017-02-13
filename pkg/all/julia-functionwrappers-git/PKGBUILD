@@ -1,5 +1,5 @@
 pkgname=julia-functionwrappers-git
-pkgver=0.0.1.0.5.g2f31953
+pkgver=0.0.1.0.6.gd94f433
 pkgrel=1
 pkgdesc="FunctionWrappers.jl"
 url="https://github.com/yuyichao/FunctionWrappers.jl"
