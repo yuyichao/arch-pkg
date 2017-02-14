@@ -1,5 +1,5 @@
 pkgname=julia-imagemagick-git
-pkgver=0.1.8
+pkgver=0.2.0.0.8.g963ac69
 pkgrel=1
 pkgdesc="ImageMagick.jl"
 url="https://github.com/JuliaIO/ImageMagick.jl"
@@ -8,7 +8,7 @@ license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-fixedpointnumbers' 'julia-colortypes' 'julia-fileio'
-         'julia-images' 'julia-compat' 'imagemagick')
+         'julia-compat' 'imagemagick')
 provides=('julia-imagemagick')
 source=(git://github.com/JuliaIO/ImageMagick.jl)
 md5sums=('SKIP')

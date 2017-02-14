@@ -1,5 +1,5 @@
 pkgname=julia-dwarf-git
-pkgver=0.0.3.0.3.g015d405
+pkgver=0.0.3.0.6.g64a4dc6
 pkgrel=1
 pkgdesc="DWARF.jl"
 url="https://github.com/Keno/DWARF.jl"

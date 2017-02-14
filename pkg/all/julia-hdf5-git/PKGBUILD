@@ -1,5 +1,5 @@
 pkgname=julia-hdf5-git
-pkgver=0.7.0.0.24.gcdc24e0
+pkgver=0.7.0.0.26.gb9f0fe1
 pkgrel=1
 pkgdesc="HDF5.jl"
 url="https://github.com/JuliaIO/HDF5.jl"
