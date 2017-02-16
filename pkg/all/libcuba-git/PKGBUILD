@@ -3,7 +3,7 @@
 epoch=1
 pkgname=libcuba-git
 pkgver=4.1.0.8.g44da524
-pkgrel=2
+pkgrel=3
 pkgdesc='A library for mutidimensional numerical integration'
 arch=(i686 x86_64 armv7h aarch64)
 url="http://www.feynarts.de/cuba/"
@@ -23,8 +23,13 @@ pkgver() {
 
 build() {
   cd cuba
+
+  export CFLAGS='-g -O2'
+  export CXXFLAGS='-g -O2'
+  export FFLAGS='-g -O2'
+  export LDFLAGS=''
   ./configure --prefix=/usr
-  make shared
+  make -j1 shared
 }
 
 package() {
