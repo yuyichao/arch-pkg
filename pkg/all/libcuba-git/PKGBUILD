@@ -3,7 +3,7 @@
 epoch=1
 pkgname=libcuba-git
 pkgver=4.1.0.8.g44da524
-pkgrel=1
+pkgrel=2
 pkgdesc='A library for mutidimensional numerical integration'
 arch=(i686 x86_64 armv7h aarch64)
 url="http://www.feynarts.de/cuba/"
@@ -13,6 +13,7 @@ provides=(libcuba)
 conflicts=(libcuba)
 source=("git://github.com/giordano/cuba#branch=julia")
 md5sums=('SKIP')
+options=(!buildflags !strip)
 
 pkgver() {
   cd cuba
