@@ -1,0 +1,33 @@
+pkgname=julia-cubature-git
+pkgver=1.2.0.0.2.g73c92cd
+pkgrel=1
+pkgdesc="Cubature.jl"
+url="https://github.com/stevengj/Cubature.jl"
+arch=('i686' 'x86_64')
+license=('MIT')
+makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
+# TODO version depends
+depends=(julia julia-compat)
+provides=('julia-cubature')
+source=(git://github.com/stevengj/Cubature.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Cubature.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+# TODO package library seperately
+build() {
+  cd Cubature.jl/deps
+
+  julia --startup-file=no build.jl
+}
+
+package() {
+  cd Cubature.jl
+
+  . julia-install-pkg.sh Cubature "${pkgdir}" "${pkgname}"
+  rm -rf "${dest_dir}/deps/"cubature-*
+}
