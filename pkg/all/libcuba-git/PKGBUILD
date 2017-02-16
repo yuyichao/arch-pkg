@@ -1,15 +1,24 @@
 # Maintainer: zhangjun (zhangjunphy AT gmail DOT com)
 
+epoch=1
 pkgname=libcuba-git
-pkgver=4.2
+pkgver=4.1.0.8.g44da524
 pkgrel=1
 pkgdesc='A library for mutidimensional numerical integration'
 arch=(i686 x86_64 armv7h aarch64)
 url="http://www.feynarts.de/cuba/"
 license=('LGPL')
 makedepends=('make' 'automake')
+provides=(libcuba)
+conflicts=(libcuba)
 source=("git://github.com/giordano/cuba#branch=julia")
 md5sums=('SKIP')
+
+pkgver() {
+  cd cuba
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
 
 build() {
   cd cuba
