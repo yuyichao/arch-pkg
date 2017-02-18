@@ -1,5 +1,5 @@
 pkgname=julia-mappedarrays-git
-pkgver=0.0.5
+pkgver=0.0.6
 pkgrel=1
 pkgdesc="MappedArrays.jl"
 url="https://github.com/JuliaArrays/MappedArrays.jl"
