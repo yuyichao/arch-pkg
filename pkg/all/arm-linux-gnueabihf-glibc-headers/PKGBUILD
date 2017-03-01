@@ -3,60 +3,59 @@
 
 _target="arm-linux-gnueabihf"
 pkgname=${_target}-glibc-headers
-pkgver=2.21
-pkgrel=1
+pkgver=2.24
+pkgrel=2
+_commit=fdfc9260
 pkgdesc="GNU C Library. Stage 1 - headers only. Needed for initialy build toolchain (${_target})"
 arch=(any)
 url="http://www.gnu.org/software/libc"
 license=('GPL' 'LGPL')
-depends=("${_target}-linux-api-headers>=3.16")
-provides=("${_target}-eglibc-headers=${pkgver}")
-replaces=("${_target}-eglibc-headers")
-conflicts=("${_target}-eglibc-headers")
-makedepends=("${_target}-gcc-stage1")
-options=(!strip)
-source=(http://ftp.gnu.org/gnu/libc/glibc-${pkgver}.tar.xz
-        glibc-2.21-roundup.patch)
-md5sums=('9cb398828e8f84f57d1f7d5588cf40cd'
-         'bf9d96b11c76b113606aae102da63d9d')
+depends=("${_target}-linux-api-headers>=4.7")
+makedepends=("${_target}-gcc-stage1>=6.3.1")
+options=('!buildflags' '!strip' 'staticlibs')
+source=(http://ftp.gnu.org/gnu/libc/glibc-${pkgver}.tar.xz)
+md5sums=('97dc5517f92016f3d70d83e3162ad318')
 
 prepare() {
   cd glibc-${pkgver}
 
-  # glibc-2.21..75adf430
-  patch -p1 -i ../glibc-2.21-roundup.patch
+  #patch -p1 -i ${srcdir}/glibc-${_commit}.patch
 
   rm -rf "${srcdir}"/glibc-build
-  mkdir -p "${srcdir}"/glibc-build
+  mkdir "${srcdir}"/glibc-build
 }
 
 build() {
-  cd glibc-${pkgver}
+  cd glibc-build
 
-  # Don not build timezones
-  sed -i 's/timezone rt/rt/' Makeconfig
+  echo "slibdir=/lib" >> configparms
+  echo "rtlddir=/lib" >> configparms
+  echo "sbindir=/bin" >> configparms
+  echo "rootsbindir=/bin" >> configparms
 
-  cd "${srcdir}"/glibc-build
-
-  export CFLAGS="-U_FORTIFY_SOURCE  -mlittle-endian -mhard-float -O2"
+  # remove hardening options for building libraries
+  export CFLAGS="-U_FORTIFY_SOURCE -mlittle-endian -O2"
+  export CPPFLAGS="-U_FORTIFY_SOURCE -O2"
   unset LD_LIBRARY_PATH
 
   export BUILD_CC=gcc
   export CC=${_target}-gcc
+  export CXX=${_target}-g++
   export AR=${_target}-ar
   export RANLIB=${_target}-ranlib
 
-  ../glibc-${pkgver}/configure \
-    --prefix=/ \
-    --target=${_target} \
-    --host=${_target} \
-    --build=${CHOST} \
-    --with-headers=/usr/${_target}/include \
-    --enable-add-ons \
-    --disable-profile \
-    --without-cvs \
-    --without-gd \
-    --disable-werror
+  ../glibc-${pkgver}/configure --prefix=/ \
+           --target=${_target} --host=${_target} --build=${CHOST} \
+           --libdir=/lib --libexecdir=/lib \
+           --with-headers=/usr/${_target}/include \
+           --enable-add-ons \
+           --enable-obsolete-rpc \
+           --enable-kernel=2.6.32 \
+           --enable-bind-now --disable-profile \
+           --enable-stackguard-randomization \
+           --enable-lock-elision \
+           --disable-multi-arch \
+           --disable-werror
 
   # make some libs and stubs
   make csu/subdir_lib
@@ -65,18 +64,20 @@ build() {
 package() {
   cd glibc-build
 
-  make install-headers "install_root=${pkgdir}/usr/${_target}" \
-    install-bootstrap-headers=yes
+  make install_root=${pkgdir}/usr/${_target} install-headers \
+       install-bootstrap-headers=yes
 
-  touch "${pkgdir}/usr/${_target}/include/gnu/stubs.h"
+  # glibc doesn't support eglibc's install-bootstrap-headers
+  # Luckily a blank gnu/stubs.h is all we need
+  touch ${pkgdir}/usr/${_target}/include/gnu/stubs.h
 
-  mkdir -p "${pkgdir}/usr/${_target}/lib"
-  cp csu/crt1.o csu/crti.o csu/crtn.o "${pkgdir}/usr/${_target}/lib"
+  mkdir -p ${pkgdir}/usr/${_target}/lib
+  cp csu/crt1.o csu/crti.o csu/crtn.o ${pkgdir}/usr/${_target}/lib
 
   # create stub lib
   ${_target}-gcc -nostdlib -nostartfiles -shared -x c /dev/null \
-    -o "${pkgdir}/usr/${_target}/lib/libc.so"
+            -o ${pkgdir}/usr/${_target}/lib/libc.so
 
-  mkdir -p "${pkgdir}/usr/${_target}/usr"
-  ln -s ../{include,lib} "${pkgdir}/usr/${_target}/usr"
+  mkdir -p ${pkgdir}/usr/${_target}/usr
+  ln -s ../{include,lib} ${pkgdir}/usr/${_target}/usr
 }

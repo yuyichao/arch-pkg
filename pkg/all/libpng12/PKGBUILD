@@ -1,0 +1,48 @@
+# $Id: PKGBUILD 204447 2017-01-02 20:49:07Z anthraxx $
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Arthur Zamarin <arthurzam@gmail.com>
+# Contributor: trya <tryagainprod@gmail.com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: dorphell <dorphell@archlinux.org>
+# Contributor: Travis Willard <travis@archlinux.org>
+# Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
+
+pkgname=libpng12
+pkgver=1.2.57
+pkgrel=1
+pkgdesc='A collection of routines used to create PNG format graphics files'
+arch=('i686' 'x86_64')
+url='https://www.libpng.org/pub/png/libpng.html'
+license=('custom')
+depends=('glibc' 'zlib')
+source=("https://sourceforge.net/projects/libpng/files/libpng-${pkgver}.tar.xz"
+        "https://sourceforge.net/projects/apng/files/libpng/libpng12/libpng-${pkgver}-apng.patch.gz")
+sha256sums=('0f4620e11fa283fedafb474427c8e96bf149511a1804bdc47350963ae5cf54d8'
+            '7cae56ef3b8101d2106fc9c487c53ac600d8699913422b80e068bb50c41bebb6')
+
+prepare() {
+  cd libpng-${pkgver}
+
+  patch -Np0 -i ../libpng-${pkgver}-apng.patch
+
+  libtoolize --force --copy
+  aclocal
+  autoconf
+  automake --add-missing
+}
+
+build() {
+  cd libpng-${pkgver}
+
+  ./configure --prefix='/usr'
+  make
+}
+
+package() {
+  cd libpng-${pkgver}
+
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}"/usr/{bin,include,lib/{libpng.{a,so},pkgconfig},share}
+
+  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/libpng12/
+}

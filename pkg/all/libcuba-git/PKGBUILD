@@ -1,0 +1,41 @@
+# Maintainer: zhangjun (zhangjunphy AT gmail DOT com)
+
+epoch=1
+pkgname=libcuba-git
+pkgver=4.1.0.8.g44da524
+pkgrel=3
+pkgdesc='A library for mutidimensional numerical integration'
+arch=(i686 x86_64 armv7h aarch64)
+url="http://www.feynarts.de/cuba/"
+license=('LGPL')
+makedepends=('make' 'automake')
+provides=(libcuba)
+conflicts=(libcuba)
+source=("git://github.com/giordano/cuba#branch=julia")
+md5sums=('SKIP')
+options=(!buildflags !strip)
+
+pkgver() {
+  cd cuba
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd cuba
+
+  export CFLAGS='-g -O2'
+  export CXXFLAGS='-g -O2'
+  export FFLAGS='-g -O2'
+  export LDFLAGS=''
+  ./configure --prefix=/usr
+  make -j1 shared
+}
+
+package() {
+  cd cuba
+
+  install -Dm 644 cuba.pdf "$pkgdir"/usr/share/doc/cuba/cuba.pdf
+  install -Dm 755 libcuba.so "$pkgdir"/usr/lib/libcuba.so
+  install -Dm 644 cuba.h "$pkgdir"/usr/include/cuba.h
+}

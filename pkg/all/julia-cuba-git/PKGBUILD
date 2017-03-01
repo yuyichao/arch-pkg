@@ -1,0 +1,27 @@
+pkgname=julia-cuba-git
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Cuba.jl"
+url="https://github.com/giordano/Cuba.jl"
+arch=(any)
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+# TODO version depends
+depends=(julia julia-compat libcuba)
+provides=('julia-cuba')
+source=(git://github.com/giordano/Cuba.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Cuba.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Cuba.jl
+
+  . julia-install-pkg.sh Cuba "${pkgdir}" "${pkgname}"
+
+  ln -sf /usr/lib/libcuba.so "${dest_dir}/deps/"
+}
