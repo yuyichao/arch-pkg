@@ -26,7 +26,6 @@ matrix:
 arch:
   repos:
     - archlinuxcn=http://repo.archlinuxcn.org/$arch
-    - haskell-core=http://xsounds.org/~haskell/core/$arch
   packages:
     - psmisc
     - haveged
