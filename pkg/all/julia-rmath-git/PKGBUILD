@@ -1,5 +1,5 @@
 pkgname=julia-rmath-git
-pkgver=0.1.5.0.1.gee002e9
+pkgver=0.1.6
 pkgrel=1
 pkgdesc="Rmath.jl"
 url="https://github.com/JuliaStats/Rmath.jl"
@@ -16,7 +16,7 @@ options=('debug' '!strip')
 pkgver() {
   cd Rmath.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

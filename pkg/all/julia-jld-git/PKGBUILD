@@ -1,5 +1,5 @@
 pkgname=julia-jld-git
-pkgver=0.6.6.0.26.g071d0e1
+pkgver=0.6.9.0.27.g5be5fea
 pkgrel=1
 pkgdesc="JLD.jl"
 url="https://github.com/JuliaIO/JLD.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd JLD.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

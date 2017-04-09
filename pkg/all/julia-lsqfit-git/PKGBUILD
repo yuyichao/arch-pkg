@@ -1,5 +1,5 @@
 pkgname=julia-lsqfit-git
-pkgver=0.1.1.0.8.g6d0f8ae
+pkgver=0.2.0.0.1.g0513b91
 pkgrel=1
 pkgdesc="LsqFit.jl"
 url="https://github.com/JuliaOpt/LsqFit.jl"
@@ -7,15 +7,15 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-calculus' 'julia-distributions' 'julia-optim')
-provides=('julia-lsqfit')
+depends=(julia julia-calculus julia-distributions julia-optim julia-compat)
+provides=(julia-lsqfit)
 source=(git://github.com/JuliaOpt/LsqFit.jl)
 md5sums=('SKIP')
 
 pkgver() {
   cd LsqFit.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

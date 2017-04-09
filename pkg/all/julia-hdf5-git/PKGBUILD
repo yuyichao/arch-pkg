@@ -1,5 +1,5 @@
 pkgname=julia-hdf5-git
-pkgver=0.7.0.0.26.gb9f0fe1
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="HDF5.jl"
 url="https://github.com/JuliaIO/HDF5.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd HDF5.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

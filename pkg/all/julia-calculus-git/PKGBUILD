@@ -1,5 +1,5 @@
 pkgname=julia-calculus-git
-pkgver=0.2.0.0.2.g56c4902
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Calculus.jl"
 url="https://github.com/johnmyleswhite/Calculus.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Calculus.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

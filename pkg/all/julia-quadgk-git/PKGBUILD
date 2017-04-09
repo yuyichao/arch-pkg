@@ -1,5 +1,5 @@
 pkgname=julia-quadgk-git
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="QuadGK.jl"
 url="https://github.com/JuliaMath/QuadGK.jl"

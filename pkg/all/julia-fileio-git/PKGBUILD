@@ -1,5 +1,5 @@
 pkgname=julia-fileio-git
-pkgver=0.2.0.0.28.g662297f
+pkgver=0.3.1.0.4.g4c11d79
 pkgrel=1
 pkgdesc="FileIO.jl"
 url="https://github.com/JuliaIO/FileIO.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd FileIO.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

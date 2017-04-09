@@ -1,5 +1,5 @@
 pkgname=julia-statsbase-git
-pkgver=0.11.1.0.16.gf807e01
+pkgver=0.13.1.0.2.g1b815de
 pkgrel=1
 pkgdesc="StatsBase.jl"
 url="https://github.com/JuliaStats/StatsBase.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd StatsBase.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

@@ -1,5 +1,5 @@
 pkgname=julia-linesearches-git
-pkgver=0.1.2.0.35.g378e86a
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="LineSearches.jl"
 url="https://github.com/anriseth/LineSearches.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
+depends=(julia julia-nlsolversbase)
 provides=('julia-linesearches')
 source=(git://github.com/anriseth/LineSearches.jl)
 md5sums=('SKIP')
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd LineSearches.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

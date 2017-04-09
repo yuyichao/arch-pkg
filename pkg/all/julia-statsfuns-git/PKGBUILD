@@ -1,5 +1,5 @@
 pkgname=julia-statsfuns-git
-pkgver=0.3.1.0.4.gd6edd54
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="StatsFuns.jl"
 url="https://github.com/JuliaStats/StatsFuns.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-rmath')
+depends=(julia julia-compat julia-rmath)
 provides=('julia-statsfuns')
 source=(git://github.com/JuliaStats/StatsFuns.jl)
 md5sums=('SKIP')
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd StatsFuns.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

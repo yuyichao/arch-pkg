@@ -1,5 +1,5 @@
 pkgname=julia-diffbase-git
-pkgver=0.0.4.0.2.gf5a861c
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="DiffBase.jl"
 url="https://github.com/JuliaDiff/DiffBase.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd DiffBase.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
