@@ -1,5 +1,5 @@
 pkgname=julia-reexport-git
-pkgver=0.0.3.0.5.g504e592
+pkgver=0.0.3.0.7.g8ce0fd4
 pkgrel=1
 pkgdesc="Reexport.jl"
 url="https://github.com/simonster/Reexport.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Reexport.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

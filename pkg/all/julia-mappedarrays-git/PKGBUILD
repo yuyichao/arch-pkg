@@ -1,5 +1,5 @@
 pkgname=julia-mappedarrays-git
-pkgver=0.0.6
+pkgver=0.0.7
 pkgrel=1
 pkgdesc="MappedArrays.jl"
 url="https://github.com/JuliaArrays/MappedArrays.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=(julia)
+depends=(julia julia-compat)
 provides=('julia-mappedarrays')
 source=(git://github.com/JuliaArrays/MappedArrays.jl)
 md5sums=('SKIP')

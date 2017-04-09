@@ -1,5 +1,5 @@
 pkgname=julia-colors-git
-pkgver=0.7.0.0.7.g0f3d493
+pkgver=0.7.3.0.8.gc9fad51
 pkgrel=1
 pkgdesc="Colors.jl"
 url="https://github.com/JuliaGraphics/Colors.jl"
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Colors.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

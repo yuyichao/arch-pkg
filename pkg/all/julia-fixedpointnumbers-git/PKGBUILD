@@ -1,5 +1,5 @@
 pkgname=julia-fixedpointnumbers-git
-pkgver=0.3.1.0.13.gf393589
+pkgver=0.3.6
 pkgrel=1
 pkgdesc="FixedPointNumbers.jl"
 url="https://github.com/JuliaMath/FixedPointNumbers.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd FixedPointNumbers.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

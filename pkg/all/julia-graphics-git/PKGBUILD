@@ -1,13 +1,13 @@
 pkgname=julia-graphics-git
-pkgver=0.1.3.0.1.g0b74596
-pkgrel=2
+pkgver=0.2.0
+pkgrel=1
 pkgdesc="Graphics.jl"
 url="https://github.com/JuliaLang/Graphics.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-colors')
+depends=(julia julia-colors julia-compat julia-nanmath)
 provides=('julia-graphics')
 source=(git://github.com/JuliaLang/Graphics.jl)
 md5sums=('SKIP')
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Graphics.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
