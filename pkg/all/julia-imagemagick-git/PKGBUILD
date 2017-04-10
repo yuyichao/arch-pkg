@@ -1,5 +1,5 @@
 pkgname=julia-imagemagick-git
-pkgver=0.2.0.0.10.g515e94c
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="ImageMagick.jl"
 url="https://github.com/JuliaIO/ImageMagick.jl"
@@ -7,16 +7,16 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia' 'julia-fixedpointnumbers' 'julia-colortypes' 'julia-fileio'
-         'julia-compat' 'imagemagick')
-provides=('julia-imagemagick')
+depends=(julia julia-compat julia-fixedpointnumbers julia-colortypes julia-imagecore julia-fileio
+         imagemagick)
+provides=(julia-imagemagick)
 source=(git://github.com/JuliaIO/ImageMagick.jl)
 md5sums=('SKIP')
 
 pkgver() {
   cd ImageMagick.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
