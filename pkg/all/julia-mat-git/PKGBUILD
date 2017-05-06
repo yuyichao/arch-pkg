@@ -1,11 +1,10 @@
 pkgname=julia-mat-git
-pkgver=0.3.1.0.2.g9b96086
+pkgver=0.3.1.0.4.gb39af46
 pkgrel=1
 pkgdesc="MAT.jl"
 url="https://github.com/simonster/MAT.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
 makedepends=(git julia-pkg-scripts)
 depends=(julia julia-hdf5 julia-bufferedstreams julia-libz julia-compat)
 provides=(julia-mat)
@@ -15,7 +14,7 @@ md5sums=('SKIP')
 pkgver() {
   cd MAT.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
