@@ -1,5 +1,5 @@
 pkgname=julia-axisarrays-git
-pkgver=0.1.2
+pkgver=0.1.2.0.5.g4e30a82
 pkgrel=1
 pkgdesc="AxisArrays.jl"
 url="https://github.com/JuliaArrays/AxisArrays.jl"
