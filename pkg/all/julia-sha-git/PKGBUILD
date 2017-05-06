@@ -1,5 +1,5 @@
 pkgname=julia-sha-git
-pkgver=0.3.0.0.6.g14aaef7
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="SHA.jl"
 url="https://github.com/staticfloat/SHA.jl"
