@@ -1,6 +1,6 @@
 pkgname=julia-reexport-git
 pkgver=0.0.3.0.7.g8ce0fd4
-pkgrel=1
+pkgrel=2
 pkgdesc="Reexport.jl"
 url="https://github.com/simonster/Reexport.jl"
 arch=('any')

@@ -1,5 +1,5 @@
 pkgname=julia-pycall-git
-pkgver=1.7.2.0.37.g58d30ed
+pkgver=1.12.0.0.4.g999dc28
 pkgrel=1
 pkgdesc="PyCall.jl"
 url="https://github.com/stevengj/PyCall.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd PyCall.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

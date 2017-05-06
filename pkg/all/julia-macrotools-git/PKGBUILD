@@ -1,5 +1,5 @@
 pkgname=julia-macrotools-git
-pkgver=0.3.2.0.27.g23ca180
+pkgver=0.3.5.0.8.g49342f6
 pkgrel=1
 pkgdesc="MacroTools.jl"
 url="https://github.com/MikeInnes/MacroTools.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd MacroTools.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {

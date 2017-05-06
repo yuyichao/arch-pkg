@@ -1,5 +1,5 @@
 pkgname=julia-json-git
-pkgver=0.8.0.0.12.ga145d09
+pkgver=0.10.0.0.4.gf28c6e7
 pkgrel=1
 pkgdesc="JSON.jl"
 url="https://github.com/JuliaIO/JSON.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd JSON.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
