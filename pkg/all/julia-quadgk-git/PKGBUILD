@@ -1,11 +1,10 @@
 pkgname=julia-quadgk-git
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="QuadGK.jl"
 url="https://github.com/JuliaMath/QuadGK.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
 makedepends=('git' 'julia-pkg-scripts')
 depends=(julia julia-datastructures)
 provides=('julia-quadgk')

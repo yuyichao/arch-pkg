@@ -1,14 +1,13 @@
 pkgname=julia-linesearches-git
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="LineSearches.jl"
 url="https://github.com/anriseth/LineSearches.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
 depends=(julia julia-nlsolversbase)
-provides=('julia-linesearches')
+provides=(julia-linesearches)
 source=(git://github.com/anriseth/LineSearches.jl)
 md5sums=('SKIP')
 

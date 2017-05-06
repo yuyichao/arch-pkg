@@ -1,13 +1,12 @@
 pkgname=julia-statsbase-git
-pkgver=0.13.1.0.2.g1b815de
+pkgver=0.14.1.0.2.gba476dc
 pkgrel=1
 pkgdesc="StatsBase.jl"
 url="https://github.com/JuliaStats/StatsBase.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=(julia julia-compat julia-datastructures)
+depends=(julia julia-compat julia-datastructures julia-specialfunctions)
 provides=(julia-statsbase)
 source=(git://github.com/JuliaStats/StatsBase.jl)
 md5sums=('SKIP')

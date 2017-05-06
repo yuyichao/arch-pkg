@@ -1,12 +1,11 @@
 pkgname=julia-nlsolversbase-git
-pkgver=2.0.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="NLSolversBase.jl"
 url="https://github.com/JuliaNLSolvers/NLSolversBase.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
 depends=(julia julia-compat)
 provides=(julia-nlsolversbase)
 source=(git://github.com/JuliaNLSolvers/NLSolversBase.jl)

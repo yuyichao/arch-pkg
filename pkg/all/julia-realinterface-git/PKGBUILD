@@ -1,0 +1,24 @@
+pkgname=julia-realinterface-git
+pkgver=0.0.2
+pkgrel=1
+pkgdesc="RealInterface.jl"
+url="https://github.com/jrevels/RealInterface.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+depends=(julia)
+provides=(julia-realinterface)
+source=(git://github.com/jrevels/RealInterface.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd RealInterface.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd RealInterface.jl
+
+  . julia-install-pkg.sh RealInterface "${pkgdir}" "${pkgname}"
+}

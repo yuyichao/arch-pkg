@@ -1,14 +1,13 @@
 pkgname=julia-staticarrays-git
-pkgver=0.4.0.0.10.g8d3ec32
+pkgver=0.5.0.0.3.g190aa71
 pkgrel=1
 pkgdesc="StaticArrays.jl"
 url="https://github.com/JuliaArrays/StaticArrays.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
 depends=(julia)
-provides=('julia-staticarrays')
+provides=(julia-staticarrays)
 source=(git://github.com/JuliaArrays/StaticArrays.jl)
 md5sums=('SKIP')
 

@@ -1,12 +1,11 @@
 pkgname=julia-reversediff-git
 pkgver=0.1.2.0.1.ga7f2c4b
-pkgrel=1
+pkgrel=2
 pkgdesc="ReverseDiff.jl"
 url="https://github.com/JuliaDiff/ReverseDiff.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
 depends=(julia julia-diffbase julia-forwarddiff julia-calculus julia-compat)
 provides=(julia-reversediff)
 source=(git://github.com/JuliaDiff/ReverseDiff.jl)
