@@ -1,12 +1,11 @@
 pkgname=julia-libarchive-git
-pkgver=0.0.2.0.3.g9e890ad
+pkgver=0.0.2.0.4.g7f99feb
 pkgrel=1
 pkgdesc="LibArchive.jl"
 url="https://github.com/yuyichao/LibArchive.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
-# TODO version depends
 depends=('julia' 'julia-compat' 'libarchive')
 provides=('julia-libarchive')
 source=(git://github.com/yuyichao/LibArchive.jl)

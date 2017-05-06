@@ -1,12 +1,11 @@
 pkgname=julia-functionwrappers-git
 pkgver=0.0.1.0.6.gd94f433
-pkgrel=1
+pkgrel=2
 pkgdesc="FunctionWrappers.jl"
 url="https://github.com/yuyichao/FunctionWrappers.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
 depends=('julia')
 provides=('julia-functionwrappers')
 source=(git://github.com/yuyichao/FunctionWrappers.jl)
