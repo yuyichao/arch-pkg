@@ -1,6 +1,6 @@
 pkgname=julia-axisalgorithms-git
 pkgver=0.1.6
-pkgrel=1
+pkgrel=2
 pkgdesc="AxisAlgorithms.jl"
 url="https://github.com/timholy/AxisAlgorithms.jl"
 arch=('any')

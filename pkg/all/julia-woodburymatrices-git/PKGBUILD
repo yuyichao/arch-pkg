@@ -1,6 +1,6 @@
 pkgname=julia-woodburymatrices-git
 pkgver=0.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="WoodburyMatrices.jl"
 url="https://github.com/timholy/WoodburyMatrices.jl"
 arch=('any')
