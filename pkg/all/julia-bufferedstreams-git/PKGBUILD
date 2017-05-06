@@ -1,5 +1,5 @@
 pkgname=julia-bufferedstreams-git
-pkgver=0.2.0.0.10.gfd271a2
+pkgver=0.3.2.0.2.g6e01400
 pkgrel=1
 pkgdesc="BufferedStreams.jl"
 url="https://github.com/BioJulia/BufferedStreams.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd BufferedStreams.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
