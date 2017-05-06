@@ -1,5 +1,5 @@
 pkgname=julia-abstracttrees-git
-pkgver=0.0.4.0.11.g7f9c22b
+pkgver=0.0.4.0.13.g74695d4
 pkgrel=1
 pkgdesc="AbstractTrees.jl"
 url="https://github.com/Keno/AbstractTrees.jl"
@@ -7,8 +7,8 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=('julia')
-provides=('julia-abstracttrees')
+depends=(julia julia-compat)
+provides=(julia-abstracttrees)
 source=(git://github.com/Keno/AbstractTrees.jl)
 md5sums=('SKIP')
 
