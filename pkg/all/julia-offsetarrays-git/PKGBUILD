@@ -1,5 +1,5 @@
 pkgname=julia-offsetarrays-git
-pkgver=0.2.14.0.5.gce6ecce
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="OffsetArrays.jl"
 url="https://github.com/alsam/OffsetArrays.jl"

@@ -1,6 +1,6 @@
 pkgname=julia-customunitranges-git
 pkgver=0.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="CustomUnitRanges.jl"
 url="https://github.com/JuliaArrays/CustomUnitRanges.jl"
 arch=('any')
