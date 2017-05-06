@@ -1,12 +1,11 @@
 pkgname=julia-gsl-git
-pkgver=0.3.1.0.25.gf71996a
+pkgver=0.3.6
 pkgrel=1
 pkgdesc="GSL.jl"
 url="https://github.com/jiahao/GSL.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
-# TODO version depends
 depends=('julia' 'julia-compat' 'gsl')
 provides=('julia-gsl')
 source=(git://github.com/jiahao/GSL.jl)
@@ -15,7 +14,7 @@ md5sums=('SKIP')
 pkgver() {
   cd GSL.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
