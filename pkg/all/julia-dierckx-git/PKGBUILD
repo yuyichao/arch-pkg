@@ -1,5 +1,5 @@
 pkgname=julia-dierckx-git
-pkgver=0.1.9.0.13.g2f76fdd
+pkgver=0.2.0.0.35.g9b6092f
 pkgrel=1
 pkgdesc="Dierckx.jl"
 url="https://github.com/kbarbary/Dierckx.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd Dierckx.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
