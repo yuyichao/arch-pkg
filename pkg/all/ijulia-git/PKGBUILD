@@ -1,5 +1,5 @@
 pkgname=ijulia-git
-pkgver=1.3.2.0.44.g843fdb0
+pkgver=1.5.0.0.4.ga8bf63e
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
@@ -17,7 +17,7 @@ _site_dir_cmd=(julia --startup-file=no -e "print(((pre) -> filter(((x) -> x[1:le
 pkgver() {
   cd IJulia.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

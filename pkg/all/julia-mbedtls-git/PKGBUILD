@@ -1,6 +1,6 @@
 pkgname=julia-mbedtls-git
-pkgver=0.3.0.0.44.g960c682
-pkgrel=2
+pkgver=0.4.5
+pkgrel=1
 pkgdesc="MbedTLS.jl"
 url="https://github.com/JuliaWeb/MbedTLS.jl"
 arch=('any')
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd MbedTLS.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {

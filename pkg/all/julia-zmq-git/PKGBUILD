@@ -1,5 +1,5 @@
 pkgname=julia-zmq-git
-pkgver=0.4.0.0.15.g7f51abc
+pkgver=0.4.2.0.1.g95445e7
 pkgrel=1
 pkgdesc="ZMQ.jl"
 url="https://github.com/JuliaInterop/ZMQ.jl"
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 pkgver() {
   cd ZMQ.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
