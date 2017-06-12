@@ -1,5 +1,5 @@
 pkgname=julia-zipfile-git
-pkgver=0.3.0.0.4.g4577d76
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="ZipFile.jl"
 url="https://github.com/fhs/ZipFile.jl"
