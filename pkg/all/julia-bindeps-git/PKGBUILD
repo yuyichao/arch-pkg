@@ -1,5 +1,5 @@
 pkgname=julia-bindeps-git
-pkgver=0.4.5.0.21.g35c511a
+pkgver=0.6.0.0.7.gcd6e61a
 pkgrel=1
 pkgdesc="BinDeps.jl"
 url="https://github.com/JuliaLang/BinDeps.jl"
@@ -15,7 +15,7 @@ md5sums=('SKIP')
 pkgver() {
   cd BinDeps.jl
 
-  git describe | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 package() {
