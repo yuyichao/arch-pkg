@@ -1,5 +1,5 @@
 pkgname=julia-bindeps-git
-pkgver=0.7.0
+pkgver=0.7.0.0.1.g612e5bb
 pkgrel=1
 pkgdesc="BinDeps.jl"
 url="https://github.com/JuliaLang/BinDeps.jl"
