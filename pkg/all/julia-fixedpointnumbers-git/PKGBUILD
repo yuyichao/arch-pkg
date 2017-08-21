@@ -1,5 +1,5 @@
 pkgname=julia-fixedpointnumbers-git
-pkgver=0.3.9
+pkgver=0.3.9.0.4.g2259a00
 pkgrel=1
 pkgdesc="FixedPointNumbers.jl"
 url="https://github.com/JuliaMath/FixedPointNumbers.jl"
