@@ -1,5 +1,5 @@
 pkgname=julia-staticarrays-git
-pkgver=0.5.0.0.3.g190aa71
+pkgver=0.5.1.0.7.g0cbb281
 pkgrel=1
 pkgdesc="StaticArrays.jl"
 url="https://github.com/JuliaArrays/StaticArrays.jl"

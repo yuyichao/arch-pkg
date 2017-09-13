@@ -1,0 +1,31 @@
+pkgname=julia-fftw-git
+pkgver=0.0.1.0.1.g96e7593
+pkgrel=1
+pkgdesc="FFTW.jl"
+url="https://github.com/JuliaMath/FFTW.jl"
+arch=('any')
+license=('MIT')
+# TODO version depends
+makedepends=('git' 'julia-pkg-scripts')
+depends=(julia julia-abstractffts fftw)
+provides=('julia-fftw')
+source=(git://github.com/JuliaMath/FFTW.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd FFTW.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd FFTW.jl/deps
+
+  julia --startup-file=no build.jl
+}
+
+package() {
+  cd FFTW.jl
+
+  . julia-install-pkg.sh FFTW "${pkgdir}" "${pkgname}"
+}
