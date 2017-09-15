@@ -1,5 +1,5 @@
 pkgname=julia-realinterface-git
-pkgver=0.0.2
+pkgver=0.0.3.0.2.g46364c4
 pkgrel=1
 pkgdesc="RealInterface.jl"
 url="https://github.com/jrevels/RealInterface.jl"

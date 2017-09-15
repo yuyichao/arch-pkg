@@ -1,5 +1,5 @@
 pkgname=julia-nlsolversbase-git
-pkgver=2.1.1
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="NLSolversBase.jl"
 url="https://github.com/JuliaNLSolvers/NLSolversBase.jl"
