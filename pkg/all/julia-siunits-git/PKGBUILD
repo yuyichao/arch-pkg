@@ -1,5 +1,5 @@
 pkgname=julia-siunits-git
-pkgver=0.1.0.0.2.g87af81f
+pkgver=0.1.0.0.4.g99b0f4c
 pkgrel=1
 pkgdesc="SIUnits.jl"
 url="https://github.com/Keno/SIUnits.jl"
