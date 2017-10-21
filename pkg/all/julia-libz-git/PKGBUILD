@@ -1,5 +1,5 @@
 pkgname=julia-libz-git
-pkgver=0.2.0.0.11.gb9f5ed5
+pkgver=0.2.0.0.14.ga3c9ca5
 pkgrel=1
 pkgdesc="Libz.jl"
 url="https://github.com/BioJulia/Libz.jl"
