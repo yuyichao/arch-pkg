@@ -1,5 +1,5 @@
 pkgname=julia-conda-git
-pkgver=0.6.1
+pkgver=0.6.1.0.1.geca5315
 pkgrel=1
 pkgdesc="Conda.jl"
 url="https://github.com/JuliaPy/Conda.jl"

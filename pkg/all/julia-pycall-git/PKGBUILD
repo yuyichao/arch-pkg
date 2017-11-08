@@ -1,13 +1,13 @@
 pkgname=julia-pycall-git
-pkgver=1.15.0
+pkgver=1.15.0.0.6.gb7aca99
 pkgrel=1
 pkgdesc="PyCall.jl"
 url="https://github.com/stevengj/PyCall.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-conda' 'julia-pkg-scripts')
+makedepends=(git julia-pkg-scripts)
 # TODO version depends
-depends=('julia' 'julia-compat' 'julia-macrotools' 'python')
+depends=(julia julia-compat julia-conda julia-macrotools python)
 provides=('julia-pycall')
 source=(git://github.com/stevengj/PyCall.jl)
 md5sums=('SKIP')
