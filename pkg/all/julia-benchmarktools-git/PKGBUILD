@@ -1,5 +1,5 @@
 pkgname=julia-benchmarktools-git
-pkgver=0.0.9
+pkgver=0.2.1.0.1.g935872a
 pkgrel=1
 pkgdesc="BenchmarkTools.jl"
 url="https://github.com/JuliaCI/BenchmarkTools.jl"
@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
-depends=(julia julia-compat julia-jld)
+depends=(julia julia-compat julia-json)
 provides=('julia-benchmarktools')
 source=(git://github.com/JuliaCI/BenchmarkTools.jl)
 md5sums=('SKIP')
