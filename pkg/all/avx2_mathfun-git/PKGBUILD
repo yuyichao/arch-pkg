@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=avx2_mathfun-git
-pkgver=13.5dedf06
+pkgver=14.866260d
 pkgrel=1
 pkgdesc="AVX2 math library"
 arch=('i686' 'x86_64')
