@@ -2,7 +2,7 @@
 #Contributor: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=avx2_mathfun-git
-pkgver=23.7b604c7
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="AVX2 math library"
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ md5sums=('SKIP')
 pkgver() {
   cd avx2_mathfun
 
-  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
 build() {
