@@ -1,5 +1,5 @@
 pkgname=julia-blosc-git
-pkgver=0.3.0
+pkgver=0.3.0.0.1.g585a238
 pkgrel=1
 pkgdesc="Blosc.jl"
 url="https://github.com/stevengj/Blosc.jl"
@@ -25,5 +25,7 @@ package() {
 
   . julia-install-pkg.sh Blosc "${pkgdir}" "${pkgname}"
 
+  rm -rf "${dest_dir}/deps/c-blosc-"*
+  rm -rf "${dest_dir}/deps/make.blosc"
   ln -sf /usr/lib/libblosc.so "${dest_dir}/deps/"
 }
