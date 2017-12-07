@@ -1,0 +1,42 @@
+pkgname=libnacs-git
+pkgver=170.a502369
+pkgrel=1
+pkgdesc='Library used for the NaCs control system'
+arch=('i686' 'x86_64' 'armv7h')
+url='http://github.com/nacs-lab/libnacs'
+license=('LGPL')
+options=('!strip' 'debug')
+makedepends=('cmake' 'git')
+source=("git://github.com/nacs-lab/libnacs")
+md5sums=('SKIP')
+
+pkgver() {
+  cd libnacs
+
+  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd libnacs
+
+  CFLAGS+=' -O3 -flto'
+  CXXFLAGS+=' -O3 -flto'
+  LDFLAGS+=' -O3 -flto'
+
+  mkdir -p build
+  cd build
+  cmake .. \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DCMAKE_INSTALL_BINDIR=/usr/bin -DCMAKE_INSTALL_DATADIR=/usr/share \
+        -DCMAKE_INSTALL_INCLUDEDIR=/usr/include \
+        -DENABLE_KNACS=Off
+  make
+}
+
+package() {
+  optdepends=(knacs)
+  cd libnacs/build
+
+  make install DESTDIR="${pkgdir}"
+}

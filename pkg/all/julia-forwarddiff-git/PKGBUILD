@@ -1,14 +1,15 @@
 pkgname=julia-forwarddiff-git
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="ForwardDiff.jl"
 url="https://github.com/JuliaDiff/ForwardDiff.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-diffbase julia-compat julia-calculus julia-nanmath julia-specialfunctions)
+depends=(julia julia-staticarrays julia-diffbase julia-nanmath julia-specialfunctions
+         julia-realinterface julia-commonsubexpressions)
 provides=(julia-forwarddiff)
-source=('git://github.com/JuliaDiff/ForwardDiff.jl#tag=v0.5.0')
+source=('git://github.com/JuliaDiff/ForwardDiff.jl')
 md5sums=('SKIP')
 
 pkgver() {

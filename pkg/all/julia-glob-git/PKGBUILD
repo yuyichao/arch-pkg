@@ -1,0 +1,24 @@
+pkgname=julia-glob-git
+pkgver=1.1.1
+pkgrel=1
+pkgdesc="Glob.jl"
+url="https://github.com/vtjnash/Glob.jl"
+arch=('any')
+license=('MIT')
+makedepends=('git' 'julia-pkg-scripts')
+depends=('julia' 'julia-compat')
+provides=('julia-glob')
+source=(git://github.com/vtjnash/Glob.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Glob.jl
+
+  git describe --tag | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd Glob.jl
+
+  . julia-install-pkg.sh Glob "${pkgdir}" "${pkgname}"
+}

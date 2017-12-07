@@ -1,12 +1,12 @@
 pkgname=julia-diffbase-git
-pkgver=0.2.0
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="DiffBase.jl"
 url="https://github.com/JuliaDiff/DiffBase.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-depends=(julia)
+depends=(julia julia-staticarrays)
 provides=('julia-diffbase')
 source=(git://github.com/JuliaDiff/DiffBase.jl)
 md5sums=('SKIP')

@@ -1,5 +1,5 @@
 pkgname=julia-pyplot-git
-pkgver=2.3.2.0.3.g4f9b1a7
+pkgver=2.3.2.0.8.g693895e
 pkgrel=1
 pkgdesc="PyPlot.jl"
 url="https://github.com/stevengj/PyPlot.jl"
@@ -8,7 +8,7 @@ license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
 # TODO version depends
 depends=('julia' 'julia-pycall' 'julia-colors' 'julia-latexstrings'
-         'julia-compat' 'python-matplotlib' 'julia-conda')
+         'julia-compat' 'python-matplotlib')
 provides=('julia-pyplot')
 source=(git://github.com/stevengj/PyPlot.jl)
 md5sums=('SKIP')

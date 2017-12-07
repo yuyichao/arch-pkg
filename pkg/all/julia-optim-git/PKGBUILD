@@ -1,5 +1,5 @@
 pkgname=julia-optim-git
-pkgver=0.9.0
+pkgver=0.9.3.0.8.g4ee265e
 pkgrel=1
 pkgdesc="Optim.jl"
 url="https://github.com/JuliaOpt/Optim.jl"
@@ -7,9 +7,9 @@ arch=('any')
 license=('MIT')
 makedepends=(git julia-pkg-scripts)
 depends=(julia julia-positivefactorizations julia-compat julia-linesearches julia-calculus
-         julia-nlsolversbase julia-forwarddiff julia-reversediff)
+         julia-nlsolversbase julia-forwarddiff)
 provides=('julia-optim')
-source=('git://github.com/JuliaOpt/Optim.jl#tag=v0.9.0')
+source=('git://github.com/JuliaOpt/Optim.jl')
 md5sums=('SKIP')
 
 pkgver() {

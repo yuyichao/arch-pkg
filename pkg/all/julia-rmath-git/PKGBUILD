@@ -1,6 +1,6 @@
 pkgname=julia-rmath-git
-pkgver=0.1.6
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc="Rmath.jl"
 url="https://github.com/JuliaStats/Rmath.jl"
 arch=(x86_64 i686 armv7h aarch64)
