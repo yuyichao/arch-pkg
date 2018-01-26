@@ -1,12 +1,12 @@
 pkgname=libnacs-git
-pkgver=254.2cbd1c8
+pkgver=261.196b5f5
 pkgrel=1
 pkgdesc='Library used for the NaCs control system'
 arch=('i686' 'x86_64' 'armv7h')
 url='http://github.com/nacs-lab/libnacs'
 license=('LGPL')
 options=('!strip' 'debug')
-makedepends=('cmake' 'git')
+makedepends=(cmake git python)
 source=("git://github.com/nacs-lab/libnacs")
 md5sums=('SKIP')
 
@@ -35,7 +35,7 @@ build() {
 }
 
 package() {
-  optdepends=(knacs)
+  optdepends=(knacs python)
   cd libnacs/build
 
   make install DESTDIR="${pkgdir}"
