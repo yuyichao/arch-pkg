@@ -1,12 +1,13 @@
 pkgname=libnacs-git
-pkgver=332.3079f65
+pkgver=449.fc5644b
 pkgrel=1
 pkgdesc='Library used for the NaCs control system'
 arch=('i686' 'x86_64' 'armv7h')
 url='http://github.com/nacs-lab/libnacs'
 license=('LGPL')
 options=('!strip' 'debug')
-makedepends=(cmake git python)
+makedepends=(llvm-libs)
+makedepends=(cmake git python llvm)
 source=("git://github.com/nacs-lab/libnacs")
 md5sums=('SKIP')
 
@@ -30,7 +31,8 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DCMAKE_INSTALL_BINDIR=/usr/bin -DCMAKE_INSTALL_DATADIR=/usr/share \
         -DCMAKE_INSTALL_INCLUDEDIR=/usr/include \
-        -DENABLE_KNACS=Off
+        -DENABLE_KNACS=Off \
+        -DENABLE_LLVM=On
   make
 }
 
