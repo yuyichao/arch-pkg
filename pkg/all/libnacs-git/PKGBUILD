@@ -1,5 +1,5 @@
 pkgname=libnacs-git
-pkgver=501.9ce9a08
+pkgver=514.61481e1
 pkgrel=1
 pkgdesc='Library used for the NaCs control system'
 arch=(x86_64 armv7h aarch64)
