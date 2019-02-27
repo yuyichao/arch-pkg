@@ -2,13 +2,13 @@
 
 _pkgname=jupyter-rise
 pkgname="${_pkgname}-git"
-pkgver=4.0.0b1.4.g4d18741
+pkgver=5.4.1.3.g788ebc8
 pkgrel=1
 pkgdesc='RISE: "Live" Reveal.js Jupyter/IPython Slideshow Extension'
 url="https://github.com/damianavila/RISE"
 arch=('any')
 license=('BSD')
-depends=('jupyter' 'python>=3.6' 'python<3.7')
+depends=('jupyter' 'python>=3.7' 'python<3.8')
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
@@ -34,8 +34,15 @@ build() {
 
 package() {
   cd RISE
-  LANG=en_US.utf8 python setup.py install --prefix="${pkgdir}/usr"
-  LANG=en_US.utf8 PYTHONPATH="${pkgdir}/usr/lib/python3.6/site-packages/" \
-      jupyter nbextension install rise --py --system \
+  local _python3="$(readlink /usr/bin/python3)"
+  local _site_packages="$pkgdir/usr/lib/$_python3/site-packages"
+  mkdir -p "${_site_packages}"
+  LANG=en_US.utf8 PYTHONPATH="$_site_packages:$PYTHONPATH" \
+      python setup.py install --root="$pkgdir/" --optimize=1
+  install -D -m644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  LANG=en_US.utf8 PYTHONPATH="$_site_packages:$PYTHONPATH" \
+      JUPYTER_PATH="$pkgdir/usr/" \
+      jupyter-nbextension install rise --py --system \
       --prefix="${pkgdir}/usr"
+  mv "$pkgdir/"{usr/etc,etc}
 }
