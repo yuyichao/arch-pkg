@@ -2,7 +2,7 @@
 # Contributor: urbanslug
 
 pkgname=kwin-script-switching-git
-pkgver=0.1.0
+pkgver=0.1.0.0.1.gd35ab79
 pkgrel=1
 pkgdesc="Window switching for kwin"
 arch=('any')
