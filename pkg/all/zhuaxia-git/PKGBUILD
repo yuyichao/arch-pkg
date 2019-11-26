@@ -1,0 +1,24 @@
+# Maintainer: Kai Yuan <kent.yuan @t gmail d@t com>
+pkgname=zhuaxia-git
+pkgver=r337.7fdf574
+pkgrel=1
+pkgdesc="cli tool to download mp3 from xiami.com and music.163.com"
+arch=('any')
+url="https://github.com/sk1418/zhuaxia/tree/bleeding"
+license=('MIT')
+makedepends=('git')
+depends=('python2-crypto' 'python2-requests' 'python2-mutagen'
+         'python2-beautifulsoup4' 'python2-setuptools')
+source=("git+http://github.com/sk1418/zhuaxia#branch=bleeding")
+sha512sums=('SKIP')
+
+package() {
+  cd zhuaxia
+  find . -name "*.py" |xargs sed -i "s|/usr/bin/python|&2|"
+  python2 setup.py install --root="$pkgdir" --prefix="/usr"
+}
+
+pkgver(){
+  cd zhuaxia
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
