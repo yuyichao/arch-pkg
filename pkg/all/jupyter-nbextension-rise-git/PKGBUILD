@@ -1,17 +1,17 @@
 #
 
-_pkgname=jupyter-rise
+_pkgname=jupyter-nbextension-rise
 pkgname="${_pkgname}-git"
-pkgver=5.4.1.3.g788ebc8
+pkgver=5.5.0.32.g80e58d0
 pkgrel=1
 pkgdesc='RISE: "Live" Reveal.js Jupyter/IPython Slideshow Extension'
 url="https://github.com/damianavila/RISE"
 arch=('any')
 license=('BSD')
-depends=('jupyter' 'python>=3.7' 'python<3.8')
+depends=('jupyter' 'python>=3.8' 'python<3.9')
 makedepends=('git')
-provides=("${_pkgname}")
-conflicts=("${_pkgname}")
+provides=("${_pkgname}" jupyter-rise)
+conflicts=("${_pkgname}" jupyter-rise)
 source=(git://github.com/damianavila/RISE)
 md5sums=('SKIP')
 install=jupyter-rise.install
