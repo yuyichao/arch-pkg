@@ -1,0 +1,32 @@
+pkgname=python-libnacs-git
+pkgver=47.222633e
+pkgrel=1
+pkgdesc='Library used for the NaCs control system'
+arch=(any)
+url='http://github.com/nacs-lab/python-libnacs'
+license=('LGPL')
+depends=(python libnacs)
+makedepends=(cmake git)
+source=("git://github.com/nacs-lab/python-libnacs")
+md5sums=('SKIP')
+
+pkgver() {
+  cd python-libnacs
+
+  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd python-libnacs
+
+  mkdir -p build
+  cd build
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd python-libnacs/build
+
+  make install DESTDIR="${pkgdir}"
+}
