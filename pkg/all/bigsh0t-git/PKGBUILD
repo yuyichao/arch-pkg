@@ -1,7 +1,7 @@
 # Maintainer: Yichao Yu <yyc1992@gmail.com>
 
 pkgname=bigsh0t-git
-pkgver=2.0.7.g56e2101
+pkgver=2.0.9.g13fb385
 pkgrel=1
 pkgdesc='BigSh0t plugins for shotcut'
 arch=('i686' 'x86_64')
