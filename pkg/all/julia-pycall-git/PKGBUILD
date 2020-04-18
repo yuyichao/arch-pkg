@@ -20,7 +20,7 @@ pkgver() {
 build() {
   cd PyCall.jl/deps
 
-  julia --startup-file=no build.jl
+  JULIA_DEPOT_PATH="${srcdir}/.julia" julia --startup-file=no build.jl
 }
 
 package() {
