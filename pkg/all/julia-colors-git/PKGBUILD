@@ -1,15 +1,13 @@
 pkgname=julia-colors-git
-pkgver=0.8.2.0.2.g3d53e10
+pkgver=0.12.0.0.1.g646f45c
 pkgrel=1
 pkgdesc="Colors.jl"
 url="https://github.com/JuliaGraphics/Colors.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-colortypes' 'julia-fixedpointnumbers'
-         'julia-reexport' 'julia-compat')
-provides=('julia-colors')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-colortypes julia-fixedpointnumbers julia-reexport)
+provides=(julia-colors)
 source=(git://github.com/JuliaGraphics/Colors.jl)
 md5sums=('SKIP')
 
@@ -22,5 +20,5 @@ pkgver() {
 package() {
   cd Colors.jl
 
-  . julia-install-pkg.sh Colors "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh Colors "${pkgdir}" "${pkgname}"
 }

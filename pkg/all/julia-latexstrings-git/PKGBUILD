@@ -1,14 +1,13 @@
 pkgname=julia-latexstrings-git
-pkgver=0.3.0.0.1.geab80a3
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="LaTeXStrings.jl"
 url="https://github.com/stevengj/LaTeXStrings.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-latexstrings')
+makedepends=(git julia-pkg-scripts)
+depends=(julia)
+provides=(julia-latexstrings)
 source=(git://github.com/stevengj/LaTeXStrings.jl)
 md5sums=('SKIP')
 
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd LaTeXStrings.jl
 
-  . julia-install-pkg.sh LaTeXStrings "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh LaTeXStrings "${pkgdir}" "${pkgname}"
 }

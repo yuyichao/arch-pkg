@@ -1,14 +1,13 @@
 pkgname=julia-fixedpointnumbers-git
-pkgver=0.4.3
+pkgver=0.8.0.0.2.ga290465
 pkgrel=1
 pkgdesc="FixedPointNumbers.jl"
 url="https://github.com/JuliaMath/FixedPointNumbers.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-fixedpointnumbers')
+makedepends=(git julia-pkg-scripts)
+depends=(julia)
+provides=(julia-fixedpointnumbers)
 source=(git://github.com/JuliaMath/FixedPointNumbers.jl)
 md5sums=('SKIP')
 
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd FixedPointNumbers.jl
 
-  . julia-install-pkg.sh FixedPointNumbers "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh FixedPointNumbers "${pkgdir}" "${pkgname}"
 }
