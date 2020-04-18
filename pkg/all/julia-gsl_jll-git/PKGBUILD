@@ -1,0 +1,32 @@
+pkgname=julia-gsl_jll-git
+pkgver=2.6.0+2.0.1.gd2ed6ee
+pkgrel=1
+pkgdesc="GSL_jll.jl"
+url="https://github.com/JuliaBinaryWrappers/GSL_jll.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia gsl)
+provides=(julia-gsl_jll)
+source=(git://github.com/JuliaBinaryWrappers/GSL_jll.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd GSL_jll.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd GSL_jll.jl
+
+  /usr/lib/julia/julia-gen-jll.sh \
+    GSL_jll libgsl libgslcblas \
+    -b gsl_histogram=gsl-histogram -b gsl_randist=gsl-randist
+}
+
+package() {
+  cd GSL_jll.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh GSL_jll "${pkgdir}" "${pkgname}"
+}
