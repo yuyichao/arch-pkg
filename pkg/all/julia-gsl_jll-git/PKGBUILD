@@ -21,8 +21,10 @@ build() {
   cd GSL_jll.jl
 
   /usr/lib/julia/julia-gen-jll.sh \
-    GSL_jll libgsl libgslcblas \
-    -b gsl_histogram=gsl-histogram -b gsl_randist=gsl-randist
+    GSL_jll -e - libgsl libgslcblas \
+    -b gsl_histogram=gsl-histogram -b gsl_randist=gsl-randist <<EOF
+const libgsl_path = "/usr/lib/libgsl.so"
+EOF
 }
 
 package() {
