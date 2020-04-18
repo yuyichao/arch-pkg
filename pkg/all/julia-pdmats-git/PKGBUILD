@@ -1,14 +1,14 @@
 pkgname=julia-pdmats-git
-pkgver=0.7.0.0.1.gf595371
+pkgver=0.9.12
 pkgrel=1
 pkgdesc="PDMats.jl"
 url="https://github.com/JuliaStats/PDMats.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-pdmats')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-arpack julia-linearalgebra julia-sparsearrays
+         julia-suitesparse julia-test)
+provides=(julia-pdmats)
 source=(git://github.com/JuliaStats/PDMats.jl)
 md5sums=('SKIP')
 
@@ -21,5 +21,5 @@ pkgver() {
 package() {
   cd PDMats.jl
 
-  . julia-install-pkg.sh PDMats "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh PDMats "${pkgdir}" "${pkgname}"
 }
