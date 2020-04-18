@@ -1,13 +1,12 @@
 pkgname=julia-json-git
-pkgver=0.15.2.0.1.gd1edcf8
+pkgver=0.21.0.0.8.g55f8500
 pkgrel=1
 pkgdesc="JSON.jl"
 url="https://github.com/JuliaIO/JSON.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=(julia julia-compat)
+depends=(julia julia-parsers)
 provides=(julia-json)
 source=(git://github.com/JuliaIO/JSON.jl)
 md5sums=('SKIP')
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd JSON.jl
 
-  . julia-install-pkg.sh JSON "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh JSON "${pkgdir}" "${pkgname}"
 }
