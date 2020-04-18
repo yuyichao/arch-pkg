@@ -1,18 +1,15 @@
 pkgname=ijulia-git
-pkgver=1.6.1
+pkgver=1.21.2
 pkgrel=1
 pkgdesc="IJulia.jl"
 url="https://github.com/JuliaLang/IJulia.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-conda' 'julia-pkg-scripts')
-# TODO version depends
-depends=(julia julia-mbedtls julia-json julia-zmq julia-compat jupyter)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-conda julia-json julia-softglobalscope julia-mbedtls julia-zmq jupyter)
 provides=(ijulia)
 source=(git://github.com/JuliaLang/IJulia.jl)
 md5sums=('SKIP')
-
-_site_dir_cmd=(julia --startup-file=no -e "print(((pre) -> filter(((x) -> x[1:length(pre)] == pre), sort(LOAD_PATH, lt=(x, y) -> length(x) < length(y)))[1])(ARGS[1]))")
 
 pkgver() {
   cd IJulia.jl
@@ -20,32 +17,33 @@ pkgver() {
   git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
+prepare() {
+  cd IJulia.jl
+
+  sed -i -e 's/copy_config(joinpath(ijulia_dir/copy_config(joinpath(dirname(@__DIR__)/' deps/kspec.jl
+}
+
 build() {
   cd IJulia.jl
 
-  rm -rf "${srcdir}/"{jupyter,julia}
-  mkdir -p "${srcdir}/"{jupyter,julia}
+  rm -rf "${srcdir}/"{jupyter,.julia}
+  mkdir -p "${srcdir}/"{jupyter,.julia}
 
-  site_dir=$("${_site_dir_cmd[@]}" "/usr")
-  tmp_pkgdir=${srcdir}/julia
-  src_ijulia_dir=$(JULIA_PKGDIR="$tmp_pkgdir" \
-                               julia --startup-file=no -e 'print(Pkg.dir("IJulia"))')
-  mkdir -p "$(dirname "${src_ijulia_dir}")"
-  ln -s "${PWD}" "${src_ijulia_dir}"
+  stdlib_dir=$(julia --startup-file=no -e "print(Sys.STDLIB)")
 
   cd deps/
 
   HOME="${srcdir}/jupyter" \
+      JULIA_DEPOT_PATH="${srcdir}/.julia" \
       JUPYTER=/usr/bin/jupyter \
-      JULIA_PKGDIR="$tmp_pkgdir" \
-      IJULIA_DIR="${site_dir}/IJulia" \
+      IJULIA_DIR="${stdlib_dir}/IJulia" \
       julia --startup-file=no build.jl
 }
 
 package() {
   cd IJulia.jl
 
-  . julia-install-pkg.sh IJulia "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh IJulia "${pkgdir}" "${pkgname}"
 
   # Install Jupyter kernel
 
