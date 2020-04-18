@@ -21,8 +21,10 @@ pkgver() {
 build() {
   cd Conda.jl
 
+  # The build script captures the environment for the build user.
   cat > deps/deps.jl <<EOF
-const ROOTENV = joinpath(dirname(@__FILE__), "usr")
+const ROOTENV = joinpath(homedir(), ".julia/conda/3")
+const MINICONDA_VERSION = "3"
 EOF
 }
 
