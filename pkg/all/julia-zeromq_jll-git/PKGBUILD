@@ -1,6 +1,6 @@
 pkgname=julia-zeromq_jll-git
 pkgver=4.3.2+2.0.1.gd7873c8
-pkgrel=1
+pkgrel=3
 pkgdesc="ZeroMQ_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/ZeroMQ_jll.jl"
 arch=('any')
@@ -20,12 +20,14 @@ pkgver() {
 build() {
   cd ZeroMQ_jll.jl
 
-  libname=$(LANG=C objdump -p /usr/lib/libzmq.so | grep SONAME | sed -e 's/\s*SONAME\s*//')
+  libzmq=$(/usr/lib/julia/julia-read-soname.sh /usr/lib/libzmq.so)
 
   cat > src/ZeroMQ_jll.jl <<EOF
 module ZeroMQ_jll
 export libzmq
-const libzmq = "$libname"
+const PATH_list = String[]
+const LIBPATH_list = String[]
+const libzmq = "$libzmq"
 end
 EOF
   rm -rf src/wrappers/
