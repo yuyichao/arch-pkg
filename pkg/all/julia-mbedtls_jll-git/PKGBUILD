@@ -1,6 +1,6 @@
 pkgname=julia-mbedtls_jll-git
 pkgver=2.16.0+0.0.1.ge23e879
-pkgrel=1
+pkgrel=2
 pkgdesc="MbedTLS_jll.jl"
 url="https://github.com/JuliaBinaryWrappers/MbedTLS_jll.jl"
 arch=('any')
@@ -20,22 +20,7 @@ pkgver() {
 build() {
   cd MbedTLS_jll.jl
 
-  libmbedx509=$(/usr/lib/julia/julia-read-soname.sh /usr/lib/libmbedx509.so)
-  libmbedtls=$(/usr/lib/julia/julia-read-soname.sh /usr/lib/libmbedtls.so)
-  libmbedcrypto=$(/usr/lib/julia/julia-read-soname.sh /usr/lib/libmbedcrypto.so)
-
-  cat > src/MbedTLS_jll.jl <<EOF
-module MbedTLS_jll
-export libmbedx509, libmbedtls, libmbedcrypto
-const PATH_list = String[]
-const LIBPATH_list = String[]
-const libmbedx509 = "$libmbedx509"
-const libmbedtls = "$libmbedtls"
-const libmbedcrypto = "$libmbedcrypto"
-end
-EOF
-  rm -rf src/wrappers/
-  rm Artifacts.toml
+  /usr/lib/julia/julia-gen-jll.sh MbedTLS_jll libmbedx509 libmbedtls libmbedcrypto
 }
 
 package() {
