@@ -1,15 +1,13 @@
 pkgname=julia-zmq-git
-pkgver=0.4.3.0.5.gb1ed616
+pkgver=1.2.0.0.1.ga65c423
 pkgrel=1
 pkgdesc="ZMQ.jl"
 url="https://github.com/JuliaInterop/ZMQ.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-compat' 'zeromq')
-provides=('julia-zmq')
-options=('debug' 'strip')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-zeromq_jll)
+provides=(julia-zmq)
 source=(git://github.com/JuliaInterop/ZMQ.jl)
 md5sums=('SKIP')
 
@@ -19,14 +17,8 @@ pkgver() {
   git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
-build() {
-  cd ZMQ.jl
-
-  julia --startup-file=no deps/build.jl
-}
-
 package() {
   cd ZMQ.jl
 
-  . julia-install-pkg.sh ZMQ "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh ZMQ "${pkgdir}" "${pkgname}"
 }
