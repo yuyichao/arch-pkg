@@ -1,13 +1,13 @@
 pkgname=julia-positivefactorizations-git
-pkgver=0.0.4.0.1.gaf852d3
-pkgrel=2
+pkgver=0.2.3.0.1.g7b5c445
+pkgrel=1
 pkgdesc="PositiveFactorizations.jl"
 url="https://github.com/timholy/PositiveFactorizations.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=('julia' 'julia-compat')
-provides=('julia-positivefactorizations')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-linearalgebra julia-test)
+provides=(julia-positivefactorizations)
 source=(git://github.com/timholy/PositiveFactorizations.jl)
 md5sums=('SKIP')
 
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd PositiveFactorizations.jl
 
-  . julia-install-pkg.sh PositiveFactorizations "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh PositiveFactorizations "${pkgdir}" "${pkgname}"
 }
