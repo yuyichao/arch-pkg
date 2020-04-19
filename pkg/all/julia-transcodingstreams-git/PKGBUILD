@@ -1,0 +1,24 @@
+pkgname=julia-transcodingstreams-git
+pkgver=0.9.5
+pkgrel=1
+pkgdesc="TranscodingStreams.jl"
+url="https://github.com/JuliaIO/TranscodingStreams.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-random julia-test)
+provides=(julia-transcodingstreams)
+source=(git://github.com/JuliaIO/TranscodingStreams.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd TranscodingStreams.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd TranscodingStreams.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh TranscodingStreams "${pkgdir}" "${pkgname}"
+}
