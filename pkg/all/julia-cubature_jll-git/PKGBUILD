@@ -1,0 +1,30 @@
+pkgname=julia-cubature_jll-git
+pkgver=1.0.3+0.0.1.ga6abf99
+pkgrel=1
+pkgdesc="Cubature_jll.jl"
+url="https://github.com/JuliaBinaryWrappers/Cubature_jll.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia cubature)
+provides=(julia-cubature_jll)
+source=(git://github.com/JuliaBinaryWrappers/Cubature_jll.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd Cubature_jll.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd Cubature_jll.jl
+
+  /usr/lib/julia/julia-gen-jll.sh Cubature_jll libcubature
+}
+
+package() {
+  cd Cubature_jll.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh Cubature_jll "${pkgdir}" "${pkgname}"
+}
