@@ -1,17 +1,15 @@
 pkgname=julia-rmath-git
-pkgver=0.3.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="Rmath.jl"
 url="https://github.com/JuliaStats/Rmath.jl"
-arch=(x86_64 i686 armv7h aarch64)
+arch=(any)
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-compat')
-provides=('julia-rmath')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-random julia-rmath_jll)
+provides=(julia-rmath)
 source=(git://github.com/JuliaStats/Rmath.jl)
 md5sums=('SKIP')
-options=('debug' '!strip')
 
 pkgver() {
   cd Rmath.jl
@@ -19,18 +17,8 @@ pkgver() {
   git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
 }
 
-build() {
-  cd Rmath.jl/deps
-
-  julia --startup-file=no build.jl
-  sed -i -e "s|$PWD/usr/lib/|/usr/lib/julia/|g" deps.jl
-  rm -rf src downloads
-}
-
 package() {
   cd Rmath.jl
 
-  . julia-install-pkg.sh Rmath "${pkgdir}" "${pkgname}"
-  mkdir -p "${pkgdir}/usr/lib/julia"
-  mv "${dest_dir}/deps/usr/lib/"* "${pkgdir}/usr/lib/julia"
+  . /usr/lib/julia/julia-install-pkg.sh Rmath "${pkgdir}" "${pkgname}"
 }

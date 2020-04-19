@@ -1,14 +1,14 @@
 pkgname=julia-yaml-git
-pkgver=0.2.1.0.1.gb469dad
+pkgver=0.4.0.0.1.gfe8142e
 pkgrel=1
 pkgdesc="YAML.jl"
-url="https://github.com/dcjones/YAML.jl"
+url="https://github.com/BioJulia/YAML.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=('julia' 'julia-codecs' 'julia-compat')
-provides=('julia-yaml')
-source=(git://github.com/dcjones/YAML.jl)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-base64 julia-dates julia-printf)
+provides=(julia-yaml)
+source=(git://github.com/BioJulia/YAML.jl)
 md5sums=('SKIP')
 
 pkgver() {
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd YAML.jl
 
-  . julia-install-pkg.sh YAML "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh YAML "${pkgdir}" "${pkgname}"
 }

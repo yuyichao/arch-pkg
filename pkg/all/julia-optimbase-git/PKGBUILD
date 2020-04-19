@@ -1,12 +1,12 @@
 pkgname=julia-optimbase-git
-pkgver=0.1.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="OptimBase.jl"
 url="https://github.com/JuliaNLSolvers/OptimBase.jl"
 arch=('any')
 license=('MIT')
 makedepends=(git julia-pkg-scripts)
-depends=(julia julia-reexport julia-nlsolversbase julia-compat)
+depends=(julia julia-nlsolversbase julia-printf julia-reexport)
 provides=('julia-optimbase')
 source=('git://github.com/JuliaNLSolvers/OptimBase.jl')
 md5sums=('SKIP')
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd OptimBase.jl
 
-  . julia-install-pkg.sh OptimBase "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh OptimBase "${pkgdir}" "${pkgname}"
 }

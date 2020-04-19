@@ -1,0 +1,24 @@
+pkgname=julia-arrayinterface-git
+pkgver=2.8.5
+pkgrel=1
+pkgdesc="ArrayInterface.jl"
+url="https://github.com/SciML/ArrayInterface.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-linearalgebra julia-requires julia-sparsearrays)
+provides=(julia-arrayinterface)
+source=(git://github.com/SciML/ArrayInterface.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ArrayInterface.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd ArrayInterface.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh ArrayInterface "${pkgdir}" "${pkgname}"
+}

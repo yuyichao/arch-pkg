@@ -1,12 +1,12 @@
 pkgname=julia-nlsolversbase-git
-pkgver=3.0.0
+pkgver=7.6.1
 pkgrel=1
 pkgdesc="NLSolversBase.jl"
 url="https://github.com/JuliaNLSolvers/NLSolversBase.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-compat)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-diffresults julia-distributed julia-finitediff julia-forwarddiff)
 provides=(julia-nlsolversbase)
 source=(git://github.com/JuliaNLSolvers/NLSolversBase.jl)
 md5sums=('SKIP')
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd NLSolversBase.jl
 
-  . julia-install-pkg.sh NLSolversBase "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh NLSolversBase "${pkgdir}" "${pkgname}"
 }

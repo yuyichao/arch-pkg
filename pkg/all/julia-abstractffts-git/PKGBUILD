@@ -1,14 +1,13 @@
 pkgname=julia-abstractffts-git
-pkgver=0.1.0
+pkgver=0.5.0.0.3.geb90bc6
 pkgrel=1
 pkgdesc="AbstractFFTs.jl"
 url="https://github.com/JuliaMath/AbstractFFTs.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
-makedepends=('git' 'julia-pkg-scripts')
-depends=('julia')
-provides=('julia-abstractffts')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-linearalgebra)
+provides=(julia-abstractffts)
 source=(git://github.com/JuliaMath/AbstractFFTs.jl)
 md5sums=('SKIP')
 
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd AbstractFFTs.jl
 
-  . julia-install-pkg.sh AbstractFFTs "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh AbstractFFTs "${pkgdir}" "${pkgname}"
 }

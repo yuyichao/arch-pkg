@@ -1,14 +1,13 @@
 pkgname=julia-statsfuns-git
-pkgver=0.5.0.0.1.g612397c
+pkgver=0.9.4.0.2.g8d9b975
 pkgrel=1
 pkgdesc="StatsFuns.jl"
 url="https://github.com/JuliaStats/StatsFuns.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=(julia julia-compat julia-rmath julia-specialfunctions)
-provides=('julia-statsfuns')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-rmath julia-specialfunctions)
+provides=(julia-statsfuns)
 source=(git://github.com/JuliaStats/StatsFuns.jl)
 md5sums=('SKIP')
 
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd StatsFuns.jl
 
-  . julia-install-pkg.sh StatsFuns "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh StatsFuns "${pkgdir}" "${pkgname}"
 }

@@ -1,14 +1,13 @@
 pkgname=julia-hdf5-git
-pkgver=0.8.5
+pkgver=0.13.1
 pkgrel=1
 pkgdesc="HDF5.jl"
 url="https://github.com/JuliaIO/HDF5.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-bindeps' 'julia-pkg-scripts')
-# TODO version depends
-depends=('julia' 'julia-blosc' 'julia-compat' 'hdf5')
-provides=('julia-hdf5')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-blosc julia-hdf5_jll julia-libdl julia-mmap julia-random)
+provides=(julia-hdf5)
 source=(git://github.com/JuliaIO/HDF5.jl)
 md5sums=('SKIP')
 
@@ -27,5 +26,5 @@ build() {
 package() {
   cd HDF5.jl
 
-  . julia-install-pkg.sh HDF5 "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh HDF5 "${pkgdir}" "${pkgname}"
 }

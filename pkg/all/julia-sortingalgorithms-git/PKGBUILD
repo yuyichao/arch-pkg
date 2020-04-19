@@ -1,0 +1,27 @@
+pkgname=julia-sortingalgorithms-git
+pkgver=0.3.1
+pkgrel=1
+pkgdesc="SortingAlgorithms.jl"
+url="https://github.com/JuliaCollections/SortingAlgorithms.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-datastructures)
+provides=(julia-sortingalgorithms)
+source=(git://github.com/JuliaCollections/SortingAlgorithms.jl
+        Project.toml)
+md5sums=('SKIP'
+         'c0aa084cd286277de4aa312a88f864c1')
+
+pkgver() {
+  cd SortingAlgorithms.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd SortingAlgorithms.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh SortingAlgorithms "${pkgdir}" "${pkgname}"
+  cp -n ../Project.toml "${dest_dir}"
+}

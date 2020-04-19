@@ -1,12 +1,14 @@
 pkgname=julia-statsbase-git
-pkgver=0.19.0
+pkgver=0.33.0
 pkgrel=1
 pkgdesc="StatsBase.jl"
 url="https://github.com/JuliaStats/StatsBase.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-compat julia-datastructures julia-specialfunctions)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-dataapi julia-datastructures julia-linearalgebra
+         julia-missings julia-printf julia-random julia-sortingalgorithms
+         julia-sparsearrays julia-statistics)
 provides=(julia-statsbase)
 source=(git://github.com/JuliaStats/StatsBase.jl)
 md5sums=('SKIP')
@@ -20,5 +22,5 @@ pkgver() {
 package() {
   cd StatsBase.jl
 
-  . julia-install-pkg.sh StatsBase "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh StatsBase "${pkgdir}" "${pkgname}"
 }

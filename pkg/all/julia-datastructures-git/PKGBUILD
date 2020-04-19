@@ -1,13 +1,13 @@
 pkgname=julia-datastructures-git
-pkgver=0.7.1
+pkgver=0.17.12
 pkgrel=1
 pkgdesc="DataStructures.jl"
 url="https://github.com/JuliaCollections/DataStructures.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-compat)
-provides=('julia-datastructures')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-interactiveutils julia-orderedcollections)
+provides=(julia-datastructures)
 source=(git://github.com/JuliaCollections/DataStructures.jl)
 md5sums=('SKIP')
 
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd DataStructures.jl
 
-  . julia-install-pkg.sh DataStructures "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh DataStructures "${pkgdir}" "${pkgname}"
 }

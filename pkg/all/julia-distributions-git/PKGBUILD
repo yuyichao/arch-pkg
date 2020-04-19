@@ -1,13 +1,14 @@
 pkgname=julia-distributions-git
-pkgver=0.14.2.0.5.gab6ac2c
+pkgver=0.23.2.0.1.g2d7f203
 pkgrel=1
 pkgdesc="Distributions.jl"
 url="https://github.com/JuliaStats/Distributions.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-pdmats julia-statsfuns julia-calculus
-         julia-statsbase julia-compat julia-quadgk julia-specialfunctions)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-fillarrays julia-linearalgebra julia-pdmats
+         julia-printf julia-quadgk julia-random julia-specialfunctions
+         julia-statistics julia-statsbase julia-statsfuns)
 provides=(julia-distributions)
 source=(git://github.com/JuliaStats/Distributions.jl)
 md5sums=('SKIP')
@@ -21,5 +22,5 @@ pkgver() {
 package() {
   cd Distributions.jl
 
-  . julia-install-pkg.sh Distributions "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh Distributions "${pkgdir}" "${pkgname}"
 }

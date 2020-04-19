@@ -1,12 +1,12 @@
 pkgname=julia-parameters-git
-pkgver=0.7.3
+pkgver=0.12.0.0.8.g699dfd8
 pkgrel=1
 pkgdesc="Parameters.jl"
 url="https://github.com/mauro3/Parameters.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-datastructures)
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-orderedcollections julia-unpack)
 provides=(julia-parameters)
 source=(git://github.com/mauro3/Parameters.jl)
 md5sums=('SKIP')
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd Parameters.jl
 
-  . julia-install-pkg.sh Parameters "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh Parameters "${pkgdir}" "${pkgname}"
 }

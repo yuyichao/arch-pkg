@@ -1,0 +1,30 @@
+pkgname=julia-zeromq_jll-git
+pkgver=4.3.2+2.0.1.gd7873c8
+pkgrel=4
+pkgdesc="ZeroMQ_jll.jl"
+url="https://github.com/JuliaBinaryWrappers/ZeroMQ_jll.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia zeromq)
+provides=('julia-zeromq_jll')
+source=(git://github.com/JuliaBinaryWrappers/ZeroMQ_jll.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd ZeroMQ_jll.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd ZeroMQ_jll.jl
+
+  /usr/lib/julia/julia-gen-jll.sh ZeroMQ_jll libzmq
+}
+
+package() {
+  cd ZeroMQ_jll.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh ZeroMQ_jll "${pkgdir}" "${pkgname}"
+}

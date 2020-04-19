@@ -1,11 +1,10 @@
 pkgname=julia-compat-git
-pkgver=0.34.0.0.1.g5bd5e8c
+pkgver=3.8.0
 pkgrel=1
 pkgdesc="Compat.jl"
 url="https://github.com/JuliaLang/Compat.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
 makedepends=('git' 'julia-pkg-scripts')
 depends=('julia')
 provides=('julia-compat')
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd Compat.jl
 
-  . julia-install-pkg.sh Compat "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh Compat "${pkgdir}" "${pkgname}"
 }

@@ -1,13 +1,12 @@
 pkgname=julia-macrotools-git
-pkgver=0.3.9
+pkgver=0.5.4.0.6.g0cf0f7c
 pkgrel=1
 pkgdesc="MacroTools.jl"
 url="https://github.com/MikeInnes/MacroTools.jl"
 arch=('any')
 license=('MIT')
 makedepends=('git' 'julia-pkg-scripts')
-# TODO version depends
-depends=(julia julia-compat)
+depends=(julia)
 provides=('julia-macrotools')
 source=(git://github.com/MikeInnes/MacroTools.jl)
 md5sums=('SKIP')
@@ -21,5 +20,5 @@ pkgver() {
 package() {
   cd MacroTools.jl
 
-  . julia-install-pkg.sh MacroTools "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh MacroTools "${pkgdir}" "${pkgname}"
 }
