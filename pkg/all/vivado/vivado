@@ -1,0 +1,6 @@
+#!/bin/bash
+
+unset LANG
+unset QT_PLUGIN_PATH
+. /opt/Xilinx/Vivado/%VERSION%/settings64.sh
+exec /opt/Xilinx/Vivado/%VERSION%/bin/vivado
