@@ -1,14 +1,13 @@
 pkgname=julia-fftw-git
-pkgver=0.0.1.0.1.g96e7593
+pkgver=1.2.0.0.2.g60e5169
 pkgrel=1
 pkgdesc="FFTW.jl"
 url="https://github.com/JuliaMath/FFTW.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
-makedepends=('git' 'julia-pkg-scripts')
-depends=(julia julia-abstractffts fftw)
-provides=('julia-fftw')
+makedepends=(git julia-pkg-scripts)
+depends=(julia julia-abstractffts julia-fftw_jll julia-linearalgebra julia-reexport)
+provides=(julia-fftw)
 source=(git://github.com/JuliaMath/FFTW.jl)
 md5sums=('SKIP')
 
@@ -21,11 +20,11 @@ pkgver() {
 build() {
   cd FFTW.jl/deps
 
-  julia --startup-file=no build.jl
+  JULIA_DEPOT_PATH="${srcdir}/.julia" julia --startup-file=no build.jl
 }
 
 package() {
   cd FFTW.jl
 
-  . julia-install-pkg.sh FFTW "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh FFTW "${pkgdir}" "${pkgname}"
 }
