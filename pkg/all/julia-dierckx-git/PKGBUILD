@@ -1,16 +1,17 @@
 pkgname=julia-dierckx-git
-pkgver=0.2.1
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Dierckx.jl"
 url="https://github.com/kbarbary/Dierckx.jl"
 arch=('any')
 license=('MIT')
-# TODO version depends
-makedepends=(git julia-pkg-scripts gcc-fortran)
-depends=('julia' 'julia-compat')
-provides=('julia-dierckx')
-source=(git://github.com/kbarbary/Dierckx.jl)
-md5sums=('SKIP')
+makedepends=(git julia-pkg-scripts)
+depends=(julia libddierckx)
+provides=(julia-dierckx)
+source=(git://github.com/kbarbary/Dierckx.jl
+        Project.toml)
+md5sums=('SKIP'
+         '0a7a3065725315649f695243a126a7d5')
 
 pkgver() {
   cd Dierckx.jl
@@ -21,12 +22,15 @@ pkgver() {
 build() {
   cd Dierckx.jl
 
-  julia --startup-file=no deps/build.jl
+  cat > deps/deps.jl <<EOF
+const libddierckx = "/usr/lib/libddierckx.so"
+check_deps() = nothing
+EOF
 }
 
 package() {
   cd Dierckx.jl
 
-  . julia-install-pkg.sh Dierckx "${pkgdir}" "${pkgname}"
-  rm "${dest_dir}/deps/src/ddierckx"/{*.{f,o},Makefile}
+  . /usr/lib/julia/julia-install-pkg.sh Dierckx "${pkgdir}" "${pkgname}"
+  cp -n ../Project.toml "${dest_dir}"
 }
