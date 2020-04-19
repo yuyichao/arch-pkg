@@ -1,13 +1,13 @@
 pkgname=julia-functionwrappers-git
-pkgver=0.0.1.0.6.gd94f433
-pkgrel=2
+pkgver=1.0.0.0.8.g47f02f3
+pkgrel=1
 pkgdesc="FunctionWrappers.jl"
 url="https://github.com/yuyichao/FunctionWrappers.jl"
 arch=('any')
 license=('MIT')
-makedepends=('git' 'julia-pkg-scripts')
-depends=('julia')
-provides=('julia-functionwrappers')
+makedepends=(git julia-pkg-scripts)
+depends=(julia)
+provides=(julia-functionwrappers)
 source=(git://github.com/yuyichao/FunctionWrappers.jl)
 md5sums=('SKIP')
 
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd FunctionWrappers.jl
 
-  . julia-install-pkg.sh FunctionWrappers "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh FunctionWrappers "${pkgdir}" "${pkgname}"
 }
