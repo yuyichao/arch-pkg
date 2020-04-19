@@ -1,14 +1,14 @@
 pkgname=julia-mat-git
-pkgver=0.3.2.0.9.gd2fdbad
+pkgver=0.7.0.0.3.g1748c4b
 pkgrel=1
 pkgdesc="MAT.jl"
-url="https://github.com/simonster/MAT.jl"
+url="https://github.com/JuliaIO/MAT.jl"
 arch=('any')
 license=('MIT')
 makedepends=(git julia-pkg-scripts)
-depends=(julia julia-hdf5 julia-bufferedstreams julia-libz julia-compat)
+depends=(julia julia-bufferedstreams julia-hdf5 julia-sparsearrays julia-codeczlib)
 provides=(julia-mat)
-source=(git://github.com/simonster/MAT.jl)
+source=(git://github.com/JuliaIO/MAT.jl)
 md5sums=('SKIP')
 
 pkgver() {
@@ -20,5 +20,5 @@ pkgver() {
 package() {
   cd MAT.jl
 
-  . julia-install-pkg.sh MAT "${pkgdir}" "${pkgname}"
+  . /usr/lib/julia/julia-install-pkg.sh MAT "${pkgdir}" "${pkgname}"
 }
