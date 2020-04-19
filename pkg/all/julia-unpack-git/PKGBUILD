@@ -1,0 +1,24 @@
+pkgname=julia-unpack-git
+pkgver=0.1.0.0.3.ge6b98bb
+pkgrel=1
+pkgdesc="UnPack.jl"
+url="https://github.com/mauro3/UnPack.jl"
+arch=('any')
+license=('MIT')
+makedepends=(git julia-pkg-scripts)
+depends=(julia)
+provides=(julia-unpack)
+source=(git://github.com/mauro3/UnPack.jl)
+md5sums=('SKIP')
+
+pkgver() {
+  cd UnPack.jl
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+package() {
+  cd UnPack.jl
+
+  . /usr/lib/julia/julia-install-pkg.sh UnPack "${pkgdir}" "${pkgname}"
+}
