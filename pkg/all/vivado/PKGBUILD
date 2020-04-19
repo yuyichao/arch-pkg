@@ -28,7 +28,7 @@
 pkgname=vivado
 pkgver=2019.2
 _more_ver=1106_2127
-pkgrel=3
+pkgrel=4
 pkgdesc="FPGA/CPLD design suite for Xilinx devices"
 url="https://www.xilinx.com/products/design-tools/vivado.html"
 arch=('x86_64')
