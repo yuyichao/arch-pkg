@@ -14,7 +14,8 @@
 # SOME MORE NOTES:
 #
 # This package is huge. The download alone is a ~30GB .tar.gz, which decompresses to ~32GB,
-# and the final zstd-compressed package is another 16GB. Reserve ~80GB in total for building.
+# with an install size of ~52GB and the final zstd-compressed package is another 25GB.
+# Reserve ~140GB in total for building.
 #
 # It can also take up to two hours to build, being mostly limited by I/O and single-thread
 # performance. `namcap` takes another 30 minutes, make sure you're not running that automatically.
@@ -116,7 +117,7 @@ package() {
     ln -sf /bin/ldconfig "$root/sbin/ldconfig"
   done
   find "$pkgdir/opt/Xilinx/" -name '*settings64*' -exec sed -i -e "s|$pkgdir||g" '{}' \+
-  find "$pkgdir/opt/Xilinx/Vitis/$pkgver/data/emulation/qemu" -exec grep -Iq . {} \; -exec sed -i -e "s|$pkgdir||g" '{}' \+
+  find "$pkgdir/opt/Xilinx/Vitis/$pkgver/data/emulation/qemu" -type f -exec grep -Iq . {} \; -exec sed -i -e "s|$pkgdir||g" '{}' \+
 
   # install udev rules
   install -Dm644 "$pkgdir/opt/Xilinx/Vivado/${pkgver}/data/xicom/cable_drivers/lin64/install_script/install_drivers/52-xilinx-digilent-usb.rules" -t "$pkgdir/usr/lib/udev/rules.d/"
