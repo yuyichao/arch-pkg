@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Xilinx Vitis IDE %VERSION%
+Exec=/usr/bin/vitis
+Icon=/opt/Xilinx/Vitis/%VERSION%/doc/images/ide_icon.png
+Categories=Development;
+Comment=Xilinx Vitis IDE %VERSION%

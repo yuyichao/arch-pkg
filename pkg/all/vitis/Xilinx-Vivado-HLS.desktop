@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Xilinx Vivado HLS %VERSION%
+Exec=/usr/bin/vivado_hls
+Icon=/opt/Xilinx/Vivado/%VERSION%/common/icons/CS1056_Vivado_HSL_Icon_64x64.png
+Categories=Development;
+Comment=Vivado HLS %VERSION%

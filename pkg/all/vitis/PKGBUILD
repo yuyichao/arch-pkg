@@ -1,0 +1,143 @@
+# Maintainer: xiretza <aur@xiretza.xyz>
+# Contributor: Darren Wu <$(base64 --decode <<<'ZGFycmVuMTk5NzA4MTBAZ21haWwuY29tCg==')>
+
+# BUILD INSTRUCTIONS:
+#
+# 1. Log in to xilinx.com
+# 2. Go to https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vitis.html
+# 3. Download "All OS installer Single-File Download (TAR/GZIP)" - WARNING: This file is >30GB in size
+# 4. Place the .tar.gz in the same directory as the PKGBUILD
+# 5. Build!
+#
+# No refunds for broken AUR helpers, just use make(chroot)pkg.
+#
+# SOME MORE NOTES:
+#
+# This package is huge. The download alone is a ~30GB .tar.gz, which decompresses to ~32GB,
+# and the final zstd-compressed package is another 16GB. Reserve ~80GB in total for building.
+#
+# It can also take up to two hours to build, being mostly limited by I/O and single-thread
+# performance. `namcap` takes another 30 minutes, make sure you're not running that automatically.
+#
+# It *also* requires a reasonably ugly hack to build: since package() is run under fakeroot,
+# and the installer tries to access the home directory no matter what `--location` is set to,
+# it fails during "Running post-install tasks" because it tries to access `/root`.
+# To fix this, a tiny shared library (see spoof_homedir.c) is LD_PRELOADed. Its only job is to
+# wrap the `getpwuid()` function and modify the original return value for uid==0.
+
+pkgname=vitis
+pkgver=2019.2
+_more_ver=1106_2127
+pkgrel=1
+pkgdesc="FPGA/CPLD design suite for Xilinx devices"
+url="https://www.xilinx.com/products/design-tools/vitis.html"
+arch=('x86_64')
+license=('custom')
+depends=(ncurses5-compat-libs
+         libpng12
+         lib32-libpng12
+         gtk2
+         fxload
+         digilent.adept.runtime
+         digilent.adept.utilities
+         xterm)
+makedepends=(python lief)
+provides=("vivado=${pkgver}")
+conflicts=(vivado)
+
+source=("file:///Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
+        patch_all_interp.py # requires python and lief
+        spoof_homedir.c
+        Xilinx-Vivado.desktop
+        Xilinx-Vivado-HLS.desktop
+        Xilinx-Vitis-IDE.desktop
+        Xilinx-DocNav.desktop
+        vivado
+        vivado_hls
+        vitis)
+
+noextract=("Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz")
+
+# checksum from https://www.xilinx.com/support/download.html
+md5sums=('d63bae9cad9bcaa4b2c7f6df9480eaa6'
+         'a1bfc7752d07069f76fe414dfc95795f'
+         '69d14ad64f6ec44e041eaa8ffcb6f87c'
+         '2d5afa42bfff9295573a8095a9e37529'
+         '5f567f5e7468f50ab7c4448eb03dda9f'
+         'e56ceda3271289ea92c94a560510aa64'
+         '4d37975f586923ad02a50056ff569703'
+         'd9416505271292058cb4081866ae7b0b'
+         'cbb36685fed1541279abfd0f1a176480'
+         'f4d8ea379db17b4a60805626b478953b')
+
+# takes forever for probably minimal gain
+options=('!strip')
+
+prepare() {
+  # https://git.archlinux.org/pacman.git/commit/?id=349c22d043290ccd0cce9f30981f5415e295442a
+  echo "Manually extracting archive..."
+  bsdtar -xf "Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
+
+  mkdir -p "$srcdir/installer_temp"
+
+  sed -i "s/%VERSION%/$pkgver/g" \
+      Xilinx-Vivado.desktop \
+      Xilinx-Vivado-HLS.desktop \
+      Xilinx-Vitis-IDE.desktop \
+      Xilinx-DocNav.desktop \
+      vivado vivado_hls vitis
+}
+
+build() {
+  # build our getpwuid() wrapper library
+  gcc -shared -fPIC -D "FAKE_HOME=\"$srcdir/installer_temp\"" spoof_homedir.c -o spoof_homedir.so -ldl
+}
+
+package() {
+  cd "Xilinx_Vitis_${pkgver}_${_more_ver}"
+
+  # LD_PRELOAD already contains libfakeroot.so, add our own library before that
+  LD_PRELOAD="$srcdir/spoof_homedir.so:$LD_PRELOAD" ./xsetup \
+            --batch Install \
+            --agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
+            --edition 'Vitis Unified Software Platform' \
+            --location "$pkgdir/opt/Xilinx"
+
+  # Remove leading $pkgdir from paths
+  ../patch_all_interp.py "$pkgdir/opt/Xilinx/Vitis" "${pkgdir}"
+
+  # These files contain references to $pkgdir
+  # Just replace them with the system version
+  for root in "$pkgdir"/opt/Xilinx/Vitis/$pkgver/data/emulation/qemu/*/sysroots/x86_64-*/; do
+    ln -sf /lib/ld-linux-x86-64.so.2 "$root/lib/ld-linux-x86-64.so.2"
+    ln -sf /lib/ld-linux-x86-64.so.2 "$root/lib/ld-2.28.so"
+    ln -sf /lib/libc.so.6 "$root/lib/libc.so.6"
+    ln -sf /lib/libc.so.6 "$root/lib/libc-2.28.so"
+    ln -sf /bin/ldconfig "$root/sbin/ldconfig"
+  done
+  find "$pkgdir/opt/Xilinx/" -name '*settings64*' -exec sed -i -e "s|$pkgdir||g" '{}' \+
+  find "$pkgdir/opt/Xilinx/Vitis/$pkgver/data/emulation/qemu" -exec grep -Iq . {} \; -exec sed -i -e "s|$pkgdir||g" '{}' \+
+
+  # install udev rules
+  install -Dm644 "$pkgdir/opt/Xilinx/Vivado/${pkgver}/data/xicom/cable_drivers/lin64/install_script/install_drivers/52-xilinx-digilent-usb.rules" -t "$pkgdir/usr/lib/udev/rules.d/"
+  install -Dm644 "$pkgdir/opt/Xilinx/Vivado/${pkgver}/data/xicom/cable_drivers/lin64/install_script/install_drivers/52-xilinx-ftdi-usb.rules" -t "$pkgdir/usr/lib/udev/rules.d/"
+  install -Dm644 "$pkgdir/opt/Xilinx/Vivado/${pkgver}/data/xicom/cable_drivers/lin64/install_script/install_drivers/52-xilinx-pcusb.rules" -t "$pkgdir/usr/lib/udev/rules.d/"
+
+  install -Dm644 "$srcdir/Xilinx-Vivado.desktop" -t "$pkgdir/usr/share/applications/"
+  install -Dm644 "$srcdir/Xilinx-Vivado-HLS.desktop" -t "$pkgdir/usr/share/applications/"
+  install -Dm644 "$srcdir/Xilinx-Vitis-IDE.desktop" -t "$pkgdir/usr/share/applications/"
+  install -Dm644 "$srcdir/Xilinx-DocNav.desktop" -t "$pkgdir/usr/share/applications/"
+
+  # clean up artefacts
+  rm -rf "$pkgdir/opt/Xilinx/.xinstall/"
+
+  mkdir -p "$pkgdir/usr/bin"
+  ln -s /opt/Xilinx/DocNav/docnav "$pkgdir/usr/bin/xilinx-docnav"
+  install -Dm755 "$srcdir/vivado" "$pkgdir/usr/bin/"
+  install -Dm755 "$srcdir/vivado_hls" "$pkgdir/usr/bin/"
+  install -Dm755 "$srcdir/vitis" "$pkgdir/usr/bin/"
+
+  # Save space for subsequent packaging, checking etc
+  # cd ..
+  # rm -rf "Xilinx_Vitis_${pkgver}_${_more_ver}"
+}

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Xilinx Vivado %VERSION%
+Exec=/usr/bin/vivado
+Icon=/opt/Xilinx/Vivado/%VERSION%/doc/images/vivado_logo.png
+Categories=Development;
+Comment=Vivado %VERSION%
