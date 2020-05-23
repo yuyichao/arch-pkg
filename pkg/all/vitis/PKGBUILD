@@ -69,7 +69,7 @@ md5sums=('d63bae9cad9bcaa4b2c7f6df9480eaa6'
          '4d37975f586923ad02a50056ff569703'
          'd9416505271292058cb4081866ae7b0b'
          'cbb36685fed1541279abfd0f1a176480'
-         'f4d8ea379db17b4a60805626b478953b')
+         '0a91b31a051f8f6fcc34a2bca925a0dd')
 
 # takes forever for probably minimal gain
 options=('!strip')
