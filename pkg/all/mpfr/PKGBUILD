@@ -24,11 +24,11 @@ prepare() {
   local types=(void 'void *\*'
                int unsigned long 'unsigned  *long' 'intmax_t' 'uintmax_t' size_t ssize_t
                float double 'long  *double' __float128 _Decimal64
-               mpfr_exp_t mpz_strptr mpfr_prec_t mp_limb_t
+               mpfr_exp_t mpz_srcptr mpfr_prec_t mp_limb_t mpfr_rnd_t
                'char *\*' 'const  *char *\*')
   for typ in "${types[@]}"; do
     sed -i "s/^${typ}\$/JL_MPFR_TARGET &/" *.[ch]
-    sed -i 's/^${typ}\b *mpfr_[^][{};=]*\$/JL_MPFR_TARGET &/' *.[ch]
+    sed -i "s/^${typ} *\bmpfr_[^][{};=]*\$/JL_MPFR_TARGET &/" *.[ch]
   done
 }
 
