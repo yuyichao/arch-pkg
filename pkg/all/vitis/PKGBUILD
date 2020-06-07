@@ -29,7 +29,7 @@
 pkgname=vitis
 pkgver=2019.2
 _more_ver=1106_2127
-pkgrel=1
+pkgrel=2
 pkgdesc="FPGA/CPLD design suite for Xilinx devices"
 url="https://www.xilinx.com/products/design-tools/vitis.html"
 arch=('x86_64')
@@ -38,13 +38,11 @@ depends=(ncurses5-compat-libs
          libpng12
          lib32-libpng12
          gtk2
-         fxload
-         digilent.adept.runtime
-         digilent.adept.utilities
          xterm)
 makedepends=(python lief)
 provides=("vivado=${pkgver}")
 conflicts=(vivado)
+optdepends=(fxload digilent.adept.runtime digilent.adept.utilities)
 
 source=("file:///Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
         patch_all_interp.py # requires python and lief
