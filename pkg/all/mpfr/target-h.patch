@@ -1,0 +1,23 @@
+diff --git a/src/mpfr-impl.h b/src/mpfr-impl.h
+index 805e3cb..1dea9bc 100644
+--- a/src/mpfr-impl.h
++++ b/src/mpfr-impl.h
+@@ -176,7 +176,7 @@ https://www.gnu.org/licenses/ or write to the Free Software Foundation, Inc.,
+ /* The hot attribute on a function is used to inform the compiler
+    that the function is a hot spot of the compiled program. */
+ #if __MPFR_GNUC(4,3)
+-# define MPFR_HOT_FUNCTION_ATTR     __attribute__ ((hot))
++# define MPFR_HOT_FUNCTION_ATTR     __attribute__ ((hot)) JL_MPFR_TARGET
+ #else
+ # define MPFR_HOT_FUNCTION_ATTR
+ #endif
+@@ -197,6 +197,9 @@ https://www.gnu.org/licenses/ or write to the Free Software Foundation, Inc.,
+ #define MPFR_MAYBE_UNUSED
+ #endif
+ 
++#ifndef JL_MPFR_TARGET
++#define JL_MPFR_TARGET
++#endif
+ 
+ 
+ /******************************************************
