@@ -27,8 +27,8 @@
 # wrap the `getpwuid()` function and modify the original return value for uid==0.
 
 pkgname=vitis
-pkgver=2019.2
-_more_ver=1106_2127
+pkgver=2020.1
+_more_ver=0602_1208
 pkgrel=1
 pkgdesc="FPGA/CPLD design suite for Xilinx devices"
 url="https://www.xilinx.com/products/design-tools/vitis.html"
@@ -38,15 +38,13 @@ depends=(ncurses5-compat-libs
          libpng12
          lib32-libpng12
          gtk2
-         fxload
-         digilent.adept.runtime
-         digilent.adept.utilities
          xterm)
 makedepends=(python lief)
 provides=("vivado=${pkgver}")
 conflicts=(vivado)
+optdepends=(fxload digilent.adept.runtime digilent.adept.utilities)
 
-source=("file:///Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
+source=("file:///Xilinx_Unified_${pkgver}_${_more_ver}.tar.gz"
         patch_all_interp.py # requires python and lief
         spoof_homedir.c
         Xilinx-Vivado.desktop
@@ -57,10 +55,10 @@ source=("file:///Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
         vivado_hls
         vitis)
 
-noextract=("Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz")
+noextract=("Xilinx_Unified_${pkgver}_${_more_ver}.tar.gz")
 
 # checksum from https://www.xilinx.com/support/download.html
-md5sums=('d63bae9cad9bcaa4b2c7f6df9480eaa6'
+md5sums=('b018f7b331ab0446137756156ff944d9'
          'a1bfc7752d07069f76fe414dfc95795f'
          '69d14ad64f6ec44e041eaa8ffcb6f87c'
          '2d5afa42bfff9295573a8095a9e37529'
@@ -69,7 +67,7 @@ md5sums=('d63bae9cad9bcaa4b2c7f6df9480eaa6'
          '4d37975f586923ad02a50056ff569703'
          'd9416505271292058cb4081866ae7b0b'
          'cbb36685fed1541279abfd0f1a176480'
-         'f4d8ea379db17b4a60805626b478953b')
+         '0a91b31a051f8f6fcc34a2bca925a0dd')
 
 # takes forever for probably minimal gain
 options=('!strip')
@@ -77,7 +75,7 @@ options=('!strip')
 prepare() {
   # https://git.archlinux.org/pacman.git/commit/?id=349c22d043290ccd0cce9f30981f5415e295442a
   echo "Manually extracting archive..."
-  bsdtar -xf "Xilinx_Vitis_${pkgver}_${_more_ver}.tar.gz"
+  bsdtar -xf "Xilinx_Unified_${pkgver}_${_more_ver}.tar.gz"
 
   mkdir -p "$srcdir/installer_temp"
 
@@ -95,14 +93,15 @@ build() {
 }
 
 package() {
-  cd "Xilinx_Vitis_${pkgver}_${_more_ver}"
+  cd "Xilinx_Unified_${pkgver}_${_more_ver}"
 
   # LD_PRELOAD already contains libfakeroot.so, add our own library before that
   LD_PRELOAD="$srcdir/spoof_homedir.so:$LD_PRELOAD" ./xsetup \
             --batch Install \
             --agree XilinxEULA,3rdPartyEULA,WebTalkTerms \
             --edition 'Vitis Unified Software Platform' \
-            --location "$pkgdir/opt/Xilinx"
+            --location "$pkgdir/opt/Xilinx" \
+            --product "Vitis"
 
   # Remove leading $pkgdir from paths
   ../patch_all_interp.py "$pkgdir/opt/Xilinx/Vitis" "${pkgdir}"
@@ -111,9 +110,9 @@ package() {
   # Just replace them with the system version
   for root in "$pkgdir"/opt/Xilinx/Vitis/$pkgver/data/emulation/qemu/*/sysroots/x86_64-*/; do
     ln -sf /lib/ld-linux-x86-64.so.2 "$root/lib/ld-linux-x86-64.so.2"
-    ln -sf /lib/ld-linux-x86-64.so.2 "$root/lib/ld-2.28.so"
+    ln -sf /lib/ld-linux-x86-64.so.2 "$root"/lib/ld-2.*.so
     ln -sf /lib/libc.so.6 "$root/lib/libc.so.6"
-    ln -sf /lib/libc.so.6 "$root/lib/libc-2.28.so"
+    ln -sf /lib/libc.so.6 "$root"/lib/libc-2.*.so
     ln -sf /bin/ldconfig "$root/sbin/ldconfig"
   done
   find "$pkgdir/opt/Xilinx/" -name '*settings64*' -exec sed -i -e "s|$pkgdir||g" '{}' \+
@@ -140,5 +139,5 @@ package() {
 
   # Save space for subsequent packaging, checking etc
   # cd ..
-  # rm -rf "Xilinx_Vitis_${pkgver}_${_more_ver}"
+  # rm -rf "Xilinx_Unified_${pkgver}_${_more_ver}"
 }
