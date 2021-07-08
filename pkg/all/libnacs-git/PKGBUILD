@@ -1,5 +1,5 @@
 pkgname=libnacs-git
-pkgver=933.4cd93ca
+pkgver=1037.657685d
 pkgrel=1
 pkgdesc='Library used for the NaCs control system'
 arch=(x86_64 armv7h aarch64)
@@ -8,7 +8,7 @@ license=('LGPL')
 options=('!strip' 'debug')
 depends=(llvm-libs)
 makedepends=(cmake git llvm openlibm)
-source=("git://github.com/nacs-lab/libnacs")
+source=("git://github.com/nacs-lab/libnacs#branch=seq")
 md5sums=('SKIP')
 
 pkgver() {
