@@ -4,4 +4,4 @@ Description=Planisphere report
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/planisphere-report report
-User=nobody
+DynamicUser=yes

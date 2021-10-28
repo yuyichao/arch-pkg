@@ -17,7 +17,7 @@ source=("git+https://gitlab.oit.duke.edu/devil-ops/planisphere-tools.git"
         planisphere-report.yaml)
 md5sums=('SKIP'
          '210b0d0500a6c7dadf8736d62031daf2'
-         '2c4c4aa26565f6a7f330a074f969e3fe'
+         '6e2a1485b2019563f986924d0b1bd714'
          'fa8d21342dc753f6d828ec9d1f83f642'
          '37f7e944fbc18b8f602688103f204694')
 backup=(etc/planisphere-report.yaml)
