@@ -1,0 +1,5 @@
+---
+key: YOUR-API-KEY
+
+overrides:
+  serial: Default string

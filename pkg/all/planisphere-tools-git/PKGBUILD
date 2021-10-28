@@ -1,0 +1,44 @@
+#
+
+pkgname=planisphere-tools-git
+pkgver=1.2.12
+pkgrel=1
+pkgdesc='Planisphere Report is an Open Source tool you can use for meeting the Endpoint Management policy.'
+arch=(i686 x86_64 armv7h aarch64)
+url="https://gitlab.oit.duke.edu/devil-ops/planisphere-tools"
+license=('LGPL')
+makedepends=(git go)
+provides=(planisphere-tools)
+conflicts=(planisphere-tools)
+source=("git+https://gitlab.oit.duke.edu/devil-ops/planisphere-tools.git"
+        planisphere-report.service
+        planisphere-report.timer
+        planisphere-report.yaml)
+md5sums=('SKIP'
+         '2c4c4aa26565f6a7f330a074f969e3fe'
+         'fa8d21342dc753f6d828ec9d1f83f642'
+         '205651f2d3dccec64a83d8ae7945dba2')
+
+pkgver() {
+  cd planisphere-tools
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd planisphere-tools/planisphere-report-go
+
+  GOPATH="$srcdir" go build -o planisphere-report ./cli
+}
+
+package() {
+  install -Dm 644 planisphere-report.service \
+          "$pkgdir"/usr/lib/systemd/system/planisphere-report.service
+  install -Dm 644 planisphere-report.timer \
+          "$pkgdir"/usr/lib/systemd/system/planisphere-report.timer
+  install -Dm 644 planisphere-report.yaml \
+          "$pkgdir"/etc/planisphere-report.yaml
+
+  install -Dm 755 planisphere-tools/planisphere-report-go/planisphere-report \
+          "$pkgdir"/usr/bin/planisphere-report
+}
