@@ -11,18 +11,27 @@ makedepends=(git go)
 provides=(planisphere-tools)
 conflicts=(planisphere-tools)
 source=("git+https://gitlab.oit.duke.edu/devil-ops/planisphere-tools.git"
+        0001-trim-down.patch
         planisphere-report.service
         planisphere-report.timer
         planisphere-report.yaml)
 md5sums=('SKIP'
+         '210b0d0500a6c7dadf8736d62031daf2'
          '2c4c4aa26565f6a7f330a074f969e3fe'
          'fa8d21342dc753f6d828ec9d1f83f642'
-         '205651f2d3dccec64a83d8ae7945dba2')
+         '37f7e944fbc18b8f602688103f204694')
+backup=(etc/planisphere-report.yaml)
 
 pkgver() {
   cd planisphere-tools
 
   git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+prepare() {
+  cd planisphere-tools
+
+  patch -Np1 < ../0001-trim-down.patch
 }
 
 build() {
