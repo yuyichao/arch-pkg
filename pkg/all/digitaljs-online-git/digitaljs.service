@@ -1,0 +1,17 @@
+#
+
+[Unit]
+Description=Start DigitalJS server
+After=network-online.target auditd.service
+Wants=network-online.target
+
+[Service]
+ExecStart=node /srv/digitaljs_online/src/server/index.js
+User=digitaljs
+Restart=always
+RestartSec=1
+KillMode=process
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

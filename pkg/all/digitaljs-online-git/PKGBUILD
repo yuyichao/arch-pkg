@@ -1,0 +1,43 @@
+#
+
+pkgname=digitaljs-online-git
+pkgver=0.10.0.0.2.g8125012
+pkgrel=1
+pkgdesc='Online demonstration for DigitalJS'
+arch=(i686 x86_64 armv7h aarch64)
+url="https://digitaljs.tilk.eu/"
+license=('LGPL')
+makedepends=(git nodejs npm)
+provides=(digitaljs-online)
+conflicts=(digitaljs-online)
+source=("git://github.com/yuyichao/digitaljs_online#branch=dev"
+        digitaljs.sysusers
+        digitaljs.tmpfiles
+        digitaljs.service)
+sha256sums=('SKIP'
+            '233b6c6a4ccd38d3a8851031003c3b68776f8f05a05f1338f860cba62966a773'
+            '98078d8ba5f834007ceeb299ee9c52a60eac04054631815846be251d4dda0256'
+            '85802c29715d4a36f93e2339cd70384a798ea55fdd9e54c8a0fb3fbb57e0c2df')
+
+pkgver() {
+  cd digitaljs_online
+
+  git describe --tags | sed -e 's/^[^0-9]*//' -e 's/-/.0./' -e 's/-/./g'
+}
+
+build() {
+  cd digitaljs_online
+
+  npm install
+}
+
+package() {
+  mkdir -p "$pkgdir"/srv/
+
+  cp -a digitaljs_online "$pkgdir"/srv/
+  ln -s db/database.sqlite "$pkgdir"/srv/digitaljs_online/
+
+  install -Dm644 digitaljs.sysusers "$pkgdir"/usr/lib/sysusers.d/digitaljs.conf
+  install -Dm644 digitaljs.tmpfiles "$pkgdir"/usr/lib/tmpfiles.d/digitaljs.conf
+  install -Dm644 digitaljs.service "$pkgdir"/usr/lib/systemd/system/digitaljs.service
+}
