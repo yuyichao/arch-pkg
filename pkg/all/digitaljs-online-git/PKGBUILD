@@ -2,12 +2,13 @@
 
 pkgname=digitaljs-online-git
 pkgver=0.10.0.0.2.g8125012
-pkgrel=1
+pkgrel=2
 pkgdesc='Online demonstration for DigitalJS'
 arch=(i686 x86_64 armv7h aarch64)
 url="https://digitaljs.tilk.eu/"
 license=('LGPL')
-makedepends=(git nodejs npm)
+depends=(nodejs yosys sqlite)
+makedepends=(git npm)
 provides=(digitaljs-online)
 conflicts=(digitaljs-online)
 source=("git://github.com/yuyichao/digitaljs_online#branch=dev"

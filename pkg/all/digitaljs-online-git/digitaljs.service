@@ -6,6 +6,7 @@ After=network-online.target auditd.service
 Wants=network-online.target
 
 [Service]
+WorkingDirectory=/srv/digitaljs_online
 ExecStart=node /srv/digitaljs_online/src/server/index.js
 User=digitaljs
 Restart=always
