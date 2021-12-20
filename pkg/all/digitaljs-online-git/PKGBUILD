@@ -36,7 +36,7 @@ package() {
   mkdir -p "$pkgdir"/srv/
 
   cp -a digitaljs_online "$pkgdir"/srv/
-  rm -rf "$pkgdir"/srv/.git*
+  rm -rf "$pkgdir"/srv/digitaljs_online/.git*
   ln -s db/database.sqlite "$pkgdir"/srv/digitaljs_online/
 
   install -Dm644 digitaljs.sysusers "$pkgdir"/usr/lib/sysusers.d/digitaljs.conf
