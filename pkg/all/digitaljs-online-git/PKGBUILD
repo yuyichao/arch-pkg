@@ -18,7 +18,7 @@ source=("git://github.com/yuyichao/digitaljs_online#branch=dev"
 sha256sums=('SKIP'
             '233b6c6a4ccd38d3a8851031003c3b68776f8f05a05f1338f860cba62966a773'
             '98078d8ba5f834007ceeb299ee9c52a60eac04054631815846be251d4dda0256'
-            '85802c29715d4a36f93e2339cd70384a798ea55fdd9e54c8a0fb3fbb57e0c2df')
+            '33610452fcae33c8118aaf3f0065de52f71cf77068ec340a4ca5aa41e5bb15aa')
 
 pkgver() {
   cd digitaljs_online
