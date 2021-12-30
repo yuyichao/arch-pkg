@@ -1,8 +1,8 @@
 #
 
 pkgname=digitaljs-online-git
-pkgver=0.10.0.0.5.gc6387be
-pkgrel=2
+pkgver=0.10.0.0.6.g2235c6d
+pkgrel=1
 pkgdesc='Online demonstration for DigitalJS'
 arch=(i686 x86_64 armv7h aarch64)
 url="https://digitaljs.tilk.eu/"
