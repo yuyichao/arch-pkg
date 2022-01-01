@@ -1,7 +1,7 @@
 #
 
 pkgname=digitaljs-online-git
-pkgver=0.10.0.0.6.g2235c6d
+pkgver=0.10.0.0.7.gff53aa9
 pkgrel=1
 pkgdesc='Online demonstration for DigitalJS'
 arch=(i686 x86_64 armv7h aarch64)
